@@ -1,0 +1,42 @@
+[{
+    "farmer_id": {
+        "farmer_name": "",
+        "farmer_auctions": [
+            {
+                "auction_id": "",
+                "auction_produce": "",
+                "auction_description": "",
+                "auction_status": "",
+                "highest_bid": 0
+            }
+        ]
+    }
+},
+
+
+
+{
+    "dc8a1354-9657-4262-b268-38ba1f9bc61e": {
+        "status": "opened",
+        "highest_bid": "10000",
+        "highest_bid_id": "merchantid2",
+        "bidder_details": {
+            "merchantid1": [
+                "1000"
+            ],
+            "merchantid2": [
+                "10000"
+            ]
+        },
+        "bidding_details": {
+            "0": {
+                "merchant_id": "merchantid1",
+                "bid": "1000"
+            },
+            "1": {
+                "merchant_id": "merchantid2",
+                "bid": "10000"
+            }
+        }
+    }
+}]

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer | Add Produce</title>
+    <link rel="icon" type="image/x-icon" href="/static/icons/leaf-logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #D1E8CF;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-center">
+    <div class="w-full max-w-5xl p-8">
+        <!-- Header -->
+        <div class="flex items-center">
+            <div>
+                <img src="/static/icons/logo.jpeg" width="64px" class="mb-4" alt="">
+            </div>
+            <div class="ml-8 mb-8">
+                <h1 class="text-3xl font-bold text-black mb-2">Welcome Seller,</h1>
+                <p class="text-gray-700 text-lg w-1/2">Kindly select and set the below details. This data is important for the merchant to know their requirements.</p>
+            </div>
+        </div>
+
+        <!-- Crops Selection -->
+        <div class="mb-8">
+            <div class="flex">
+                <div class="flex-1">
+                    <hr class="border-t-2 border-gray-400 my-4">
+                </div>
+                <div class="flex-1">
+                    <p class="text-center text-xl font-medium text-gray-800">Select your Crops</p>
+                </div>
+                <div class="flex-1">
+                    <hr class="border-t-2 border-gray-400 my-4">
+                </div>
+            </div> 
+        </div>
+
+        <form action="/farmer/addcrop" method="POST" class="space-y-6">
+            <div class="crop-item grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
+                <label class="text-center hover:bg-green-500 rounded-full p-6 cursor-pointer">
+                    <input type="checkbox" name="crops" value="Onion" class="hidden">
+                    <img src="/static/images/onion.png" alt="Onion" class="w-16 h-16 mx-auto mb-2">
+                    <p class="text-gray-700 font-medium">Onion</p>
+                </label>
+                <label class="crop-item text-center hover:bg-green-500 rounded-full p-6 cursor-pointer">
+                    <input type="checkbox" name="crops" value="Potato" class="hidden">
+                    <img src="/static/images/potato.png" alt="Potato" class="w-16 h-16 mx-auto mb-2">
+                    <p class="text-gray-700 font-medium">Potato</p>
+                </label>
+                <label class="crop-itemtext-center hover:bg-green-500 rounded-full p-6 cursor-pointer">
+                    <input type="checkbox" name="crops" value="Garlic" class="hidden">
+                    <img src="/static/images/garlic.png" alt="Garlic" class="w-16 h-16 mx-auto mb-2">
+                    <p class="text-gray-700 font-medium">Garlic</p>
+                </label>
+            </div>
+            <div>
+                <label for="bid" class="block text-gray-700 font-medium mb-2">Set Minimum Bidding Amount (per 10kg)</label>
+                <input type="text" name="bid" id="bid" 
+                    class="w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+            </div>
+            <div>
+                <label for="info" class="block text-gray-700 font-medium mb-2">Additional Information</label>
+                <input type="text" name="info" id="info" 
+                    class="w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+            </div>
+            <div class="text-center">
+                <button type="submit" class="bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition duration-200">
+                    Submit
+                </button>
+            </div>
+        </form>
+</body>
+<script>
+    // JavaScript to toggle background color on crop selection
+    document.querySelectorAll('.crop-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            item.classList.toggle('selected', checkbox.checked);
+        });
+    });
+</script>
+</html>

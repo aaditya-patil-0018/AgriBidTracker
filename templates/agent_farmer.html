@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Farmer Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #f1f8e9, #c5e1a5);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <div class="flex flex-1">
+        <!-- Main Content -->
+        <main class="flex-1 p-8 space-y-8">
+            <!-- Welcome Message -->
+            <div class="p-6">
+                <h2 class="text-2xl font-semibold text-black mb-2">Welcome Agent,</h2>
+                <p class="text-lg text-gray-800">kindly follow the quality check and
+                    approve/reject the farmers and
+                    merchants.</p>
+            </div>
+
+            <!-- Quick Stats -->
+            <!-- <div class="grid grid-cols-3 gap-6">
+                <div class="bg-white border border-black text-center p-6 rounded-lg shadow">
+                    <h3 class="text-4xl font-medium m-4 text-black">Farmers</h3>
+                    <p class="text-2xl font-bold m-4 text-green-600">{{total_farmer}} registrations</p>
+                    <button class="border border-black p-2 m-2 bg-green-100">View List</button>
+                </div>
+                <div class="bg-white border border-black text-center p-6 rounded-lg shadow">
+                    <h3 class="text-4xl font-medium m-4 text-black">Merchants</h3>
+                    <p class="text-2xl font-bold m-4 text-green-600">{{total_merchant}} registrations</p>
+                    <button class="border border-black p-2 m-2 bg-green-100">View List</button>
+                </div>
+            </div> -->
+
+            <div class="">
+                <div class="grid grid-cols-3 gap-0">
+                    <div>
+                        <p>Farmer</p>
+                    </div>
+                    <div>
+                        <p>Crop</p>
+                    </div>
+                    <div>
+                        <p>Actions</p>
+                    </div>
+                </div>
+
+                {% for farmer in farmers %}
+                    <div class="grid grid-cols-3 gap-0">
+                        <div class="bg-green-100 text-black p-4">
+                            <p>{{farmers[farmer]["name"]}}</p>
+                        </div>
+                        <div class="bg-green-100 text-black p-4">
+                            <p>Crop</p>
+                        </div>
+                        <div class="bg-green-100 text-black p-4">
+                            <p class="underline">View Details</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+        </main>
+    </div>
+</body>
+
+</html>

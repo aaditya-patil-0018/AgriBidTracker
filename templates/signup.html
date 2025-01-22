@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Farmers Marketplace</title>
+    <link rel="icon" type="image/x-icon" href="/static/icons/leaf-logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body{
+            background-color: #D1E8CF;
+        }
+        /* .farmer-bg {
+            background-color: #c6f6d57e;
+        }
+
+        .merchant-bg {
+            background-color: #bee3f878;
+        } */
+    </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md bg-opacity-50" id="form-container">
+        <center><img src="/static/icons/logo.jpeg" width="64px" class="mb-4" alt=""></center>
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Create an Account</h2>
+        <form action="/signup" method="post" id="signup-form">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+                <label for="user-type" class="block text-gray-700 text-sm font-bold mb-2">User  Type</label>
+                <select id="user-type" name="usertype" required
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="" disabled selected>Select your user type</option>
+                    <option value="farmer">Farmer</option>
+                    <option value="merchant">Merchant</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                <input type="password" id="password" name="password" placeholder="Create a password" required
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-6">
+                <label for="confirm-password" class="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <button type="submit"
+                class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded w-full transition duration-300">Sign Up</button>
+        </form>
+        <div class="text-center mt-4">
+            <p class="text-gray-600">Already have an account? <a href="/login" class="text-green-500 hover:underline">Log in</a></p>
+        </div>
+    </div>
+
+    <!-- <script>
+        const userTypeSelect = document.getElementById('user-type');
+        const formContainer = document.getElementById('form-container');
+
+        userTypeSelect.addEventListener('change', function () {
+            if (this.value === 'farmer') {
+                formContainer.classList.remove('merchant-bg');
+                formContainer.classList.add('farmer-bg');
+            } else if (this.value === 'merchant') {
+                formContainer.classList.remove('farmer-bg');
+                formContainer.classList.add('merchant-bg');
+            } else {
+                formContainer.classList.remove('farmer -bg', 'merchant-bg');
+            }
+        });
+    </script> -->
+
+</body>
+
+</html>

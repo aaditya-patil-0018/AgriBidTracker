@@ -1,0 +1,14 @@
+{
+    "fid2": {
+        "farmer_name": "abc",
+        "farmer_auction": [
+            {
+                "auction_id": "517eb4cf-7d75-4943-8c32-6657303531ea",
+                "auction_produce": "Onion",
+                "auction_description": "A well farmed organic onion.",
+                "auction_status": "opened",
+                "highest_bid": 0
+            }
+        ]
+    }
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer | Registration</title>
+    <link rel="icon" type="image/x-icon" href="/static/icons/leaf-logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #D1E8CF;
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="bg-white bg-opacity-50 shadow-lg rounded-lg w-full max-w-4xl p-8">
+        <center><img src="/static/icons/logo.jpeg" width="64px" class="mb-4" alt=""></center>
+        <h1 class="text-3xl font-bold text-center text-green-600 mb-6">Farmer Registration</h1>
+        <form action="/farmer/registration" method="post" enctype="multipart/form-data">
+            <!-- First and Last Name -->
+            <div class="flex flex-wrap -mx-4">
+                <div class="w-full md:w-1/2 px-4 mb-4">
+                    <label for="fname" class="block text-gray-700 font-medium mb-2">First Name</label>
+                    <input type="text" name="fname" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+                </div>
+                <div class="w-full md:w-1/2 px-4 mb-4">
+                    <label for="lname" class="block text-gray-700 font-medium mb-2">Last Name</label>
+                    <input type="text" name="lname" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+                </div>
+            </div>
+            
+            <!-- Email and Contact -->
+            <div class="flex flex-wrap -mx-4">
+                <div class="w-full md:w-1/2 px-4 mb-4">
+                    <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                    <input type="email" name="email" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+                </div>
+                <div class="w-full md:w-1/2 px-4 mb-4">
+                    <label for="contact" class="block text-gray-700 font-medium mb-2">Contact Number</label>
+                    <input type="text" name="contact" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+                </div>
+            </div>
+
+            <!-- Address -->
+            <div class="mb-4">
+                <label for="address" class="block text-gray-700 font-medium mb-2">Address of Residence</label>
+                <input type="text" name="address" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+            </div>
+            <div class="mb-4">
+                <label for="farm_address" class="block text-gray-700 font-medium mb-2">Address of Farm</label>
+                <input type="text" name="farm_address" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+            </div>
+
+            <!-- File Upload -->
+            <div class="flex flex-wrap -mx-4">
+                <div class="w-full md:w-1/2 px-4 mb-4">
+                    <label for="aadhar_card" class="block text-gray-700 font-medium mb-2">Aadhar Card</label>
+                    <input type="file" name="aadhar_card" class="w-full border border-gray-300 p-2 rounded-lg">
+                </div>
+                <div class="w-full md:w-1/2 px-4 mb-4">
+                    <label for="seven" class="block text-gray-700 font-medium mb-2">7/12 Document</label>
+                    <input type="file" name="seven" class="w-full border border-gray-300 p-2 rounded-lg">
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center mt-6">
+                <button type="submit" class="bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition duration-200">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

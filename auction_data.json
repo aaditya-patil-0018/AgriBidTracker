@@ -1,0 +1,38 @@
+{
+    "517eb4cf-7d75-4943-8c32-6657303531ea": {
+        "status": "closed",
+        "highest_bid": "10000",
+        "highest_bid_id": "mid1",
+        "bidder_details": {
+            "mid1": [
+                "10000"
+            ],
+            "mid2": [
+                "4000"
+            ],
+            "mid3": [],
+            "mid4": [
+                "2000",
+                "4200"
+            ]
+        },
+        "bidding_details": {
+            "1": {
+                "merchant_id": "mid4",
+                "bid": "2000"
+            },
+            "2": {
+                "merchant_id": "mid2",
+                "bid": "4000"
+            },
+            "3": {
+                "merchant_id": "mid4",
+                "bid": "4200"
+            },
+            "4": {
+                "merchant_id": "mid1",
+                "bid": "10000"
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "farmer": {
+        "1": {
+            "name": "Example User",
+            "email": "example@gmail.com",
+            "password": "password",
+            "registration_data": {
+                "name": "Example User",
+                "email": "example@gmail.com",
+                "contact": "9876541230",
+                "address": "Nashik",
+                "farm_address": "Deolali",
+                "aadhar_card": "1_aadhar.pdf",
+                "seven_doc": "1_seven.pdf"
+            },
+            "crop_data": {
+                "crops": [
+                    "Potato"
+                ],
+                "bid": "5000",
+                "info": "Potato perfect"
+            }
+        }
+    },
+    "merchant": {
+        "1": {
+            "name": "",
+            "email": "",
+            "password": ""
+        }
+    },
+    "agenet": {
+        "1": {
+            "name": "",
+            "email": "",
+            "password": ""
+        }
+    }
+}
