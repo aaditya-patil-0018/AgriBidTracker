@@ -61,6 +61,7 @@ class Farmer:
             INSERT INTO farmers (fid, name, phone, email, address, produce_list, area, organic)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         ''', (self.fid, name, phone, email, address, json.dumps(produce_list), area, organic))
+        print(f"Your farmer id = {self.fid}")
         connection.commit()
         connection.close()
 
@@ -238,8 +239,8 @@ if __name__ == "__main__":
         
         # if command 2 get the farmer details and print it
         elif command == "2":
-            farmer_id = input("Ente farmer id of the farmer to get the data: ")
-            farmer.get_farmer(farmer_id)
+            farmer_id = input("Enter farmer id of the farmer to get the data: ")
+            print(farmer.get_farmer(farmer_id))
 
         # if command 3 then add produce within the farmer details
         elif command == "3":

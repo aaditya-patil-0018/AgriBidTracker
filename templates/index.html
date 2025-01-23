@@ -59,7 +59,7 @@
         <section class="py-40 text-center bg-green-50">
             <h2 class="text-5xl font-extrabold leading-tight">Connecting Farmers and Merchants</h2>
             <p class="mt-4 text-lg">Join our community to trade fresh goods and grow your business.</p>
-            <a href="#goods" class="mt-6 inline-block bg-green-500 text-white px-8 py-4 rounded-lg shadow-lg hover:bg-green-400 transition duration-300">Get Started</a>
+            <a href="/signup" class="mt-6 inline-block bg-green-500 text-white px-8 py-4 rounded-lg shadow-lg hover:bg-green-400 transition duration-300">Get Started</a>
         </section>
 
         <section id="goods" class="py-40 ">
@@ -67,22 +67,22 @@
                 <h2 class="text-4xl font-bold mb-8">Available Goods</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <article class="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 fade-in">
-                        <img src="/static/icons/vegetables.png" alt="Fresh Vegetables" class="graphic">
-                        <h3 class="text-xl font-semibold mt-4">Fresh Vegetables</h3>
-                        <p class="mt-2">Organic and locally sourced vegetables.</p>
-                        <a href="#bids" class="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400 transition duration-300">Bid Now</a>
+                        <img src="/static/images/onion.png" alt="Fresh Vegetables" class="graphic">
+                        <h3 class="text-xl font-semibold mt-4">Onion</h3>
+                        <!-- <p class="mt-2">Organic and locally sourced vegetables.</p> -->
+                        <a href="/signup" class="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400 transition duration-300">Bid Now</a>
                     </article>
                     <article class="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 fade-in ">
-                        <img src="/static/icons/fruits.png" alt="Juicy Fruits" class="graphic">
-                        <h3 class="text-xl font-semibold mt-4">Juicy Fruits</h3>
-                        <p class="mt-2">Seasonal fruits picked at the peak of freshness.</p>
-                        <a href="#bids" class="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400 transition duration-300">Bid Now</a>
+                        <img src="/static/images/potato.png" alt="Juicy Fruits" class="graphic">
+                        <h3 class="text-xl font-semibold mt-4">Potato</h3>
+                        <!-- <p class="mt-2">Seasonal fruits picked at the peak of freshness.</p> -->
+                        <a href="/signup" class="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400 transition duration-300">Bid Now</a>
                     </article>
                     <article class="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 fade-in">
-                        <img src="/static/icons/grains.png" alt="Quality Grains" class="graphic">
-                        <h3 class="text-xl font-semibold mt-4">Quality Grains</h3>
-                        <p class="mt-2">High-quality grains for all your baking needs.</p>
-                        <a href="#bids" class="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400 transition duration-300">Bid Now</a>
+                        <img src="/static/images/garlic.png" alt="Quality Grains" class="graphic">
+                        <h3 class="text-xl font-semibold mt-4">Garlic</h3>
+                        <!-- <p class="mt-2">High-quality grains for all your baking needs.</p> -->
+                        <a href="/signup" class="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400 transition duration-300">Bid Now</a>
                     </article>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="contact-info">
                                 Contact Information
                             </label>
-                            <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="contact-info" type="text" placeholder="Enter contact information">
+                            <input id="contact-number" class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="contact-info" type="text" placeholder="Enter contact information">
                         </div>
                     </div>
                     <button class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded transition duration-300" type="submit">Submit Bid</button>
@@ -162,6 +162,21 @@
                     fadeIn.classList.remove('visible');
                 }
             });
+        });
+
+        // Get the input field by its ID
+        const contactNumber = document.getElementById('contact-number');
+
+        // Add an event listener to restrict input to 10 digits
+        contactNumber.addEventListener('input', () => {
+            const maxLength = 10; // Maximum allowed digits
+            if (contactNumber.value.length > maxLength) {
+                alert('Bid amount cannot exceed 10 digits.');
+                contactNumber.value = contactNumber.value.slice(0, maxLength);
+            }
+
+            // Ensure only numbers are entered
+            contactNumber.value = contactNumber.value.replace(/[^0-9]/g, '');
         });
     </script>
 

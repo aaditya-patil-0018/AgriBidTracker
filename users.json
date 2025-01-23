@@ -4,6 +4,7 @@
             "name": "Example User",
             "email": "example@gmail.com",
             "password": "password",
+            "registration": "1",
             "registration_data": {
                 "name": "Example User",
                 "email": "example@gmail.com",
@@ -19,6 +20,29 @@
                 ],
                 "bid": "5000",
                 "info": "Potato perfect"
+            }
+        },
+        "2": {
+            "name": "User name",
+            "email": "userexample@gmail.com",
+            "password": "password",
+            "registration": "1",
+            "registration_data": {
+                "name": "User Name",
+                "email": "username@gmail.com",
+                "contact": "9876543210",
+                "address": "Nashik",
+                "farm_address": "Nashik",
+                "aadhar_card": "2_aadhar.png",
+                "seven_doc": "2_seven.png"
+            },
+            "crop_data": {
+                "crops": [
+                    "Onion",
+                    "Potato"
+                ],
+                "bid": "200",
+                "info": "Good Products"
             }
         }
     },

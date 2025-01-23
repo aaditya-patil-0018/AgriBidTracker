@@ -10,5 +10,17 @@
                 "highest_bid": 0
             }
         ]
+    },
+    "fid3": {
+        "farmer_name": "abcd",
+        "farmer_auction": [
+            {
+                "auction_id": "8b2618a5-f091-49c8-a954-8f3289e4a065",
+                "auction_produce": "potato",
+                "auction_description": "new potato",
+                "auction_status": "opened",
+                "highest_bid": 0
+            }
+        ]
     }
 }

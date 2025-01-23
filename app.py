@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = "thisissecretkey"
 
 UPLOAD_FOLDER = 'uploads'  # Directory where files will be stored
-ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}  # Allowed file extensions
+ALLOWED_EXTENSIONS = {'pdf'} #, 'png', 'jpg', 'jpeg'}  # Allowed file extensions
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
@@ -30,7 +30,7 @@ def add_users(utype, ndata):
     with open(filename, "r") as f:
         data = json.load(f)
     print(data)
-    l = len(data[utype])
+    l = session["userid"]
     data[utype][l] = ndata
     with open(filename, "w") as f:
         json.dump(data, f, indent=4)
@@ -57,9 +57,10 @@ def signup():
             session["user"] = True
             session["usertype"] = usertype
             session["registration"] = False
-            session["userid"] = len(read_users[usertype])
-            add_users(usertype, {"name": name, "email": email, "password": password})
-            return {'name':name, 'email': email, 'password': password, 'usertype': usertype}
+            session["userid"] = len(read_users()[usertype]) + 1
+            add_users(usertype, {"name": name, "email": email, "password": password, "registration": "0"})
+            if usertype == "farmer":
+                return redirect(url_for("farmer_dashboard"))
     else:
         return redirect(url_for('index'))
 
@@ -78,6 +79,7 @@ def login():
             usertype = request.form.get('usertype')
             users = read_users()[usertype]
             for user in users:
+                print(users[user]["email"])
                 if users[user]["email"] == email:
                     if users[user]["password"] == password:
                         session["user"] = True
@@ -90,6 +92,14 @@ def login():
     else:
         return redirect(url_for('index'))
 
+@app.route("/logout")
+def logout():
+    session["user"] = False
+    session["usertype"] = ""
+    session["registration"] = False
+    session["userid"] = ""
+    return redirect(url_for("index"))
+
 ############
 ## FARMER ##
 ############
@@ -97,72 +107,78 @@ def login():
 @app.route("/farmer/registration", methods=["GET", "POST"])
 def farmer_registration():
     if "user" in session:
-        if request.method == "GET":
-            if session["user"] == True and session["usertype"] == "farmer" and session["registration"] == False:
-                return render_template("farmer_registration.html")
-            else:
-                return "this should return to dashboard/something"
-        elif request.method == "POST":
-            if session["user"] == True and session["usertype"] == "farmer" and session["registration"] == False:
-                # get data from the form
-                fname = request.form.get('fname')
-                lname = request.form.get('lname')
-                email = request.form.get('email')
-                contact = request.form.get('contact')
-                address = request.form.get('address')
-                farm_address = request.form.get('farm_address')
+        if session["user"] != False:
+            if request.method == "GET":
+                if session["user"] == True and session["usertype"] == "farmer" and session["registration"] == False:
+                    return render_template("farmer_registration.html")
+                else:
+                    return "this should return to dashboard/something"
+            elif request.method == "POST":
+                if session["user"] == True and session["usertype"] == "farmer" and session["registration"] == False:
+                    # get data from the form
+                    fname = request.form.get('fname')
+                    lname = request.form.get('lname')
+                    email = request.form.get('email')
+                    contact = request.form.get('contact')
+                    address = request.form.get('address')
+                    farm_address = request.form.get('farm_address')
 
-                
-                aadhar_card = request.files.get('aadhar_card')
-                seven_doc = request.files.get('seven')
-                
-                user_id = session["userid"]
-
-                # Save Aadhar card with custom name
-                if aadhar_card and allowed_file(aadhar_card.filename):
-                    aadhar_filename = f"{user_id}_aadhar.pdf"
-                    aadhar_path = os.path.join(app.config['UPLOAD_FOLDER'], aadhar_filename)
-                    aadhar_card.save(aadhar_path)
-
-                # Save 7/12 document with custom name
-                if seven_doc and allowed_file(seven_doc.filename):
-                    seven_filename = f"{user_id}_seven.pdf"
-                    seven_path = os.path.join(app.config['UPLOAD_FOLDER'], seven_filename)
-                    seven_doc.save(seven_path)
-                
-                # save the data
-                # Save data to users.json
-                try:
-                    with open("users.json", "r") as f:
-                        users = json.load(f)
                     
-                    # Update farmer data
-                    farmers = users["farmer"]
-                    farmers[user_id]["registration_data"] = {
-                        "name": f"{fname} {lname}",
-                        "email": email,
-                        "contact": contact,
-                        "address": address,
-                        "farm_address": farm_address,
-                        "aadhar_card": aadhar_filename,
-                        "seven_doc": seven_filename,
-                    }
+                    aadhar_card = request.files.get('aadhar_card')
+                    seven_doc = request.files.get('seven')
+                    
+                    user_id = session["userid"]
 
-                    with open("users.json", "w") as f:
-                        json.dump(users, f, indent=4)
-                except Exception as e:
-                    return f"Error saving data: {e}", 500
+                    # Save Aadhar card with custom name
+                    if aadhar_card and allowed_file(aadhar_card.filename):
+                        aadhar_filename = f"{user_id}_aadhar.{aadhar_card.filename.split(".")[-1]}"
+                        aadhar_path = os.path.join(app.config['UPLOAD_FOLDER'], aadhar_filename)
+                        aadhar_card.save(aadhar_path)
 
-                # change session["registration"] = True
-                # return to the dashboard/something
-                return redirect(url_for("add_crop"))
+                    # Save 7/12 document with custom name
+                    if seven_doc and allowed_file(seven_doc.filename):
+                        seven_filename = f"{user_id}_seven.{seven_doc.filename.split(".")[-1]}"
+                        seven_path = os.path.join(app.config['UPLOAD_FOLDER'], seven_filename)
+                        seven_doc.save(seven_path)
+                    
+                    # save the data
+                    # Save data to users.json
+                    try:
+                        with open("users.json", "r") as f:
+                            users = json.load(f)
+                        
+                        # Update farmer data
+                        farmers = users["farmer"]
+                        farmers[str(user_id)]["registration_data"] = {
+                            "name": f"{fname} {lname}",
+                            "email": email,
+                            "contact": contact,
+                            "address": address,
+                            "farm_address": farm_address,
+                            "aadhar_card": aadhar_filename,
+                            "seven_doc": seven_filename,
+                        }
+
+                        with open("users.json", "w") as f:
+                            json.dump(users, f, indent=4)
+                    except Exception as e:
+                        return f"Error saving data: {e}", 500
+
+                    # change session["registration"] = True
+                    # return to the dashboard/something
+                    return redirect(url_for("add_crop"))
+        else:
+            return redirect(url_for("login"))
     else:
         return redirect(url_for('login'))
 
 @app.route('/farmer/addcrop', methods=["GET","POST"])
 def add_crop():
     if request.method == "GET":
-        return render_template('add_crop.html')
+        if "user" in session:
+            if session["user"] != False:
+                return render_template('add_crop.html')
+        return redirect(url_for("login"))
     else:
         # Get data from the form
         crops = request.form.getlist('crops')  # Assuming crops are passed as a list
@@ -176,11 +192,12 @@ def add_crop():
             
             # Update farmer data
             farmers = users["farmer"]
-            farmers[user_id]["crop_data"] = {
+            farmers[str(user_id)]["crop_data"] = {
                 "crops": crops,
                 "bid": bid,
                 "info": info
             }
+            farmers[str(user_id)]["registration"] = "1"
             with open("users.json", "w") as f:
                 json.dump(users, f, indent=4)
             session["registration"] = True
@@ -188,11 +205,25 @@ def add_crop():
             return f"Error saving data: {e}", 500
         return redirect(url_for("farmer_dashboard"))
 
+@app.route('/farmer/profile')
+def farmer_profile():
+    try:
+        if session["registration"] == False and read_users()["farmer"][str(session["userid"])]["registration"] == "0":
+            return redirect(url_for("farmer_registration"))
+        session["registration"] = True
+        return render_template('farmer_profile.html', data=read_users()["farmer"][str(session["userid"])])
+    except:
+        return redirect(url_for("index"))
+
 @app.route('/farmer/dashboard')
 def farmer_dashboard():
-    if session["registration"] == False:
-        return redirect(url_for("farmer_registration"))
-    return render_template('farmer_dashboard.html')
+    try:
+        if session["registration"] == False and read_users()["farmer"][str(session["userid"])]["registration"] == "0":
+            return redirect(url_for("farmer_registration"))
+        session["registration"] = True
+        return render_template('farmer_dashboard.html')
+    except:
+        return redirect(url_for("index"))
 
 @app.route('/farmer/dashboard/requests')
 def farmer_dashboard_requests():

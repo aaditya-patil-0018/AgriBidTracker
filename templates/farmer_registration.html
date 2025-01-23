@@ -40,7 +40,7 @@
                 </div>
                 <div class="w-full md:w-1/2 px-4 mb-4">
                     <label for="contact" class="block text-gray-700 font-medium mb-2">Contact Number</label>
-                    <input type="text" name="contact" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+                    <input id="contact-number" type="text" name="contact" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
                 </div>
             </div>
 
@@ -76,5 +76,20 @@
     </div>
 
 </body>
+<script>
+    // Get the input field by its ID
+    const contactNumber = document.getElementById('contact-number');
 
+    // Add an event listener to restrict input to 10 digits
+    contactNumber.addEventListener('input', () => {
+        const maxLength = 10; // Maximum allowed digits
+        if (contactNumber.value.length > maxLength) {
+            alert('Bid amount cannot exceed 10 digits.');
+            contactNumber.value = contactNumber.value.slice(0, maxLength);
+        }
+
+        // Ensure only numbers are entered
+        contactNumber.value = contactNumber.value.replace(/[^0-9]/g, '');
+    });
+</script>
 </html>
