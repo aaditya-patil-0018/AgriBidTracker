@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchant Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #f1f8e9, #c5e1a5);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-green-700 text-white px-6 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Merchant Dashboard</h1>
+        <a href="/logout">
+            <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600">Logout</button>
+        </a>
+    </header>
+
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside class="w-1/4 bg-white bg-opacity-80 p-6 flex flex-col space-y-6">
+            <nav class="space-y-4">
+                <!-- <a href="/merchant/profile"
+                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
+                    Profile
+                </a> -->
+                <a href="/merchant/dashboard"
+                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
+                    Home
+                </a>
+                <a href="/merchant/dashboard/listing"
+                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
+                    Listing
+                </a>
+                <!-- <a href="/farmer/dashboard/inventory"
+                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
+                    Manage Inventory
+                </a>
+                <a href="/farmer/analytics"
+                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
+                    Analytics
+                </a> -->
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 space-y-8">
+        
+
+            <!-- Requests Section -->
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-lg font-medium text-gray-800">Recent Requests</h2>
+                {% if msg != "" %}
+                    <div id="notify-bar">
+                        <h2 class="bg-green-600 text-white w-full text-lg p-2 mt-2 mb-4">{{msg}}</h2>
+                    </div>
+                {% endif %}
+                <table class="w-full mt-4 text-left border-collapse">
+                    <thead>
+                        <tr class="bg-green-200 text-gray-800">
+                            <!-- <th class="py-2 px-4">Merchant Name</th> -->
+                            <th class="py-2 px-4">Crop</th>
+                            <th class="py-2 px-4">Bid</th>
+                            <th class="py-2 px-4">Info</th>
+                            <th class="py-2 px-4">Start Time</th>
+                            <!-- <th class="py-2 px-4">End Time</th> -->
+                            <th class="py-2 px-4">Apply</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for d in data %}
+                            {% for i in data[d] %}
+                            <tr class="bg-white border-b">
+                                    {% for j in data[d][i] %}
+                                        {% if j != "verification_data" and j != "stop_time" and j != "verification" %}
+                                            <td class="py-2 px-4">{{data[d][i][j]}}</td>
+                                        {% endif %}
+                                        {% if j == "verification_data" %}
+                                            {% if data[d][i]["start_time"].split(" ")[0] == current_date  %}
+                                                {% if data[d][i][j]["started"] == "0" %}
+                                                    <td class="py-2 px-4"><a href="/merchant/dashboard/listing/apply/{{i}}/notify" class="p-2 bg-blue-600 text-white">Roll in</a></td>
+                                                {% else %}
+                                                    {% if data[d][i][j]["start_time"] <= current_time %}
+                                                        <td class="py-2 px-4"><a href="/merchant/dashboard/listing/apply/{{i}}" class="p-2 bg-green-600 text-white">Bid Now</a></td>
+                                                    {% else %}
+                                                        <td class="py-2 px-4"><a href="/merchant/dashboard/listing/apply/{{i}}/notify" class="p-2 bg-blue-600 text-white">Roll in</a></td>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% else %}
+                                                <td class="py-2 px-4"><span class="italic text-gray-600">Expired</span></td>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+
+<script>
+   
+    setTimeout(function() {
+        try{
+            document.getElementById("notify-bar").style.display = "none";
+            window.location.href = "/merchant/dashboard/listing";
+        } catch(err){
+
+        }
+    }, 3000);
+    window.setTimeout( function() {
+        window.location.reload();
+    }, 60000);
+
+    const new_data = {{ data | tojson }};
+    let auction_data = Object.values(new_data)[0];
+
+    function getCurrentTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0'); // Ensures two digits
+        const minutes = now.getMinutes().toString().padStart(2, '0'); // Ensures two digits
+        return `${hours}:${minutes}`;
+    }
+
+    fetch('/merchant/dashboard/listings/getnotify')
+    .then(response => response.json())
+    .then(data => {
+        let time = getCurrentTime();
+        
+        for (let key in data.userid){
+            for (let n in new_data){
+                for(let aid in Object.keys(new_data[n])){
+                    if (data.userid[key] == Object.keys(new_data[n])[aid]){
+                        if (time == new_data[n][data.userid[key]]["verification_data"]["start_time"]){
+                            alert("Your starred bid: "+data.userid[key]+" just started! Start bidding now.");
+                        }
+                    }
+                }
+                // console.log(data.userid[key] == new_data[aid]);
+                // if(data.userid[key] == aid){
+                //     for(let n in new_data){
+
+                //     }
+                // }
+                    // alert("Your starred bid: $data.userid[key] just started! Start bidding now.")
+            }
+        }
+    })
+    .catch(error => console.error("Error fetching session data:", error));
+
+</script>
+
+</html>

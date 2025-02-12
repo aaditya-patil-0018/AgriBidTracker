@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,51 +7,53 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(to bottom right, #f1f8e9, #c5e1a5);
+            background: #F9FAFB;
         }
     </style>
 </head>
-
 <body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-green-600 text-white px-6 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Agent Dashboard</h1>
+        <a href="/logout">
+            <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600">Logout</button>
+        </a>
+    </header>
 
     <div class="flex flex-1">
-        <!-- Sidebar -->
-        <aside class="w-1/4 bg-white bg-opacity-80 p-6 flex flex-col space-y-6">
-            <nav class="space-y-4">
-                <a href="/farmer/dashboard"
-                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
-                    Home
-                </a>
+        <!-- Sidebar Navigation -->
+        <aside class="w-1/4 bg-white p-6 shadow-md">
+            <nav class="space-y-6">
+                <a href="/agent/dashboard" class="block px-4 py-2 rounded-md bg-green-600 hover:bg-green-600 text-white text-lg font-medium">Dashboard Home</a>
+                <a href="/agent/farmers/verify" class="block px-4 py-2 rounded-md bg-green-200 hover:bg-green-600 hover:text-white text-lg font-medium">Farmer Verification</a>
+                <a href="/agent/produce/verify" class="block px-4 py-2 rounded-md bg-green-200 hover:bg-green-600 hover:text-white text-lg font-medium">Produce Quality Check</a>
             </nav>
         </aside>
 
         <!-- Main Content -->
         <main class="flex-1 p-8 space-y-8">
-            <!-- Welcome Message -->
-            <div class="p-6">
-                <h2 class="text-2xl font-semibold text-black mb-2">Welcome Agent,</h2>
-                <p class="text-lg text-gray-800">kindly follow the quality check and
-                    approve/reject the farmers and
-                    merchants.</p>
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Welcome, Agent!</h2>
+                <p class="text-gray-700">Please select one of the sections from the navigation menu to get started with verifying farmers or assessing produce quality.</p>
             </div>
 
-            <!-- Quick Stats -->
-            <div class="grid grid-cols-3 gap-6">
-                <div class="bg-white border border-black text-center p-6 rounded-lg shadow">
-                    <h3 class="text-4xl font-medium m-4 text-black">Farmers</h3>
-                    <p class="text-2xl font-bold m-4 text-green-600">{{total_farmer}} registrations</p>
-                    <button class="border border-black p-2 m-2 bg-green-100">View List</button>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Cards -->
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <h2 class="text-xl font-medium text-gray-800">Total Farmers</h2>
+                    <p class="text-4xl font-bold text-blue-600 mt-2">{{tf}}</p>
                 </div>
-                <div class="bg-white border border-black text-center p-6 rounded-lg shadow">
-                    <h3 class="text-4xl font-medium m-4 text-black">Merchants</h3>
-                    <p class="text-2xl font-bold m-4 text-green-600">{{total_merchant}} registrations</p>
-                    <button class="border border-black p-2 m-2 bg-green-100">View List</button>
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <h2 class="text-xl font-medium text-gray-800">Total Auction</h2>
+                    <p class="text-4xl font-bold text-green-600 mt-2">{{ta}}</p>
+                </div>
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <h2 class="text-xl font-medium text-gray-800">Pending Verfication</h2>
+                    <p class="text-4xl font-bold text-red-600 mt-2">{{tv}}</p>
                 </div>
             </div>
 
-            
         </main>
     </div>
 </body>
-
 </html>

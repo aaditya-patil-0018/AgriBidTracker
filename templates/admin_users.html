@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #F3F4F6;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Admin Dashboard</h1>
+        <a href="/admin/logout">
+            <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600">Logout</button>
+        </a>
+    </header>
+
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside class="w-1/5 bg-white shadow-lg p-6 space-y-4">
+            <nav class="space-y-4">
+                <a href="/admin" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Overview</a>
+                <a href="/admin/users" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Manage Users</a>
+                <a href="/admin/auctions" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Manage Auctions</a>
+                <a href="/admin/reports" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Reports</a>
+                <a href="/admin/settings" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Settings</a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-8 space-y-8">
+            <h1 class="text-3xl font-bold text-center mb-8">Choose a Category</h1>
+        
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Farmer Card -->
+                <a href="/admin/users/farmers" class="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-4">
+                        <div class="text-blue-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h11M9 21V3m4 12h5l2-5-5-2-2 5z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-semibold">Farmer</h2>
+                            <p class="text-gray-600">View and manage farmer details</p>
+                        </div>
+                    </div>
+                </a>
+        
+                <!-- Merchant Card -->
+                <a href="/admin/users/merchants" class="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-4">
+                        <div class="text-green-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7h-4V3M9 21h6m-3-4h3a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 002 2h3m-3-4h3" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-semibold">Merchant</h2>
+                            <p class="text-gray-600">Manage and verify merchants</p>
+                        </div>
+                    </div>
+                </a>
+        
+                <!-- Agent Card -->
+                <a href="/admin/users/agents" class="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition transform hover:-translate-y-1">
+                    <div class="flex items-center space-x-4">
+                        <div class="text-red-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 3h12M6 9h12M9 21h6M6 15h12" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-semibold">Agent</h2>
+                            <p class="text-gray-600">Verify and oversee agent activities</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

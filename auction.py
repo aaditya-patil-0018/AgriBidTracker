@@ -19,6 +19,9 @@ class Auction:
             self.data = json.load(file)
         if auction_id != "":
             pprint(self.data[auction_id])
+            return self.data[auction_id]
+        else:
+            return self.data
 
     def update_auction_data(self):
         with open(self.json_file, 'w') as file:
@@ -43,6 +46,7 @@ class Auction:
             "bidding_details": {}
         }
         self.update_auction_data()
+        return self.auction_id
 
     def get_all_auction_id(self):
         all_auction_id = []
@@ -75,10 +79,15 @@ class Auction:
                 # adding new bid in merchant (bidder) data
                 self.data[self.auction_id]["bidder_details"][merchant_id].append(amount)
                 self.update_auction_data()
+                return [True]
             else:
-                print("Amount should be greater than last bidding amount!")
+                msg = "Amount should be greater than last bidding amount!"
+                print(msg)
+                return [False, msg]
         else:
-            print(f"Auction {self.auction_id} status is {self.auction_status}")
+            msg = f"Auction {self.auction_id} status is {self.auction_status}"
+            print(msg)
+            return [False, msg]
 
     def close_auction(self):
         self.auction_status = "closed"

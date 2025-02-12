@@ -38,68 +38,64 @@
                     class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
                     View Requests
                 </a>
-                <a href="/farmer/dashboard/inventory"
+                <a href="/farmer/dashboard/auction"
                     class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
-                    Manage Inventory
+                    Auction
                 </a>
-                <a href="/farmer/analytics"
+                <!-- <a href="/farmer/analytics"
                     class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
                     Analytics
-                </a>
+                </a> -->
             </nav>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-8 space-y-8 bg-gray-50">
-            <!-- Profile Card -->
-            <div class="bg-white shadow-lg rounded-lg p-6">
-                <div class="flex items-center space-x-6">
-                    <div>
-                        <h2 class="text-3xl font-bold text-gray-800">{{ data["name"] }}</h2>
-                        <p class="text-lg text-gray-600">Farmer at {{ data["registration_data"]["address"] }}</p>
-                        <p class="text-sm text-gray-500">Contact: <span class="font-medium">{{ data["registration_data"]["contact"] }}</span></p>
+        <main class="flex-1 p-8 space-y-8">
+            {% if approval == True %}
+                <!-- Profile Card -->
+                <div class="bg-white shadow-lg rounded-lg p-6">
+                    <div class="flex items-center space-x-6">
+                        <div>
+                            <h2 class="text-3xl font-bold text-gray-800">{{ data["name"] }}</h2>
+                            <p class="text-lg text-gray-600">Farmer at {{ data["registration_data"]["address"] }}</p>
+                            <p class="text-sm text-gray-500">Contact: <span class="font-medium">{{ data["registration_data"]["contact"] }}</span></p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Farmer Details -->
-            <div class="bg-white shadow-lg rounded-lg p-6">
-                <h3 class="text-2xl font-semibold text-gray-700 mb-4">Farmer Information</h3>
-                <div class="grid grid-cols-2 gap-4">
-                    <p><span class="font-semibold text-gray-600">Email:</span> {{ data["email"] }}</p>
-                    <p><span class="font-semibold text-gray-600">Contact:</span> {{ data["registration_data"]["contact"] }}</p>
-                    <p><span class="font-semibold text-gray-600">Address:</span> {{ data["registration_data"]["address"] }}</p>
-                    <p><span class="font-semibold text-gray-600">Farm Address:</span> {{ data["registration_data"]["farm_address"] }}</p>
-                    <p><span class="font-semibold text-gray-600">Aadhar Card:</span>
-                        <a href="/uploads/{{data['registration_data']['aadhar_card']}}" target="_blank" class="text-green-600 hover:underline">View
-                            Document</a>
-                    </p>
-                    <p><span class="font-semibold text-gray-600">7/12 Document:</span>
-                        <a href="/uploads/{{data['registration_data']['seven_doc']}}" target="_blank" class="text-green-600 hover:underline">View
-                            Document</a>
-                    </p>
+                <!-- Farmer Details -->
+                <div class="bg-white shadow-lg rounded-lg p-6">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Farmer Information</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <p><span class="font-semibold text-gray-600">Email:</span> {{ data["email"] }}</p>
+                        <p><span class="font-semibold text-gray-600">Contact:</span> {{ data["registration_data"]["contact"] }}</p>
+                        <p><span class="font-semibold text-gray-600">Address:</span> {{ data["registration_data"]["address"] }}</p>
+                        <p><span class="font-semibold text-gray-600">Farm Address:</span> {{ data["registration_data"]["farm_address"] }}</p>
+                        <p><span class="font-semibold text-gray-600">Aadhar Card:</span>
+                            <a href="/uploads/{{data['registration_data']['aadhar_card']}}" target="_blank" class="text-green-600 hover:underline">View
+                                Document</a>
+                        </p>
+                        <p><span class="font-semibold text-gray-600">7/12 Document:</span>
+                            <a href="/uploads/{{data['registration_data']['seven_doc']}}" target="_blank" class="text-green-600 hover:underline">View
+                                Document</a>
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Crop Details -->
-            <div class="bg-white shadow-lg rounded-lg p-6">
-                <h3 class="text-2xl font-semibold text-gray-700 mb-4">Crop Information</h3>
-                <div class="grid grid-cols-2 gap-4">
-                    <p><span class="font-semibold text-gray-600">Crops Grown:</span> {{data['crop_data']['crops']}}</p>
-                    <p><span class="font-semibold text-gray-600">Minimum Bidding Amount:</span>  {{data['crop_data']['bid']}} (per 10kg)</p>
-                    <p><span class="font-semibold text-gray-600">Additional Information:</span>  {{data['crop_data']['info']}}</p>
-                </div>
-            </div>
 
-            <!-- Activity Section -->
-            <!-- <div class="bg-white shadow-lg rounded-lg p-6">
-                <h3 class="text-2xl font-semibold text-gray-700 mb-4">Recent Activity</h3>
-                <ul class="list-disc list-inside space-y-2">
-                    <li class="text-gray-700">Added a new crop listing for "Potato" with a bid of ₹5000.</li>
-                    <li class="text-gray-700">Submitted the "Aadhar Card" and "7/12 Document" for verification.</li>
-                    <li class="text-gray-700">Updated contact information on 12th January 2025.</li>
-                </ul>
-            </div> -->
+                <!-- Activity Section -->
+                <!-- <div class="bg-white shadow-lg rounded-lg p-6">
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Recent Activity</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li class="text-gray-700">Added a new crop listing for "Potato" with a bid of ₹5000.</li>
+                        <li class="text-gray-700">Submitted the "Aadhar Card" and "7/12 Document" for verification.</li>
+                        <li class="text-gray-700">Updated contact information on 12th January 2025.</li>
+                    </ul>
+                </div> -->
+            {% endif %}
+            {% if approval == False %}
+                <h1>Waiting for Approval!</h1>
+            {% endif %}
         </main>
     </div>
 </body>

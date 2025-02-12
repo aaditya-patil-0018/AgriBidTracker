@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merchant | Registration</title>
+    <title>Agent | Registration</title>
     <link rel="icon" type="image/x-icon" href="/static/icons/leaf-logo.png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
@@ -18,17 +18,21 @@
 
     <div class="bg-white bg-opacity-50 shadow-lg rounded-lg w-full max-w-4xl p-8">
         <center><img src="/static/icons/logo.jpeg" width="64px" class="mb-4" alt=""></center>
-        <h1 class="text-3xl font-bold text-center text-green-600 mb-6">Merchant Registration</h1>
-        <form action="/merchant/registration" method="post" enctype="multipart/form-data">
+        <h1 class="text-3xl font-bold text-center text-green-600 mb-6">Farmer Registration</h1>
+        <form action="/agent/registration" method="post" enctype="multipart/form-data">
             <!-- First and Last Name -->
             <div class="flex flex-wrap -mx-4">
                 <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="fname" class="block text-gray-700 font-medium mb-2">First Name</label>
-                    <input type="text" name="fname" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+                    <label for="name" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                    <input type="text" name="name" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
                 </div>
                 <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="lname" class="block text-gray-700 font-medium mb-2">Last Name</label>
-                    <input type="text" name="lname" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+                    <label for="password" class="block text-gray-700 font-medium mb-2">Password</label>
+                    <input type="password" id="p1" name="password" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+                </div>
+                <div class="w-full md:w-1/2 px-4 mb-4">
+                    <label for="cpassword" class="block text-gray-700 font-medium mb-2">Confirm Password</label>
+                    <input type="password" id="p2" name="cpassword" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
                 </div>
             </div>
             
@@ -57,13 +61,7 @@
                     <label for="aadhar_card" class="block text-gray-700 font-medium mb-2">Aadhar Card</label>
                     <input type="file" name="aadhar_card" class="w-full border border-gray-300 p-2 rounded-lg">
                 </div>
-            </div>
-
-            <div class="flex flex-wrap -mx-4">
-                <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="license" class="block text-gray-700 font-medium mb-2">License</label>
-                    <input type="file" name="license" class="w-full border border-gray-300 p-2 rounded-lg">
-                </div>
+                
             </div>
 
             <!-- Submit Button -->
@@ -79,7 +77,7 @@
 <script>
     // Get the input field by its ID
     const contactNumber = document.getElementById('contact-number');
-
+   
     // Add an event listener to restrict input to 10 digits
     contactNumber.addEventListener('input', () => {
         const maxLength = 10; // Maximum allowed digits
@@ -90,6 +88,16 @@
 
         // Ensure only numbers are entered
         contactNumber.value = contactNumber.value.replace(/[^0-9]/g, '');
+    });
+
+    document.querySelector('form').addEventListener('submit', function (event) {
+        const password1 = document.getElementById('p1').value;
+        const password2 = document.getElementById('p2').value;
+
+        if (password1 !== password2) {
+            event.preventDefault(); // Prevent form submission
+            alert("Passwords do not match. Please try again.");
+        }
     });
 </script>
 </html>

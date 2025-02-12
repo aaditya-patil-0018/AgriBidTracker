@@ -34,5 +34,69 @@
                 "bid": "10000"
             }
         }
+    },
+    "a68fba7f-ad77-4087-913b-701fc279b0da": {
+        "status": "opened",
+        "highest_bid": "8500",
+        "highest_bid_id": "2",
+        "bidder_details": {
+            "2": [],
+            "4": [
+                "7000"
+            ]
+        },
+        "bidding_details": {
+            "1": {
+                "merchant_id": "2",
+                "bid": "1000"
+            },
+            "2": {
+                "merchant_id": "2",
+                "bid": "2000"
+            },
+            "3": {
+                "merchant_id": "4",
+                "bid": "3000"
+            },
+            "4": {
+                "merchant_id": "2",
+                "bid": "5000"
+            },
+            "5": {
+                "merchant_id": "4",
+                "bid": "6000"
+            },
+            "6": {
+                "merchant_id": "4",
+                "bid": "7000"
+            },
+            "7": {
+                "merchant_id": "2",
+                "bid": "8500"
+            }
+        }
+    },
+    "35b0a710-b302-4696-8c61-b544997ed351": {
+        "status": "opened",
+        "highest_bid": "250",
+        "highest_bid_id": "2",
+        "bidder_details": {
+            "2": [
+                "250"
+            ]
+        },
+        "bidding_details": {
+            "1": {
+                "merchant_id": "2",
+                "bid": "250"
+            }
+        }
+    },
+    "d4780163-a6ab-4030-9d96-9e8a1e2244f1": {
+        "status": "opened",
+        "highest_bid": 0,
+        "highest_bid_id": "",
+        "bidder_details": {},
+        "bidding_details": {}
     }
 }

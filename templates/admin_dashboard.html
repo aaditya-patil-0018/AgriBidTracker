@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #F3F4F6;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Admin Dashboard</h1>
+        <a href="/admin/logout">
+            <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600">Logout</button>
+        </a>
+    </header>
+
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside class="w-1/5 bg-white shadow-lg p-6 space-y-4">
+            <nav class="space-y-4">
+                <a href="/admin" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Overview</a>
+                <a href="/admin/users" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Manage Users</a>
+                <a href="/admin/auctions" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Manage Auctions</a>
+                <a href="/admin/reports" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Reports</a>
+                <a href="/admin/settings" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Settings</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Cards -->
+                <div class="bg-white shadow-md rounded-lg p-6" onclick="window.location.href='/admin/users/farmers';">
+                    <h2 class="text-xl font-medium text-gray-800">Total Farmers</h2>
+                    <p class="text-4xl font-bold text-blue-600 mt-2">{{tf}}</p>
+                </div>
+                <div class="bg-white shadow-md rounded-lg p-6" onclick="window.location.href='/admin/users/merchants';">
+                    <h2 class="text-xl font-medium text-gray-800">Total Merchants</h2>
+                    <p class="text-4xl font-bold text-green-600 mt-2">{{tm}}</p>
+                </div>
+                <div class="bg-white shadow-md rounded-lg p-6" onclick="window.location.href='/admin/users/agents';">
+                    <h2 class="text-xl font-medium text-gray-800">Total Agents</h2>
+                    <p class="text-4xl font-bold text-red-600 mt-2">{{ta}}</p>
+                </div>
+            </div>
+
+            <!-- Table Section -->
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-lg font-medium text-gray-800 mb-4">Recent Activities</h2>
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-800">
+                            <th class="py-2 px-4">Date</th>
+                            <th class="py-2 px-4">User</th>
+                            <th class="py-2 px-4">Action</th>
+                            <th class="py-2 px-4">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b">
+                            <td class="py-2 px-4">2025-02-04</td>
+                            <td class="py-2 px-4">John Doe</td>
+                            <td class="py-2 px-4">Submitted Auction Bid</td>
+                            <td class="py-2 px-4 text-green-600">Success</td>
+                        </tr>
+                        <tr class="bg-white border-b">
+                            <td class="py-2 px-4">2025-02-03</td>
+                            <td class="py-2 px-4">Jane Smith</td>
+                            <td class="py-2 px-4">Registered New Account</td>
+                            <td class="py-2 px-4 text-green-600">Success</td>
+                        </tr>
+                        <tr class="bg-white border-b">
+                            <td class="py-2 px-4">2025-02-02</td>
+                            <td class="py-2 px-4">Tom Brown</td>
+                            <td class="py-2 px-4">Report Submitted</td>
+                            <td class="py-2 px-4 text-yellow-600">Pending</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

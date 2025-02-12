@@ -21,11 +21,12 @@
     </style>
 </head>
 
-<body class="flex items-center justify-center min-h-screen">
+<body class="flex flex-col items-center justify-center min-h-screen">
 
     <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md" id="form-container">
         <center><img src="/static/icons/logo.jpeg" width="64px" class="mb-4" alt=""></center>
-        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Log in to Your Account</h2>
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Get in to Your Account</h2>
+        <p class="text-red-600">{{message}}</p>
         <form id="login-form" action="/login" method="post">
             <div class="mb-4">
                 <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
@@ -44,6 +45,7 @@
                     <option value="" disabled selected>Select your user type</option>
                     <option value="farmer">Farmer</option>
                     <option value="merchant">Merchant</option>
+                    <option value="agent">Agent</option>
                 </select>
             </div>
             <button type="submit"
@@ -53,6 +55,10 @@
             <p class="text-gray-600">Don't have an account? <a href="/signup" class="text-green-500 hover:underline">Sign up</a></p>
         </div>
     </div>
+
+    <!-- <div class="flex mt-12 bg-blue-50 rounded-lg p-4">
+        <p class="text-red-600">{{message}}</p>
+    </div> -->
 
     <!-- <script>
         const userTypeSelect = document.getElementById('user-type');

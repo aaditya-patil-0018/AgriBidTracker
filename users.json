@@ -5,6 +5,7 @@
             "email": "example@gmail.com",
             "password": "password",
             "registration": "1",
+            "approved": "1",
             "registration_data": {
                 "name": "Example User",
                 "email": "example@gmail.com",
@@ -20,44 +21,144 @@
                 ],
                 "bid": "5000",
                 "info": "Potato perfect"
+            },
+            "auction": {
+                "a68fba7f-ad77-4087-913b-701fc279b0da": {
+                    "crop": "Potato",
+                    "bid": "1000",
+                    "info": "Fresh Potatos",
+                    "start_time": "2025-02-04 10:00:45.430154",
+                    "stop_time": "2025-02-04 10:15:45.430172",
+                    "verification": "1",
+                    "verification_data": {
+                        "quality": "Excellent",
+                        "start": "17:30",
+                        "end": "18:30",
+                        "image": "a68fba7f-ad77-4087-913b-701fc279b0da_image.jpeg",
+                        "started": "1",
+                        "start_time": "17:45"
+                    }
+                },
+                "35b0a710-b302-4696-8c61-b544997ed351": {
+                    "crop": "Onion",
+                    "bid": "200",
+                    "info": "Good Onion",
+                    "start_time": "2025-02-12 15:41:18.656007",
+                    "stop_time": "2025-02-04 15:56:18.656026",
+                    "verification": "1",
+                    "verification_data": {
+                        "quality": "Better",
+                        "start": "14:30",
+                        "end": "16:30",
+                        "image": "35b0a710-b302-4696-8c61-b544997ed351_image.png",
+                        "started": "1",
+                        "start_time": "17:49"
+                    }
+                }
+            },
+            "rating": {
+                "2": {
+                    "stars": "5",
+                    "feedback": "Good Farmer"
+                }
             }
         },
         "2": {
-            "name": "User name",
-            "email": "userexample@gmail.com",
+            "name": "Agent",
+            "email": "agent@gmail.com",
             "password": "password",
-            "registration": "1",
-            "registration_data": {
-                "name": "User Name",
-                "email": "username@gmail.com",
-                "contact": "9876543210",
-                "address": "Nashik",
-                "farm_address": "Nashik",
-                "aadhar_card": "2_aadhar.png",
-                "seven_doc": "2_seven.png"
-            },
-            "crop_data": {
-                "crops": [
-                    "Onion",
-                    "Potato"
-                ],
-                "bid": "200",
-                "info": "Good Products"
-            }
+            "registration": "0",
+            "approved": "0"
+        },
+        "3": {
+            "name": "newagent",
+            "email": "newagent@gmail.com",
+            "password": "new",
+            "registration": "0",
+            "approved": "0"
+        },
+        "4": {
+            "name": "newfarmer",
+            "email": "newfarmer@gmail.com",
+            "password": "password",
+            "registration": "0",
+            "approved": "0"
         }
     },
     "merchant": {
         "1": {
-            "name": "",
-            "email": "",
-            "password": ""
+            "name": "eg",
+            "email": "eg@gmail.com",
+            "password": "eg",
+            "registration": "0"
+        },
+        "2": {
+            "name": "Merchant",
+            "email": "merchant@gmail.com",
+            "password": "password",
+            "registration": "1",
+            "registration_data": {
+                "name": "Mr. Merchant",
+                "email": "merchant@gmail.com",
+                "contact": "9876541230",
+                "address": "Nashik",
+                "aadhar": "merchant_2_aadhar.pdf",
+                "license": "merchant_2_license.pdf"
+            }
+        },
+        "3": {
+            "name": "abc",
+            "email": "abc@gmail.com",
+            "password": "password",
+            "registration": "0"
+        },
+        "4": {
+            "email": "newmerch@gmail.com",
+            "password": "password",
+            "registration": "1",
+            "registration_data": {
+                "name": "NewMerch chant",
+                "email": "newmerch@gmail.com",
+                "contact": "986745321",
+                "address": "Nashik",
+                "aadhar": "merchant_4_aadhar.pdf",
+                "license": "merchant_4_license.pdf"
+            }
         }
     },
-    "agenet": {
+    "agent": {
         "1": {
-            "name": "",
-            "email": "",
-            "password": ""
+            "name": "eg",
+            "email": "eg@gmail.com",
+            "password": "eg",
+            "registration": "0",
+            "approved": "0"
+        },
+        "2": {
+            "email": "agent@gmail.com",
+            "password": "password",
+            "registration": "1",
+            "approved": "0",
+            "registration_data": {
+                "name": "Agent",
+                "email": "agent@gmail.com",
+                "contact": "9876541230",
+                "address": "Nashik",
+                "aadhar_card": "agent_2_aadhar.pdf"
+            }
+        },
+        "3": {
+            "email": "newagent@gmail.com",
+            "password": "password",
+            "registration": "1",
+            "approved": "0",
+            "registration_data": {
+                "name": "newagent",
+                "email": "newagent@gmail.com",
+                "contact": "7869543210",
+                "address": "nashik",
+                "aadhar_card": "agent_3_aadhar.pdf"
+            }
         }
     }
 }

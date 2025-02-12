@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchant Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #f1f8e9, #c5e1a5);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-green-700 text-white px-6 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Merchant Dashboard</h1>
+        <a href="/logout">
+            <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600">Logout</button>
+        </a>
+    </header>
+
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside class="w-1/4 bg-white bg-opacity-80 p-6 flex flex-col space-y-6">
+            <nav class="space-y-4">
+                <a href="/merchant/profile"
+                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
+                    Profile
+                </a>
+                <a href="/merchant/dashboard"
+                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
+                    Home
+                </a>
+                <a href="/merchant/dashboard/listing"
+                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
+                    Listing
+                </a>
+                <!-- <a href="/farmer/dashboard/inventory"
+                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
+                    Manage Inventory
+                </a>
+                <a href="/farmer/analytics"
+                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
+                    Analytics
+                </a> -->
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 space-y-8">
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-lg font-medium text-gray-800">Active Auctions</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-4">
+                    {% for farmer_id, auctions in data.items() %}
+                    {% for auction_id, auction_details in auctions.items() %}
+                    {% if auction_id == aid %}
+                        <div class="bg-white shadow-lg rounded-lg p-4 border">
+                            <h3 class="text-xl font-semibold text-blue-600">{{ auction_details.crop }}</h3>
+                            <p class="text-gray-700 mt-2">{{ auction_details.info }}</p>
+                            <p class="text-gray-700 mt-2">Bid Starts at: Rs. {{ auction_details.bid }}</p>
+                            <div class="mt-4">
+                                <p class="text-sm text-gray-500">Start Time: <span class="font-medium">{{ auction_details.start_time }}</span></p>
+                                <p class="text-sm text-gray-500">End Time: <span class="font-medium">{{ auction_details.stop_time }}</span></p>
+                            </div>
+                            <form action="/merchant/dashboard/listing/apply/{{aid}}" method="post" class="mt-4">
+                                <input type="hidden" name="auction_id" value="{{ auction_id }}">
+                                <input type="hidden" name="farmer_id" value="{{ farmer_id }}">
+                                <input type="number" name="bid_amount" placeholder="Enter Bid" required class="border rounded px-2 py-1 w-full mt-2">
+                                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md mt-3 hover:bg-green-600 w-full">Submit</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+                    <div class="">
+                        {% if auction_table != "" %}
+                        <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; font-family: 'Poppins', sans-serif; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                            <thead>
+                                <tr style="background-color: #f4f4f4;">
+                                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Merchant ID</th>
+                                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Bid Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in auction_table %}
+                                <tr style="border-bottom: 1px solid #ddd;">
+                                    <td style="padding: 10px;">{{ auction_table[i]["merchant_id"] }}</td>
+                                    <td style="padding: 10px;">{{ auction_table[i]["bid"] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h1 class="text-lg font-bold">Rate Farmer</h1>
+                {% for farmer in farmers %}
+                    {% if "auction" in farmers[farmer] %}
+                        {% if aid in farmers[farmer]["auction"] %}
+                            <h3 class="font-bold mt-2">Farmer: {{ farmers[farmer]["name"] }}</h3>
+                            <h3 class="font-bold mt-2">Email: {{ farmers[farmer]["email"] }}</h3>
+                            <h3 class="font-bold mt-2">Phone: {{ farmers[farmer]["registration_data"]["contact"] }}</h3>
+                            <h3 class="font-bold mt-2">Address: {{ farmers[farmer]["registration_data"]["address"] }}</h3>
+                            
+                            <!-- Rating Form -->
+                            <form action="/rate_farmer/{{farmer}}" method="POST" class="mt-4">
+                                <input type="hidden" name="farmer_id" value="{{ farmer }}">
+                                
+                                <label class="font-medium">Rate this Farmer:</label>
+                                <div class="flex items-center mt-2 space-x-2">
+                                    <input type="radio" id="star1_{{ farmer }}" name="rating" value="1" required>
+                                    <label for="star1_{{ farmer }}">⭐</label>
+            
+                                    <input type="radio" id="star2_{{ farmer }}" name="rating" value="2">
+                                    <label for="star2_{{ farmer }}">⭐⭐</label>
+            
+                                    <input type="radio" id="star3_{{ farmer }}" name="rating" value="3">
+                                    <label for="star3_{{ farmer }}">⭐⭐⭐</label>
+            
+                                    <input type="radio" id="star4_{{ farmer }}" name="rating" value="4">
+                                    <label for="star4_{{ farmer }}">⭐⭐⭐⭐</label>
+            
+                                    <input type="radio" id="star5_{{ farmer }}" name="rating" value="5">
+                                    <label for="star5_{{ farmer }}">⭐⭐⭐⭐⭐</label>
+                                </div>
+            
+                                <label class="font-medium mt-4 block">Leave a comment (optional):</label>
+                                <textarea name="feedback" rows="3" class="w-full border rounded px-2 py-1 mt-2"></textarea>
+            
+                                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md mt-3 hover:bg-green-600 w-full">
+                                    Submit Rating
+                                </button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </main>
+    </div>
+</body>
+<script>
+    const msg = {{ msg | tojson }};
+
+    if(msg != ""){
+        alert(msg);
+    }
+
+    let activityTimeout;
+
+    function resetTimer() {
+        clearTimeout(activityTimeout);
+        activityTimeout = setTimeout(function() {
+            location.reload();
+        }, 5000); // 5 seconds of inactivity
+    }
+
+    function setupActivityListeners() {
+        const events = ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'];
+        events.forEach(event => window.addEventListener(event, resetTimer));
+    }
+
+    window.onload = function () {
+        setupActivityListeners();
+        resetTimer(); // Start the initial timer
+    };
+</script>
+</html>

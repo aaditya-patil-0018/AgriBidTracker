@@ -39,91 +39,111 @@
                     class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
                     View Requests
                 </a>
-                <a href="/farmer/dashboard/inventory"
+                <a href="/farmer/dashboard/auction"
                     class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
-                    Manage Inventory
+                    Auction
                 </a>
-                <a href="/farmer/analytics"
+                <!-- <a href="/farmer/analytics"
                     class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
                     Analytics
-                </a>
+                </a> -->
             </nav>
         </aside>
 
         <!-- Main Content -->
         <main class="flex-1 p-8 space-y-8">
-            <!-- Welcome Message -->
-            <div class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-xl font-semibold text-gray-700 mb-2">Welcome Back, Farmer!</h2>
-                <p class="text-gray-600">Keep track of your crops, monitor requests, and explore insights to grow your business.</p>
-            </div>
-
-            <!-- Quick Stats -->
-            <div class="grid grid-cols-3 gap-6">
-                <div class="bg-green-100 p-6 rounded-lg shadow">
-                    <h3 class="text-lg font-medium text-gray-800">Total Crops Sold</h3>
-                    <p class="text-2xl font-bold text-green-600 mt-2">450 kg</p>
+            {% if approval == True %}
+                <!-- Welcome Message -->
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <h2 class="text-xl font-semibold text-gray-700 mb-2">Welcome Back, Farmer!</h2>
+                    <p class="text-gray-600">Keep track of your crops, monitor requests, and explore insights to grow your business.</p>
                 </div>
-                <div class="bg-green-100 p-6 rounded-lg shadow">
-                    <h3 class="text-lg font-medium text-gray-800">Pending Requests</h3>
-                    <p class="text-2xl font-bold text-green-600 mt-2">12</p>
-                </div>
-                <div class="bg-green-100 p-6 rounded-lg shadow">
-                    <h3 class="text-lg font-medium text-gray-800">Earnings This Month</h3>
-                    <p class="text-2xl font-bold text-green-600 mt-2">₹ 25,000</p>
-                </div>
-            </div>
 
-            <!-- Notification Section -->
-            <!-- <div class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-lg font-medium text-gray-800">Notifications</h2>
-                <ul class="space-y-2 mt-4">
-                    <li class="text-gray-700">✅ You have 5 new requests from merchants.</li>
-                    <li class="text-gray-700">⚠️ Low inventory for Onions and Potatoes.</li>
-                    <li class="text-gray-700">🌦️ Weather Alert: Rain expected tomorrow in your region.</li>
-                </ul>
-            </div> -->
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="bg-green-100 p-6 rounded-lg shadow">
+                        <h3 class="text-lg font-medium text-gray-800">Total Crops Sold</h3>
+                        <p class="text-2xl font-bold text-green-600 mt-2">450 kg</p>
+                    </div>
+                    <div class="bg-green-100 p-6 rounded-lg shadow">
+                        <h3 class="text-lg font-medium text-gray-800">Pending Requests</h3>
+                        <p class="text-2xl font-bold text-green-600 mt-2">12</p>
+                    </div>
+                    <div class="bg-green-100 p-6 rounded-lg shadow">
+                        <h3 class="text-lg font-medium text-gray-800">Earnings This Month</h3>
+                        <p class="text-2xl font-bold text-green-600 mt-2">₹ 25,000</p>
+                    </div>
+                </div>
 
-            <!-- Requests Section -->
-            <div class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-lg font-medium text-gray-800">Recent Requests</h2>
-                <table class="w-full mt-4 text-left border-collapse">
-                    <thead>
-                        <tr class="bg-green-200 text-gray-800">
-                            <th class="py-2 px-4">Merchant Name</th>
-                            <th class="py-2 px-4">Crop</th>
-                            <th class="py-2 px-4">Quantity</th>
-                            <th class="py-2 px-4">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="bg-white border-b">
-                            <td class="py-2 px-4">AgroCorp Pvt. Ltd.</td>
-                            <td class="py-2 px-4">
-                                <img src="/static/images/onion.png" class="w-10" alt="">
-                            </td>
-                            <td class="py-2 px-4">100 kg</td>
-                            <td class="py-2 px-4">Pending</td>
-                        </tr>
-                        <tr class="bg-white border-b">
-                            <td class="py-2 px-4">FreshMart Inc.</td>
-                            <td class="py-2 px-4">
-                                <img src="/static/images/potato.png" class="w-10" alt="">
-                            </td>
-                            <td class="py-2 px-4">50 kg</td>
-                            <td class="py-2 px-4 text-red-600">Rejected</td>
-                        </tr>
-                        <tr class="bg-white">
-                            <td class="py-2 px-4">GreenGrocers</td>
-                            <td class="py-2 px-4">
-                                <img src="/static/images/garlic.png" class="w-10" alt="">
-                            </td>
-                            <td class="py-2 px-4">75 kg</td>
-                            <td class="py-2 px-4 text-green-600">Accepted</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                <!-- Notification Section -->
+                <!-- <div class="bg-white shadow-md rounded-lg p-6">
+                    <h2 class="text-lg font-medium text-gray-800">Notifications</h2>
+                    <ul class="space-y-2 mt-4">
+                        <li class="text-gray-700">✅ You have 5 new requests from merchants.</li>
+                        <li class="text-gray-700">⚠️ Low inventory for Onions and Potatoes.</li>
+                        <li class="text-gray-700">🌦️ Weather Alert: Rain expected tomorrow in your region.</li>
+                    </ul>
+                </div> -->
+
+                <!-- Requests Section -->
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <h2 class="text-lg font-medium text-gray-800">Recent Auction</h2>
+                    <table class="w-full mt-4 text-left border-collapse">
+                        <thead>
+                            <tr class="bg-green-200 text-gray-800">
+                                <th class="py-2 px-4">Time</th>
+                                <th class="py-2 px-4">Crop</th>
+                                <th class="py-2 px-4">Amount</th>
+                                <th class="py-2 px-4">Verification</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for auction in data['auction'] %}
+                                <tr class="bg-white border-b">
+                                    <td class="py-2 px-4">{{ data['auction'][auction]['start_time'].split(" ")[1].split(".")[0] }}</td>
+                                    <td class="py-2 px-4">
+                                        {% if data['auction'][auction]['crop'] == "Onion" %}
+                                            <img src="/static/images/onion.png" class="w-10" alt="">
+                                        {% endif %}
+                                        {% if data['auction'][auction]['crop'] == "Potato" %}
+                                            <img src="/static/images/potato.png" class="w-10" alt="">
+                                        {% endif %}
+                                        {% if data['auction'][auction]['crop'] == "Garlic" %}
+                                            <img src="/static/images/garlic.png" class="w-10" alt="">
+                                        {% endif %}
+                                    </td>
+                                    <td class="py-2 px-4">{{ data['auction'][auction]['bid'] }}</td>
+                                    {% if data['auction'][auction]['verification'] == "0" %}
+                                        <td class="py-2 px-4">Pending</td>
+                                    {% endif %}
+                                    {% if data['auction'][auction]['verification'] == "1" %}
+                                        <td class="py-2 px-4 text-green-600">Verfied</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            <!-- <tr class="bg-white border-b">
+                                <td class="py-2 px-4">FreshMart Inc.</td>
+                                <td class="py-2 px-4">
+                                    <img src="/static/images/potato.png" class="w-10" alt="">
+                                </td>
+                                <td class="py-2 px-4">50 kg</td>
+                                <td class="py-2 px-4 text-red-600">Rejected</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="py-2 px-4">GreenGrocers</td>
+                                <td class="py-2 px-4">
+                                    <img src="/static/images/garlic.png" class="w-10" alt="">
+                                </td>
+                                <td class="py-2 px-4">75 kg</td>
+                                <td class="py-2 px-4 text-green-600">Accepted</td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+            {% if approval == False %}
+                <h1>Waiting for Approval!</h1>
+            {% endif %}
         </main>
     </div>
 </body>
