@@ -83,7 +83,7 @@
                                             <td class="py-2 px-4">{{data[d][i][j]}}</td>
                                         {% endif %}
                                         {% if j == "verification_data" %}
-                                            {% if data[d][i]["start_time"].split(" ")[0] == current_date  %}
+                                            {% if data[d][i]["start_time"].split(" ")[0] == current_date and current_time < data[d][i][j]["end_time"]  %}
                                                 {% if data[d][i][j]["started"] == "0" %}
                                                     <td class="py-2 px-4"><a href="/merchant/dashboard/listing/apply/{{i}}/notify" class="p-2 bg-blue-600 text-white">Roll in</a></td>
                                                 {% else %}

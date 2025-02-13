@@ -22,6 +22,11 @@ def allowed_file(filename):
 # Ensure the upload folder exists
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+def add_15_minutes(time_str):
+    time_obj = datetime.strptime(time_str, "%H:%M")  # Convert string to datetime object
+    new_time = time_obj + timedelta(minutes=15)  # Add 15 minutes
+    return new_time.strftime("%H:%M")  # Convert back to string
+
 def read_users():
     filename = "users.json"
     with open(filename, "r") as f:
@@ -466,11 +471,17 @@ def merchant_listings(msg=""):
         for user in users:
             if "auction" in users[user]:
                 auction_data[user] = users[user]["auction"]
+                for auction in users[user]["auction"]:
+                    if "verification_data" in users[user]["auction"][auction]:
+                        try:
+                            auction_data[user][auction]["verification_data"]["end_time"] = str(add_15_minutes(auction_data[user][auction]["verification_data"]["start_time"]))
+                        except:
+                            auction_data[user][auction]["verification_data"]["end_time"] = "0"
         print(auction_data)
         current_time = datetime.now().strftime("%H:%M")
         current_date = datetime.now().strftime("%Y-%m-%d")
         print(current_time, current_date)  # Example Output: "14:05"
-        return render_template('merchant_listings.html', data=auction_data, msg=msg, current_time=current_time, current_date=current_date)
+        return render_template('merchant_listings.html', data=auction_data, msg=msg, current_time=str(current_time), current_date=current_date)
     except:
         return redirect(url_for("index"))
 
