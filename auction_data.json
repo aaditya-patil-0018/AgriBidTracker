@@ -98,5 +98,30 @@
         "highest_bid_id": "",
         "bidder_details": {},
         "bidding_details": {}
+    },
+    "5a330a42-43b1-42f9-bab0-3275f106c439": {
+        "status": "opened",
+        "highest_bid": "400",
+        "highest_bid_id": "2",
+        "bidder_details": {
+            "2": []
+        },
+        "bidding_details": {
+            "1": {
+                "merchant_id": "2",
+                "bid": "300"
+            },
+            "2": {
+                "merchant_id": "2",
+                "bid": "400"
+            }
+        }
+    },
+    "f582a023-84e3-46ee-a1f9-0f8665218940": {
+        "status": "opened",
+        "highest_bid": 0,
+        "highest_bid_id": "",
+        "bidder_details": {},
+        "bidding_details": {}
     }
 }

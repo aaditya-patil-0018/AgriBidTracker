@@ -54,6 +54,38 @@
                         "started": "1",
                         "start_time": "17:49"
                     }
+                },
+                "5a330a42-43b1-42f9-bab0-3275f106c439": {
+                    "crop": "Onion",
+                    "bid": "1000",
+                    "info": "New Onion",
+                    "start_time": "2025-02-13 14:02:42.507374",
+                    "stop_time": "2025-02-13 14:17:42.507395",
+                    "verification": "1",
+                    "verification_data": {
+                        "quality": "Excellent",
+                        "start": "14:05",
+                        "end": "15:05",
+                        "image": "5a330a42-43b1-42f9-bab0-3275f106c439_image.png",
+                        "started": "1",
+                        "start_time": "14:12"
+                    }
+                },
+                "f582a023-84e3-46ee-a1f9-0f8665218940": {
+                    "crop": "Garlic",
+                    "bid": "250",
+                    "info": "Just like a garlic",
+                    "start_time": "2025-02-13 14:04:33.385407",
+                    "stop_time": "2025-02-13 14:19:33.385448",
+                    "verification": "1",
+                    "verification_data": {
+                        "quality": "Better",
+                        "start": "14:20",
+                        "end": "16:20",
+                        "image": "f582a023-84e3-46ee-a1f9-0f8665218940_image.jpeg",
+                        "started": "0",
+                        "start_time": "0"
+                    }
                 }
             },
             "rating": {

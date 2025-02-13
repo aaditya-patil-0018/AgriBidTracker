@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #f1f8e9, #c5e1a5);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-green-700 text-white px-6 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Farmer Dashboard</h1>
+        <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600" onclick="window.location.href='/logout';">Logout</button>
+    </header>
+
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside class="w-1/4 bg-white bg-opacity-80 p-6 flex flex-col space-y-6">
+            <nav class="space-y-4">
+                <a href="/farmer/profile"
+                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
+                    Profile
+                </a>
+                <a href="/farmer/dashboard"
+                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
+                    Home
+                </a>
+                <a href="/farmer/dashboard/requests"
+                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
+                    View Requests
+                </a>
+                <a href="/farmer/dashboard/auction"
+                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
+                    Auction
+                </a>
+                <!-- <a href="/farmer/analytics"
+                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
+                    Analytics
+                </a> -->
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 space-y-8">
+            {% if approval == True %}
+            <div class="">
+                {% if auction_table != "" %}
+                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; font-family: 'Poppins', sans-serif; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                    <thead>
+                        <tr style="background-color: #f4f4f4;">
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Merchant ID</th>
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Bid Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in auction_table %}
+                        <tr style="border-bottom: 1px solid #ddd;">
+                            <td style="padding: 10px;" class="bg-white">{{ auction_table[i]["merchant_id"] }}</td>
+                            <td style="padding: 10px;" class="bg-white">{{ auction_table[i]["bid"] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+            {% endif %}
+        </main>
+    </div>
+</body>
+
+</html>

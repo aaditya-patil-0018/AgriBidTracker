@@ -25,7 +25,7 @@
     <!-- Header -->
     <header class="bg-green-700 text-white px-6 py-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold">Farmer Dashboard</h1>
-        <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600">Logout</button>
+        <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600" onclick="window.location.href='/logout';">Logout</button>
     </header>
 
     <div class="flex flex-1">
@@ -41,6 +41,11 @@
 
         <!-- Main Content -->
         <main class="flex-1 p-8 space-y-8">
+            {% if msg != "" %}
+                <div class="w-full">
+                    <h1 id="notify" class="w-full bg-green-600 text-white text-lg p-4">{{msg}}</h1>
+                </div>
+            {% endif %}
             {% if approval == True %}
                 <div class="mb-8">
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
@@ -87,5 +92,10 @@
         </main>
     </div>
 </body>
-
+<script>
+    setTimeout(function() {
+        document.getElementById("notify").style.display = "none";
+        window.location.href="/farmer/dashboard/auction"
+    }, 3000);
+</script>
 </html>

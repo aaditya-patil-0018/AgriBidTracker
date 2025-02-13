@@ -18,7 +18,7 @@
     <!-- Header -->
     <header class="bg-green-700 text-white px-6 py-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold">Farmer Dashboard</h1>
-        <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600">Logout</button>
+        <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600" onclick="window.location.href='/logout';">Logout</button>
     </header>
 
     <div class="flex flex-1">
@@ -54,92 +54,45 @@
                 <div class="bg-white shadow-md rounded-lg p-6">
                     <table class="w-full mt-4 text-left border-collapse">
                         <thead>
-                            <tr class="bg-green-200 text-gray-800">
-                                <th class="py-2 px-4">Merchant Name</th>
+                            <tr class="bg-gray-200 text-gray-800">
+                                <th class="py-2 px-4">Auction id</th>
                                 <th class="py-2 px-4">Crop</th>
-                                <th class="py-2 px-4">Quantity</th>
-                                <th class="py-2 px-4">Status</th>
+                                <th class="py-2 px-4">Info</th>
+                                <th class="py-2 px-4">Verification</th>
+                                <th class="py-2 px-4">Quality</th>
+                                <th class="py-2 px-4">Start Time</th>
+                                <th class="py-2 px-4">Started</th>
+                                <th class="py-2 px-4">View</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="bg-white border-b">
-                                <td class="py-2 px-4">AgroCorp Pvt. Ltd.</td>
-                                <td class="py-2 px-4">
-                                    <img src="/static/images/onion.png" class="w-10" alt="">
-                                </td>
-                                <td class="py-2 px-4">100 kg</td>
-                                <td class="py-2 px-4">Pending</td>
-                            </tr>
-                            <tr class="bg-white border-b">
-                                <td class="py-2 px-4">FreshMart Inc.</td>
-                                <td class="py-2 px-4">
-                                    <img src="/static/images/potato.png" class="w-10" alt="">
-                                </td>
-                                <td class="py-2 px-4">50 kg</td>
-                                <td class="py-2 px-4 text-red-600">Rejected</td>
-                            </tr>
-                            <tr class="bg-white">
-                                <td class="py-2 px-4">GreenGrocers</td>
-                                <td class="py-2 px-4">
-                                    <img src="/static/images/garlic.png" class="w-10" alt="">
-                                </td>
-                                <td class="py-2 px-4">75 kg</td>
-                                <td class="py-2 px-4 text-green-600">Accepted</td>
-                            </tr>
-                            <tr class="bg-white border-b">
-                                <td class="py-2 px-4">AgroCorp Pvt. Ltd.</td>
-                                <td class="py-2 px-4">
-                                    <img src="/static/images/onion.png" class="w-10" alt="">
-                                </td>
-                                <td class="py-2 px-4">100 kg</td>
-                                <td class="py-2 px-4">Pending</td>
-                            </tr>
-                            <tr class="bg-white border-b">
-                                <td class="py-2 px-4">FreshMart Inc.</td>
-                                <td class="py-2 px-4">
-                                    <img src="/static/images/potato.png" class="w-10" alt="">
-                                </td>
-                                <td class="py-2 px-4">50 kg</td>
-                                <td class="py-2 px-4 text-red-600">Rejected</td>
-                            </tr>
-                            <tr class="bg-white">
-                                <td class="py-2 px-4">GreenGrocers</td>
-                                <td class="py-2 px-4">
-                                    <img src="/static/images/garlic.png" class="w-10" alt="">
-                                </td>
-                                <td class="py-2 px-4">75 kg</td>
-                                <td class="py-2 px-4 text-green-600">Accepted</td>
-                            </tr>
-                            <tr class="bg-white border-b">
-                                <td class="py-2 px-4">AgroCorp Pvt. Ltd.</td>
-                                <td class="py-2 px-4">
-                                    <img src="/static/images/onion.png" class="w-10" alt="">
-                                </td>
-                                <td class="py-2 px-4">100 kg</td>
-                                <td class="py-2 px-4">Pending</td>
-                            </tr>
-                            <tr class="bg-white border-b">
-                                <td class="py-2 px-4">FreshMart Inc.</td>
-                                <td class="py-2 px-4">
-                                    <img src="/static/images/potato.png" class="w-10" alt="">
-                                </td>
-                                <td class="py-2 px-4">50 kg</td>
-                                <td class="py-2 px-4 text-red-600">Rejected</td>
-                            </tr>
-                            <tr class="bg-white">
-                                <td class="py-2 px-4">GreenGrocers</td>
-                                <td class="py-2 px-4">
-                                    <img src="/static/images/garlic.png" class="w-10" alt="">
-                                </td>
-                                <td class="py-2 px-4">75 kg</td>
-                                <td class="py-2 px-4 text-green-600">Accepted</td>
-                            </tr>
-                        </tbody>
+                            {% for auction in farmer["auction"] %}
+                                <tr class="bg-white border-b">
+                                    <td class="py-2 px-4">{{auction}}</td>
+                                    <td class="py-2 px-4">{{farmer["auction"][auction]["crop"]}}</td>
+                                    <td class="py-2 px-4">{{farmer["auction"][auction]["info"]}}</td>
+                                    {% if farmer["auction"][auction]["verification"] == "0" %}
+                                        <td class="py-2 px-4 text-red-600">Not Verified</td>
+                                        <td class="py-2 px-4">-</td>
+                                        <td class="py-2 px-4">-</td>
+                                        <td class="py-2 px-4">-</td>
+                                        <td class="py-2 px-4">-</td>
+                                    {% else %}
+                                        <td class="py-2 px-4 text-green-600">Verified</td>
+                                        <td class="py-2 px-4">{{farmer["auction"][auction]["verification_data"]["quality"]}}</td>
+                                        <td class="py-2 px-4">{{farmer["auction"][auction]["verification_data"]["start_time"]}}</td>
+                                        {% if farmer["auction"][auction]["verification_data"]["started"] == "0" %}
+                                            <td class="py-2 px-4 text-red-600">No</td>
+                                        {% else %}
+                                            <td class="py-2 px-4 text-green-600">Yes</td>
+                                        {% endif %}
+                                        <td class="py-2 px-4"><a href="/farmer/dashboard/requests/{{auction}}" class="text-blue-600 underline">view</a></td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                         </tbody>
                     </table>
                 </div>
-            {% endif %}
-            {% if approval == False %}
-                <h1>Waiting for Approval!</h1>
             {% endif %}
         </main>
     </div>

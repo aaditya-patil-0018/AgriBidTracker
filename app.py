@@ -153,7 +153,27 @@ def logout():
     session["userid"] = ""
     return redirect(url_for("index"))
 
+@app.route("/uploads/<filename>")
+@app.route("/uploads/")
+def farmer_uploads(filename=""):
+    if filename == "":
+        return "File is not present in the system!"
+    if session["usertype"] == "farmer":
+        try:
+            if filename.split("_")[0] == session["userid"]:
+                upload_folder = "uploads/"
+                return send_from_directory(upload_folder, filename, as_attachment=False)
+            return "You aren't allowed to access other's file."
+        except:
+            return "File is not present in the system"
+    if session["usertype"] == "merchant":
+        upload_folder = "uploads/"
+        return send_from_directory(upload_folder, filename, as_attachment=False)
 
+# Custom 404 Error Handler
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404  # Renders a custom 404 page
 
 ############
 ## FARMER ##
@@ -276,33 +296,64 @@ def farmer_profile():
     # except:
     #     return redirect(url_for("index"))
 
-@app.route("/uploads/<filename>")
-def farmer_uploads(filename):
-    if filename.split("_")[0] == session["userid"]:
-        upload_folder = "uploads/"
-        return send_from_directory(upload_folder, filename, as_attachment=False)
-    return "You aren't allowed to access other's file."
-
 @app.route('/farmer/dashboard')
 def farmer_dashboard():
-    try:
-        if session["registration"] == False and read_users()["farmer"][str(session["userid"])]["registration"] == "0":
-            return redirect(url_for("farmer_registration"))
-        session["registration"] = True
-        data=read_users()["farmer"][str(session["userid"])]
-        return render_template('farmer_dashboard.html', data=data, approval=isApproved("farmer"))
-    except:
-        return redirect(url_for("index"))
+    # try:
+    if session["registration"] == False and read_users()["farmer"][str(session["userid"])]["registration"] == "0":
+        return redirect(url_for("farmer_registration"))
+    session["registration"] = True
+    data=read_users()["farmer"][str(session["userid"])]
+    ta = len(data["auction"])
+    pr = 0
+    st = 0
+    ys = 0
+    for auction_id in data["auction"]:
+        if data["auction"][auction_id]["verification"] == "0":
+            pr += 1
+        else:
+            if data["auction"][auction_id]["verification_data"]["started"] == "1":
+                st += 1
+            else:
+                ys += 1
+    return render_template('farmer_dashboard.html', data=data, approval=isApproved("farmer"), ta=ta, pr=pr, st=st, ys=ys)
+    # except:
+    #     return redirect(url_for("index"))
 
 @app.route('/farmer/dashboard/requests')
 def farmer_dashboard_requests():
-    return render_template('farmer_dashboard_requests.html', approval=isApproved("farmer"))
+    users = read_users()
+    farmer = users["farmer"][str(session["userid"])]
+    return render_template('farmer_dashboard_requests.html', approval=isApproved("farmer"), farmer=farmer)
+
+@app.route('/farmer/dashboard/requests/<aid>')
+def farmer_dashboard_requests_view(aid):
+    users = read_users()
+    farmer = users["farmer"][str(session["userid"])]["auction"][aid]
+    auction = Auction()
+    auct_data = auction.get_auction_data()
+
+    with open("users.json", "r") as f:
+        users = json.load(f)['farmer']
+    auction_data = {}
+    for user in users:
+        if "auction" in users[user]:
+            if aid in users[user]["auction"]:
+                auction_data[user] = users[user]["auction"]
+    try:
+        auction_table = auct_data[aid]["bidding_details"]
+    except:
+        auction_table = ""
+    return render_template('farmer_dashboard_requests_view.html', aid=aid, auction_table=auction_table, approval=isApproved("farmer"))
+    return farmer
+    # return render_template('farmer_dashboard_requests.html', approval=isApproved("farmer"), farmer=farmer)
+
 
 @app.route('/farmer/dashboard/auction', methods=["GET", "POST"])
-def farmer_dashboard_inventory():
+@app.route('/farmer/dashboard/auction/<msg>')
+def farmer_dashboard_inventory(msg=""):
     if request.method == "GET":
         if session["user"] == True and session["usertype"] == "farmer" and session["registration"] != False:
-            return render_template('farmer_dashboard_auction.html', approval=isApproved("farmer"))
+            return render_template('farmer_dashboard_auction.html', approval=isApproved("farmer"), msg=msg)
         else:
             return redirect(url_for("index"))
     elif request.method == "POST":
@@ -330,7 +381,7 @@ def farmer_dashboard_inventory():
         with open("users.json", "w") as f:
             json.dump(users, f, indent=4)
 
-        return redirect(url_for("farmer_dashboard_inventory"))
+        return redirect("/farmer/dashboard/auction/Bid Added Successfully")
 
 
 
@@ -491,6 +542,14 @@ def merchant_dashboard():
         return render_template('merchant_dashboard.html')
     except:
         return redirect(url_for("index"))
+    
+@app.route('/merchant/profile')
+def merchant_profile():
+    # try:
+    if session["registration"] == False and read_users()["merchant"][str(session["userid"])]["registration"] == "0":
+        return redirect(url_for("merchant_registration"))
+    session["registration"] = True
+    return render_template('merchant_profile.html', data=read_users()["merchant"][str(session["userid"])], approval=isApproved("farmer"))
 
 ###########
 ## AGENT ##
@@ -627,7 +686,7 @@ def agent_dashboard_farmer_view(fid, aid):
             users["farmer"][fid]["auction"][aid]["verification_data"] = data
             with open("users.json", "w") as f:
                 json.dump(users, f, indent=4)
-            return render_template("/agent/farmers/verify")
+            return redirect("/agent/farmers/verify")
     except:
         return redirect(url_for("index"))
 
