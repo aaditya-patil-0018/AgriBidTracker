@@ -165,6 +165,19 @@
                 "aadhar": "merchant_4_aadhar.pdf",
                 "license": "merchant_4_license.pdf"
             }
+        },
+        "5": {
+            "email": "nayamerchant@gmail.com",
+            "password": "password",
+            "registration": "1",
+            "registration_data": {
+                "name": "Naya Hoon",
+                "email": "nayamerchant@gmail.com",
+                "contact": "8967452310",
+                "address": "nashik",
+                "aadhar": "merchant_5_aadhar.pdf",
+                "license": "merchant_5_license.pdf"
+            }
         }
     },
     "agent": {

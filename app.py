@@ -49,9 +49,12 @@ def isApproved(utype):
     with open(filename, "r") as f:
         data = json.load(f)
     l = str(session["userid"])
-    if data[utype][l]["approved"] == "0":
-        return False
-    elif data[utype][l]["approved"] == "1":
+    try:
+        if data[utype][l]["approved"] == "0":
+            return False
+        elif data[utype][l]["approved"] == "1":
+            return True
+    except:
         return True
 
 @app.route("/")
