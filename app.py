@@ -43,7 +43,7 @@ def isApproved(utype):
     filename = "users.json"
     with open(filename, "r") as f:
         data = json.load(f)
-    l = session["userid"]
+    l = str(session["userid"])
     if data[utype][l]["approved"] == "0":
         return False
     elif data[utype][l]["approved"] == "1":
@@ -118,7 +118,7 @@ def login():
                 session["usertype"] = usertype
                 session["registration"] = False
                 session["userid"] = len(read_users()[usertype]) + 1
-                if usertype == "farmer" or usertype == "agent":
+                if usertype.lower() == "farmer" or usertype.lower() == "agent":
                     add_users(usertype, {"email": email, "password": password, "registration": "0", "approved": "0"})
                 else:
                     add_users(usertype, {"email": email, "password": password, "registration": "0"})
@@ -306,18 +306,24 @@ def farmer_dashboard():
         return redirect(url_for("farmer_registration"))
     session["registration"] = True
     data=read_users()["farmer"][str(session["userid"])]
-    ta = len(data["auction"])
+    try:
+        ta = len(data["auction"])
+    except:
+        ta=0
     pr = 0
     st = 0
     ys = 0
-    for auction_id in data["auction"]:
-        if data["auction"][auction_id]["verification"] == "0":
-            pr += 1
-        else:
-            if data["auction"][auction_id]["verification_data"]["started"] == "1":
-                st += 1
+    try:
+        for auction_id in data["auction"]:
+            if data["auction"][auction_id]["verification"] == "0":
+                pr += 1
             else:
-                ys += 1
+                if data["auction"][auction_id]["verification_data"]["started"] == "1":
+                    st += 1
+                else:
+                    ys += 1
+    except:
+        pass
     return render_template('farmer_dashboard.html', data=data, approval=isApproved("farmer"), ta=ta, pr=pr, st=st, ys=ys)
     # except:
     #     return redirect(url_for("index"))

@@ -113,8 +113,17 @@
             "name": "newfarmer",
             "email": "newfarmer@gmail.com",
             "password": "password",
-            "registration": "0",
-            "approved": "0"
+            "registration": "1",
+            "approved": "0",
+            "registration_data": {
+                "name": "newfarmer",
+                "email": "newfarmer@gmail.com",
+                "contact": "9867452310",
+                "address": "nashik",
+                "farm_address": "nashik",
+                "aadhar_card": "4_aadhar.pdf",
+                "seven_doc": "4_seven.pdf"
+            }
         }
     },
     "merchant": {
