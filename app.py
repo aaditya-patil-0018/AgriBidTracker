@@ -105,6 +105,8 @@ def login():
                             return redirect(url_for("farmer_dashboard"))
                         if usertype == "merchant":
                             return redirect(url_for("merchant_dashboard"))
+                        if usertype == "agent":
+                            return redirect(url_for("agent_dashboard"))
                 else:
                     return render_template('login.html', message="Password is incorrect. Please retry!")
             else:
@@ -300,6 +302,7 @@ def farmer_profile():
 def farmer_dashboard():
     # try:
     if session["registration"] == False and read_users()["farmer"][str(session["userid"])]["registration"] == "0":
+        print("True")
         return redirect(url_for("farmer_registration"))
     session["registration"] = True
     data=read_users()["farmer"][str(session["userid"])]
@@ -573,7 +576,7 @@ def agent_registration():
                     contact = request.form.get('contact')
                     address = request.form.get('address')
                     
-                    usertype = "farmer"
+                    usertype = "agent"
                     add_users(usertype, {"name": name, "email": email, "password": password, "registration": "1"})
                     
                     aadhar_card = request.files.get('aadhar_card')
