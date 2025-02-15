@@ -60,8 +60,8 @@
                                         <td class="py-2 px-4">{{farmer[userid]["auction"][auction_id]["verification_data"]["start"]}}</td>
                                         <td class="py-2 px-4">{{farmer[userid]["auction"][auction_id]["verification_data"]["end"]}}</td>
                                         <form action="/admin/auctions/{{auction_id}}/start" method="post">
-                                            {% if farmer[userid]["auction"][auction_id]["start_time"].split(" ")[0] == current_date %}
-                                                {% if farmer[userid]["auction"][auction_id]["verification_data"]["started"] == "0" %}
+                                            {% if farmer[userid]["auction"][auction_id]["start_time"].split(" ")[0] == current_date and farmer[userid]["auction"][auction_id]["verification_data"]["start_time"] >= farmer[userid]["auction"][auction_id]["verification_data"]["stop_time"]%}
+                                            {% if farmer[userid]["auction"][auction_id]["verification_data"]["started"] == "0" %}
                                                     <td class="py-2 px-4"><input type="time" name="time"></td>
                                                     <td class="py-2 px-4"><input type="submit" class="bg-green-600 text-white p-2" value="Start"></td>
                                                 {% else %}

@@ -209,7 +209,7 @@ def farmer_registration():
                     farm_address = request.form.get('farm_address')
                     
                     usertype = "farmer"
-                    add_users(usertype, {"name": name, "email": email, "password": password, "registration": "1"})
+                    add_users(usertype, {"name": name, "email": email, "password": password, "registration": "1", "approved":"0"})
                     
                     aadhar_card = request.files.get('aadhar_card')
                     seven_doc = request.files.get('seven')
@@ -658,7 +658,7 @@ def agent_registration():
                     address = request.form.get('address')
                     
                     usertype = "agent"
-                    add_users(usertype, {"name": name, "email": email, "password": password, "registration": "1"})
+                    add_users(usertype, {"name": name, "email": email, "password": password, "registration": "1", "approved": "0"})
                     
                     aadhar_card = request.files.get('aadhar_card')
                     
@@ -899,7 +899,17 @@ def admin_auction():
         users = read_users()
         farmer = users["farmer"]
         current_date = datetime.now().strftime("%Y-%m-%d")
-        return render_template("admin_auction.html", farmer=farmer, current_date=current_date)
+        farmer_data = {}
+        for i in farmer:
+            if "auction" in farmer[i]:
+                for j in farmer[i]["auction"]:
+                    if "verification_data" in farmer[i]["auction"][j]:
+                        try:
+                            farmer[i]["auction"][j]["verification_data"]["stop_time"] = add_15_minutes(farmer[i]["auction"][j]["verification_data"]["start_time"])
+                        except:
+                            pass
+            farmer_data[i] = farmer[i]
+        return render_template("admin_auction.html", farmer=farmer_data, current_date=current_date)
     else:
         return redirect(url_for("admin_login"))
 

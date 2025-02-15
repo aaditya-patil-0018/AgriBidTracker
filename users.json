@@ -146,6 +146,7 @@
             "email": "farmer@gmail.com",
             "password": "password",
             "registration": "1",
+            "approved": "0",
             "registration_data": {
                 "name": "IamNewFarmer",
                 "email": "farmer@gmail.com",
@@ -172,6 +173,22 @@
                         "start_time": "15:20"
                     }
                 }
+            }
+        },
+        "6": {
+            "name": "Navin",
+            "email": "navin@gmail.com",
+            "password": "password",
+            "registration": "1",
+            "approved": "0",
+            "registration_data": {
+                "name": "Navin",
+                "email": "navin@gmail.com",
+                "contact": "7645321890",
+                "address": "Nashik",
+                "farm_address": "Nashik",
+                "aadhar_card": "6_aadhar.pdf",
+                "seven_doc": "6_seven.pdf"
             }
         }
     },
