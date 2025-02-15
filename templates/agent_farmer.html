@@ -55,8 +55,13 @@
                                 <td class="border px-4 py-2">{{ auction.crop }}</td>
                                 <td class="border px-4 py-2">{{ auction.bid }}</td>
                                 <td class="border px-4 py-2">{{ auction.info }}</td>
-                                <td class="border px-4 py-2">{{ auction.start_time }}</td>
-                                <td class="border px-4 py-2"><a href="/agent/farmers/verify/{{farmer_id}}/{{auction_id}}" class="text-blue-600 underline">view</a></td>
+                                <td class="border px-4 py-2">{{ auction.start_time.split(" ")[0] }}</td>
+                                <!-- <td class="border px-4 py-2">{{ current_date }}</td> -->
+                                {% if auction.start_time.split(" ")[0] >= current_date %}
+                                    <td class="border px-4 py-2"><a href="/agent/farmers/verify/{{farmer_id}}/{{auction_id}}" class="text-blue-600 underline">view</a></td>
+                                {% else %}
+                                    <td class="border px-4 py-2"><span class="italic text-gray-600">Expired</span></td>
+                                {% endif %}
                                 <td class="border px-4 py-2">
                                     {% if auction.verification == "0" %}
                                         <button class="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-3 rounded">

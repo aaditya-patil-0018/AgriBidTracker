@@ -83,10 +83,11 @@
                                         <td class="py-2 px-4">{{farmer["auction"][auction]["verification_data"]["start_time"]}}</td>
                                         {% if farmer["auction"][auction]["verification_data"]["started"] == "0" %}
                                             <td class="py-2 px-4 text-red-600">No</td>
+                                            <td class="py-2 px-4">Not started</td>
                                         {% else %}
                                             <td class="py-2 px-4 text-green-600">Yes</td>
+                                            <td class="py-2 px-4"><a href="/farmer/dashboard/requests/{{auction}}" class="text-blue-600 underline">view</a></td>
                                         {% endif %}
-                                        <td class="py-2 px-4"><a href="/farmer/dashboard/requests/{{auction}}" class="text-blue-600 underline">view</a></td>
                                     {% endif %}
                                 </tr>
                             {% endfor %}

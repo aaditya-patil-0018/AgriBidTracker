@@ -47,7 +47,7 @@
                             <th class="py-2 px-4">Aadhar</th>
                             <th class="py-2 px-4">License</th>
                             <th class="py-2 px-4">Registration</th>
-                            <!-- <th class="py-2 px-4">Action</th> -->
+                            <th class="py-2 px-4">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,12 +67,12 @@
                                     <td class="py-2 px-4"><a href="/admin/uploads/{{users[userid]['registration_data']['license']}}" class="underline text-blue-600">view</a></td>
                                     <td class="py-2 px-4 text-green-600">Yes</td>
                                 {% endif %}
-                                <!-- {% if users[userid]["approved"] == "0" %}
-                                    <td class="py-2 px-4"><button class="bg-green-600 text-white p-2" onclick="window.location.href='/admin/users/farmers/{{userid}}';">Approve</button></td>
+                                {% if users[userid]["approved"] == "0" %}
+                                    <td class="py-2 px-4"><button class="bg-green-600 text-white p-2" onclick="window.location.href='/admin/users/merchant/{{userid}}';">Approve</button></td>
                                 {% endif %}
                                 {% if users[userid]["approved"] == "1" %}
-                                    <td class="py-2 px-4"><button class="bg-red-600 text-white p-2" onclick="window.location.href='/admin/users/farmers/{{userid}}';">Disapprove</button></td>
-                                {% endif %} -->
+                                    <td class="py-2 px-4"><button class="bg-red-600 text-white p-2" onclick="window.location.href='/admin/users/merchant/{{userid}}';">Disapprove</button></td>
+                                {% endif %}
                             </tr>
                        {% endfor %}
                     </tbody>

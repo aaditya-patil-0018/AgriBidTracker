@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmers Marketplace</title>
+    <link rel="icon" type="image/x-icon" href="/static/icons/leaf-logo.png">
+    <link href="/static/css/output.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary-color: #38a169; /* Green */
+            --secondary-color: #f7fafc; /* Gray */
+            --hover-color: #68d391; /* Lighter Green */
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+        }
+
+        .graphic {
+            width: 100px;
+            margin: 0 auto 20px;
+        }
+         
+        .image-size{
+            width: 80%;
+            height: 290px; /* You can adjust this height value */
+            object-fit: cover;
+  
+        }
+        .image1-size{
+            width: 67%;
+            height: 290px; /* You can adjust this height value */
+            object-fit: cover;
+  
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <header class="bg-green-700 text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto flex justify-between items-center p-6">
+            <div class="flex items-center">
+                <img src="/static/icons/logo.jpeg" width="64px" class="mr-4" alt="">
+                <h1 class="text-3xl font-bold">Agribid Tracker</h1>
+            </div>
+            <nav>
+                <ul class="flex items-center space-x-6">
+                    <li><a href="#" class="hover:underline">Home</a></li>
+                    <li><a href="#goods" class="hover:underline">Goods</a></li>
+                    <li><a href="#bids" class="hover:underline">Bids</a></li>
+                    <li><a href="#testimonials" class="hover:underline">Testimonials</a></li>
+                    <li><a href="#contact" class="hover:underline">Contact</a></li>
+                    {% if userpresent == False %}
+                        <a href="/login"><button class="border border-white bg-black text-white" style="padding-right: 8px; padding-left: 8px; padding-top: 4px; padding-bottom: 4px;">Login</button></a>
+                        <a href="/farmer/register"><button class="border border-white bg-black text-white" style="padding-right: 8px; padding-left: 8px; padding-top: 4px; padding-bottom: 4px;">Register</button></a>
+                    {% else %}
+                        <a href="/logout"><button class="border border-white bg-black text-white" style="padding-right: 8px; padding-left: 8px; padding-top: 4px; padding-bottom: 4px;">Logout</button></a>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="py-40 text-center bg-green-50">
+            <div class="container mx-auto text-center">
+                
+                <h2 class="text-4xl font-bold mb-8">Welcome To Our Bidding Platform</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <article class="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 fade-in">
+                        <a href="/login">
+                        <img src="/static/images/farmer.png" alt="Farmer" class="graphic image-size">
+                        <h3 class="text-xl font-semibold mt-4">Farmer</h3>
+                        <!--<a href="/login" class="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400 transition duration-300">Login</a>-->
+                        </a>
+                    </article>
+                    <article class="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 fade-in ">
+                        <a href="/login">
+                        <img src="/static/images/merchant1.png" alt="Merchant" class="graphic image1-size">
+                        <h3 class="text-xl font-semibold mt-4">Merchant</h3>
+                        <!--<a href="/login" class="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400 transition duration-300">Login</a>-->
+                        </a>
+                    </article>
+                    <article class="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 fade-in">
+                        <a href="/login">
+                        <img src="/static/images/agent.png" alt="Agent" class="graphic image-size">
+                        <h3 class="text-xl font-semibold mt-4">Agent</h3>
+                        <!--<a href="/login" class="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400 transition duration-300">Login</a>-->
+                    </a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="bids" class="bg-green-50 py-40">
+            <div class="container mx-auto text-center">
+                <h2 class="text-4xl font-bold mb-8">Merchants Can Bid</h2>
+                <p class="mt-4">Enter your bid amount and contact information to participate in the bidding process.</p>
+                <form class="max-w-md mx-auto mt-8">
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="bid-amount">
+                                Bid Amount
+                            </label>
+                            <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="bid-amount" type="number" placeholder="Enter bid amount">
+                        </div>
+                        <div class="w-full md:w-1/2 px-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="contact-info">
+                                Contact Information
+                            </label>
+                            <input id="contact-number" class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="contact-info" type="text" placeholder="Enter contact information">
+                        </div>
+                    </div>
+                    <button class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded transition duration-300" type="submit">Submit Bid</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="testimonials" class="bg-gray-100 py-40">
+            <div class="container mx-auto text-center">
+                <h2 class="text-4xl font-bold mb-14">What Our Users Say</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <article class="bg-white p-6 rounded-lg shadow-lg fade-in">
+                        <p class="text-lg">"Farmers Marketplace has been a game-changer for my business. I've been able to connect with reliable suppliers and grow my customer base."</p>
+                        <p class="text-sm text-gray-600">- John Doe, Happy Farmer</p>
+                    </article>
+                    <article class="bg-white p-6 rounded-lg shadow-lg fade-in">
+                        <p class="text-lg">"The bidding process is so easy and efficient. I've been able to find the best deals for my business and increase my profits."</p>
+                        <p class="text-sm text-gray-600">- Jane Smith, Happy Merchant</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="bg-green-50 py-20">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-8">Get in Touch</h2>
+            <p class="mt-4">Have any questions or concerns? Feel free to reach out to us.</p>
+            <ul class="flex justify-center mb-8">
+                <li class="mr-4"><a href="#" class="text-gray-600 hover:text-gray-900"><i class="fab fa-facebook-f"></i ></a></li>
+                <li class="mr-4"><a href="#" class="text-gray-600 hover:text-gray-900"><i class="fab fa-twitter"></i></a></li>
+                <li class="mr-4"><a href="#" class="text-gray-600 hover:text-gray-900"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+            <p class="text-sm text-gray-600">&copy; 2023 Farmers Marketplace. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const anchors = document.querySelectorAll('a[href^="#"]');
+        anchors.forEach(anchor => {
+            anchor.addEventListener('click', event => {
+                event.preventDefault();
+                document.querySelector(anchor.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const fadeIns = document.querySelectorAll('.fade-in');
+        window.addEventListener('scroll', () => {
+            fadeIns.forEach(fadeIn => {
+                if (fadeIn.getBoundingClientRect().top < window.innerHeight) {
+                    fadeIn.classList.add('visible');
+                } else {
+                    fadeIn.classList.remove('visible');
+                }
+            });
+        });
+
+        // Get the input field by its ID
+        const contactNumber = document.getElementById('contact-number');
+
+        // Add an event listener to restrict input to 10 digits
+        contactNumber.addEventListener('input', () => {
+            const maxLength = 10; // Maximum allowed digits
+            if (contactNumber.value.length > maxLength) {
+                alert('Bid amount cannot exceed 10 digits.');
+                contactNumber.value = contactNumber.value.slice(0, maxLength);
+            }
+
+            // Ensure only numbers are entered
+            contactNumber.value = contactNumber.value.replace(/[^0-9]/g, '');
+        });
+    </script>
+
+</body>
+
+</html>

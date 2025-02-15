@@ -52,6 +52,9 @@
 
         <!-- Main Content -->
         <main class="flex-1 p-8 space-y-8">
+            <!-- {% if msg != "" %}
+                <h1 class="bg-green-600 text-white p-4 text-xl">{{msg}}</h1>
+            {% endif %} -->
             <div class="bg-white shadow-md rounded-lg p-6">
                 <h2 class="text-lg font-medium text-gray-800">Active Auctions</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-4">
@@ -146,9 +149,10 @@
 </body>
 <script>
     const msg = {{ msg | tojson }};
-
+    const aid = {{ aid | tojson }};
     if(msg != ""){
         alert(msg);
+        window.location.href = "/merchant/dashboard/listing/apply/"+aid;
     }
 
     let activityTimeout;

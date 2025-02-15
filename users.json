@@ -86,6 +86,22 @@
                         "started": "0",
                         "start_time": "0"
                     }
+                },
+                "f8e143e7-ac55-420b-a888-8efed3418ecc": {
+                    "crop": "Onion",
+                    "bid": "500",
+                    "info": "Onion like onion",
+                    "start_time": "2025-02-14 19:27:10.570544",
+                    "stop_time": "2025-02-14 19:42:10.570591",
+                    "verification": "1",
+                    "verification_data": {
+                        "quality": "Excellent",
+                        "start": "19:30",
+                        "end": "21:30",
+                        "image": "f8e143e7-ac55-420b-a888-8efed3418ecc_image.jpeg",
+                        "started": "1",
+                        "start_time": "19:31"
+                    }
                 }
             },
             "rating": {
@@ -124,6 +140,39 @@
                 "aadhar_card": "4_aadhar.pdf",
                 "seven_doc": "4_seven.pdf"
             }
+        },
+        "5": {
+            "name": "IamNewFarmer",
+            "email": "farmer@gmail.com",
+            "password": "password",
+            "registration": "1",
+            "registration_data": {
+                "name": "IamNewFarmer",
+                "email": "farmer@gmail.com",
+                "contact": "7894561230",
+                "address": "Nashik",
+                "farm_address": "Nashik",
+                "aadhar_card": "5_aadhar.pdf",
+                "seven_doc": "5_seven.pdf"
+            },
+            "auction": {
+                "342a1c5e-279a-421a-b3ce-40f452e1df75": {
+                    "crop": "Potato",
+                    "bid": "500",
+                    "info": "new new potato",
+                    "start_time": "2025-02-15 15:18:18.672166",
+                    "stop_time": "2025-02-15 15:33:18.672180",
+                    "verification": "1",
+                    "verification_data": {
+                        "quality": "Excellent",
+                        "start": "15:30",
+                        "end": "17:30",
+                        "image": "342a1c5e-279a-421a-b3ce-40f452e1df75_image.jpeg",
+                        "started": "1",
+                        "start_time": "15:20"
+                    }
+                }
+            }
         }
     },
     "merchant": {
@@ -131,13 +180,15 @@
             "name": "eg",
             "email": "eg@gmail.com",
             "password": "eg",
-            "registration": "0"
+            "registration": "0",
+            "approved": "1"
         },
         "2": {
             "name": "Merchant",
             "email": "merchant@gmail.com",
             "password": "password",
             "registration": "1",
+            "approved": "1",
             "registration_data": {
                 "name": "Mr. Merchant",
                 "email": "merchant@gmail.com",
@@ -151,12 +202,14 @@
             "name": "abc",
             "email": "abc@gmail.com",
             "password": "password",
-            "registration": "0"
+            "registration": "0",
+            "approved": "1"
         },
         "4": {
             "email": "newmerch@gmail.com",
             "password": "password",
             "registration": "1",
+            "approved": "0",
             "registration_data": {
                 "name": "NewMerch chant",
                 "email": "newmerch@gmail.com",
@@ -170,6 +223,7 @@
             "email": "nayamerchant@gmail.com",
             "password": "password",
             "registration": "1",
+            "approved": "1",
             "registration_data": {
                 "name": "Naya Hoon",
                 "email": "nayamerchant@gmail.com",
