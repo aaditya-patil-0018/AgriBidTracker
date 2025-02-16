@@ -52,33 +52,36 @@
 
         <!-- Main Content -->
         <main class="flex-1 p-8 space-y-8">
-            
-            <div class="bg-green-100 border border-green-400 text-green-800 p-6 rounded-lg shadow-lg">
-                <h1 class="text-2xl font-bold text-green-900 mb-2">🏆 Winner of the Auction</h1>
-                <p class="text-lg font-medium">Highest Bidder: <span class="font-semibold">{{ highest_bidder }}</span></p>
-                <p class="text-lg font-medium">Highest Bid: <span class="font-semibold">₹{{ highest_bid }}</span></p>
-                <p class="text-lg font-medium">Highest Bidder ID: <span class="font-semibold">{{ highest_bidder_id }}</span></p>
-            </div>
-            <div class="">
-                {% if auction_table != "" %}
-                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; font-family: 'Poppins', sans-serif; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                    <thead>
-                        <tr style="background-color: #f4f4f4;">
-                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Merchant ID</th>
-                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Bid Value</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for i in auction_table %}
-                        <tr style="border-bottom: 1px solid #ddd;">
-                            <td style="padding: 10px;" class="bg-white">{{ auction_table[i]["merchant_id"] }}</td>
-                            <td style="padding: 10px;" class="bg-white">{{ auction_table[i]["bid"] }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {% endif %}
-            </div>
+            {% if isApproved == True %}
+                <div class="bg-green-100 border border-green-400 text-green-800 p-6 rounded-lg shadow-lg">
+                    <h1 class="text-2xl font-bold text-green-900 mb-2">🏆 Winner of the Auction</h1>
+                    <p class="text-lg font-medium">Highest Bidder: <span class="font-semibold">{{ highest_bidder }}</span></p>
+                    <p class="text-lg font-medium">Highest Bid: <span class="font-semibold">₹{{ highest_bid }}</span></p>
+                    <p class="text-lg font-medium">Highest Bidder ID: <span class="font-semibold">{{ highest_bidder_id }}</span></p>
+                </div>
+                <div class="">
+                    {% if auction_table != "" %}
+                    <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; font-family: 'Poppins', sans-serif; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <thead>
+                            <tr style="background-color: #f4f4f4;">
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Merchant ID</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #ddd;">Bid Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in auction_table %}
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 10px;" class="bg-white">{{ auction_table[i]["merchant_id"] }}</td>
+                                <td style="padding: 10px;" class="bg-white">{{ auction_table[i]["bid"] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </div>
+            {% else %}
+                <h1>Waiting for approval</h1>
+            {% endif %}
         </main>
     </div>
 </body>

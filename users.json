@@ -198,7 +198,7 @@
             "email": "eg@gmail.com",
             "password": "eg",
             "registration": "0",
-            "approved": "1"
+            "approved": "0"
         },
         "2": {
             "name": "Merchant",

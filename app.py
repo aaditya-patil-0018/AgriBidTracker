@@ -505,7 +505,7 @@ def merchant_listings(msg=""):
         current_time = datetime.now().strftime("%H:%M")
         current_date = datetime.now().strftime("%Y-%m-%d")
         print(current_time, current_date)  # Example Output: "14:05"
-        return render_template('merchant_listings.html', data=auction_data, msg=msg, current_time=str(current_time), current_date=current_date)
+        return render_template('merchant_listings.html', data=auction_data, msg=msg, current_time=str(current_time), current_date=current_date, approved=isApproved("merchant"))
     except:
         return redirect(url_for("index"))
 
@@ -545,7 +545,7 @@ def merchant_listing_result(aid):
     except:
         highest_bidder_id = highest_bidder
         highest_bidder = users["merchant"][highest_bidder]["registration_data"]["name"]
-    return render_template('merchant_results.html', aid=aid, auction_table=auction_table, highest_bidder=highest_bidder, highest_bid=highest_bid, highest_bidder_id=highest_bidder_id)
+    return render_template('merchant_results.html', aid=aid, auction_table=auction_table, highest_bidder=highest_bidder, highest_bid=highest_bid, highest_bidder_id=highest_bidder_id, approved=isApproved("merchant"))
     
 
 @app.route("/rate_farmer/<fid>", methods=["POST"])
@@ -585,7 +585,7 @@ def merchant_listings_apply(aid, msg=""):
                 auction_table = auct_data[aid]["bidding_details"]
             except:
                 auction_table = ""
-            return render_template('merchant_listing_apply.html', data=auction_data, aid=aid, auction_table=auction_table, msg=msg, farmers=users)
+            return render_template('merchant_listing_apply.html', data=auction_data, aid=aid, auction_table=auction_table, msg=msg, farmers=users, approved=isApproved("merchant"))
         except:
             return redirect(url_for("index"))
     elif request.method == "POST":
@@ -623,7 +623,7 @@ def merchant_dashboard():
             return redirect(url_for("merchant_registration"))
         session["registration"] = True
         
-        return render_template('merchant_dashboard.html')
+        return render_template('merchant_dashboard.html', approved=isApproved("merchant"))
     except:
         return redirect(url_for("index"))
     
@@ -633,7 +633,7 @@ def merchant_profile():
     if session["registration"] == False and read_users()["merchant"][str(session["userid"])]["registration"] == "0":
         return redirect(url_for("merchant_registration"))
     session["registration"] = True
-    return render_template('merchant_profile.html', data=read_users()["merchant"][str(session["userid"])], approval=isApproved("farmer"))
+    return render_template('merchant_profile.html', data=read_users()["merchant"][str(session["userid"])], approved=isApproved("merchant"))
 
 ###########
 ## AGENT ##
