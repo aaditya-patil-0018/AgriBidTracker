@@ -32,55 +32,59 @@
 
         <!-- Main Content -->
         <main class="flex-1 p-8 space-y-8">
-            <h1 class="text-3xl font-bold text-green-700 mb-6">Farmer Auction Data Verification</h1>
+            {% if approved == True %}
+                <h1 class="text-3xl font-bold text-green-700 mb-6">Farmer Auction Data Verification</h1>
 
-            <table class="table-auto w-11/12 max-w-6xl bg-white shadow-md rounded-lg overflow-hidden">
-                <thead>
-                    <tr class="bg-green-600 text-white">
-                        <th class="px-4 py-2">Farmer Name</th>
-                        <th class="px-4 py-2">Crop</th>
-                        <th class="px-4 py-2">Bid Amount</th>
-                        <th class="px-4 py-2">Info</th>
-                        <th class="px-4 py-2">Upload Time</th>
-                        <th class="px-4 py-2">View</th>
-                        <th class="px-4 py-2">Verification</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for farmer_id, farmer in farmers.items() %}
-                        {% if farmer.auction %}
-                            {% for auction_id, auction in farmer.auction.items() %}
-                            <tr class="border-t">
-                                <td class="border px-4 py-2">{{ farmer.name }}</td>
-                                <td class="border px-4 py-2">{{ auction.crop }}</td>
-                                <td class="border px-4 py-2">{{ auction.bid }}</td>
-                                <td class="border px-4 py-2">{{ auction.info }}</td>
-                                <td class="border px-4 py-2">{{ auction.start_time.split(" ")[0] }}</td>
-                                <!-- <td class="border px-4 py-2">{{ current_date }}</td> -->
-                                {% if auction.start_time.split(" ")[0] >= current_date %}
-                                    <td class="border px-4 py-2"><a href="/agent/farmers/verify/{{farmer_id}}/{{auction_id}}" class="text-blue-600 underline">view</a></td>
-                                {% else %}
-                                    <td class="border px-4 py-2"><span class="italic text-gray-600">Expired</span></td>
-                                {% endif %}
-                                <td class="border px-4 py-2">
-                                    {% if auction.verification == "0" %}
-                                        <button class="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-3 rounded">
-                                            Pending
-                                        </button>
+                <table class="table-auto w-11/12 max-w-6xl bg-white shadow-md rounded-lg overflow-hidden">
+                    <thead>
+                        <tr class="bg-green-600 text-white">
+                            <th class="px-4 py-2">Farmer Name</th>
+                            <th class="px-4 py-2">Crop</th>
+                            <th class="px-4 py-2">Bid Amount</th>
+                            <th class="px-4 py-2">Info</th>
+                            <th class="px-4 py-2">Upload Time</th>
+                            <th class="px-4 py-2">View</th>
+                            <th class="px-4 py-2">Verification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for farmer_id, farmer in farmers.items() %}
+                            {% if farmer.auction %}
+                                {% for auction_id, auction in farmer.auction.items() %}
+                                <tr class="border-t">
+                                    <td class="border px-4 py-2">{{ farmer.name }}</td>
+                                    <td class="border px-4 py-2">{{ auction.crop }}</td>
+                                    <td class="border px-4 py-2">{{ auction.bid }}</td>
+                                    <td class="border px-4 py-2">{{ auction.info }}</td>
+                                    <td class="border px-4 py-2">{{ auction.start_time.split(" ")[0] }}</td>
+                                    <!-- <td class="border px-4 py-2">{{ current_date }}</td> -->
+                                    {% if auction.start_time.split(" ")[0] >= current_date %}
+                                        <td class="border px-4 py-2"><a href="/agent/farmers/verify/{{farmer_id}}/{{auction_id}}" class="text-blue-600 underline">view</a></td>
                                     {% else %}
-                                        <span class="text-green-600 font-semibold">Verified</span>
+                                        <td class="border px-4 py-2"><span class="italic text-gray-600">Expired</span></td>
                                     {% endif %}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        {% else %}
-                            <!-- <tr class="border-t">
-                                <td class="border px-4 py-2" colspan="7">No auction data available for {{ farmer.name }}</td>
-                            </tr> -->
-                        {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>
+                                    <td class="border px-4 py-2">
+                                        {% if auction.verification == "0" %}
+                                            <button class="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-3 rounded">
+                                                Pending
+                                            </button>
+                                        {% else %}
+                                            <span class="text-green-600 font-semibold">Verified</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <!-- <tr class="border-t">
+                                    <td class="border px-4 py-2" colspan="7">No auction data available for {{ farmer.name }}</td>
+                                </tr> -->
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <h1>Waiting for Approval</h1>
+            {% endif %}
         </main>
     </div>
 </body>

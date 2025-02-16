@@ -83,8 +83,8 @@
                         "start": "14:20",
                         "end": "16:20",
                         "image": "f582a023-84e3-46ee-a1f9-0f8665218940_image.jpeg",
-                        "started": "0",
-                        "start_time": "0"
+                        "started": "1",
+                        "start_time": "18:59"
                     }
                 },
                 "f8e143e7-ac55-420b-a888-8efed3418ecc": {
@@ -146,7 +146,7 @@
             "email": "farmer@gmail.com",
             "password": "password",
             "registration": "1",
-            "approved": "0",
+            "approved": "1",
             "registration_data": {
                 "name": "IamNewFarmer",
                 "email": "farmer@gmail.com",
@@ -171,6 +171,22 @@
                         "image": "342a1c5e-279a-421a-b3ce-40f452e1df75_image.jpeg",
                         "started": "1",
                         "start_time": "15:20"
+                    }
+                },
+                "e1545888-d89a-48ae-bbbb-0ba9ff407c8b": {
+                    "crop": "Onion",
+                    "bid": "100",
+                    "info": "newnewnewnew",
+                    "start_time": "2025-02-16 18:41:45.352140",
+                    "stop_time": "2025-02-16 18:56:45.352159",
+                    "verification": "1",
+                    "verification_data": {
+                        "quality": "Excellent",
+                        "start": "18:45",
+                        "end": "20:45",
+                        "image": "e1545888-d89a-48ae-bbbb-0ba9ff407c8b_image.jpeg",
+                        "started": "0",
+                        "start_time": "0"
                     }
                 }
             }
@@ -263,7 +279,7 @@
             "email": "agent@gmail.com",
             "password": "password",
             "registration": "1",
-            "approved": "0",
+            "approved": "1",
             "registration_data": {
                 "name": "Agent",
                 "email": "agent@gmail.com",

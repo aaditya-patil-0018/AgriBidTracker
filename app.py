@@ -543,8 +543,12 @@ def merchant_listing_result(aid):
         highest_bidder_id = highest_bidder
         highest_bidder = users["merchant"][highest_bidder]["name"]
     except:
-        highest_bidder_id = highest_bidder
-        highest_bidder = users["merchant"][highest_bidder]["registration_data"]["name"]
+        try:
+            highest_bidder_id = highest_bidder
+            highest_bidder = users["merchant"][highest_bidder]["registration_data"]["name"]
+        except:
+            highest_bidder_id = 0
+            highest_bidder = ""
     return render_template('merchant_results.html', aid=aid, auction_table=auction_table, highest_bidder=highest_bidder, highest_bid=highest_bid, highest_bidder_id=highest_bidder_id, approved=isApproved("merchant"))
     
 
@@ -724,7 +728,7 @@ def agent_dashboard():
                     tv += 1
         except:
             continue
-    return render_template("agent_dashboard.html", tf=tf, ta=ta, tv=tv)
+    return render_template("agent_dashboard.html", tf=tf, ta=ta, tv=tv, approved=isApproved("agent"))
     # except:
     #     return redirect(url_for("index"))
 
@@ -735,7 +739,7 @@ def agent_dashboard_farmer():
         return redirect(url_for("agent_registration"))
     users=read_users()
     current_date = datetime.now().strftime("%Y-%m-%d")
-    return render_template("agent_farmer.html", farmers=users["farmer"], current_date=current_date)
+    return render_template("agent_farmer.html", farmers=users["farmer"], current_date=current_date, approved=isApproved("agent"))
     # except:
     #     return redirect(url_for("index"))
 
@@ -747,7 +751,7 @@ def agent_dashboard_farmer_view(fid, aid):
             return redirect(url_for("agent_registration"))
         users=read_users()
         # return users['farmer'][fid]
-        return render_template("agent_farmer_view.html", farmer_data=users["farmer"][fid], fid=fid, aid=aid)
+        return render_template("agent_farmer_view.html", farmer_data=users["farmer"][fid], fid=fid, aid=aid, approved=isApproved("agent"))
     elif request.method == "POST":
         product_image = request.files.get('product_image')
 
@@ -780,7 +784,7 @@ def agent_produce_verify():
     try:
         if session["registration"] == False and read_users()["agent"][str(session["userid"])]["registration"] == "0":
             return redirect(url_for("agent_registration"))
-        return render_template("agent_quality_verify.html")
+        return render_template("agent_quality_verify.html", approved=isApproved("agent"))
     except:
         return redirect(url_for("index"))
 

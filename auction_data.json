@@ -151,5 +151,12 @@
                 "bid": "600"
             }
         }
+    },
+    "e1545888-d89a-48ae-bbbb-0ba9ff407c8b": {
+        "status": "opened",
+        "highest_bid": 0,
+        "highest_bid_id": "",
+        "bidder_details": {},
+        "bidding_details": {}
     }
 }

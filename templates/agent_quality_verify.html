@@ -82,17 +82,21 @@
         </aside>
 
         <main class="flex-1 p-8 space-y-8">
-            <h1 class="text-4xl font-bold text-center mb-8 text-gray-800">Farmer Auction Details</h1>
+            {% if approved == True %}
+                <h1 class="text-4xl font-bold text-center mb-8 text-gray-800">Farmer Auction Details</h1>
 
-            <div class="flex justify-center mb-6">
-                <button type="button" class="bg-green-600 text-white p-3 pl-8 pr-8 rounded-full hover:bg-green-700" onclick="init()">Start Camera & AI Model</button>
-            </div>
+                <div class="flex justify-center mb-6">
+                    <button type="button" class="bg-green-600 text-white p-3 pl-8 pr-8 rounded-full hover:bg-green-700" onclick="init()">Start Camera & AI Model</button>
+                </div>
 
-            <div class="camera-container flex justify-center">
-                <div id="webcam-container"></div>
-            </div>
+                <div class="camera-container flex justify-center">
+                    <div id="webcam-container"></div>
+                </div>
 
-            <div id="label-container" class="flex flex-col items-center mt-6 space-y-4"></div>
+                <div id="label-container" class="flex flex-col items-center mt-6 space-y-4"></div>
+            {% else %}
+                <h1>Waiting for Approval</h1>
+            {% endif %}
         </main>
     </div>
 
