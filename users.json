@@ -185,8 +185,24 @@
                         "start": "18:45",
                         "end": "20:45",
                         "image": "e1545888-d89a-48ae-bbbb-0ba9ff407c8b_image.jpeg",
-                        "started": "0",
-                        "start_time": "0"
+                        "started": "1",
+                        "start_time": "19:20"
+                    }
+                },
+                "9e1c9e34-57e5-4ae6-a70b-d15a8a09592e": {
+                    "crop": "Garlic",
+                    "bid": "300",
+                    "info": "new garlic auction",
+                    "start_time": "2025-02-18 18:45:28.379975",
+                    "stop_time": "2025-02-18 19:00:28.379988",
+                    "verification": "1",
+                    "verification_data": {
+                        "quality": "Excellent",
+                        "start": "19:00",
+                        "end": "20:00",
+                        "image": "9e1c9e34-57e5-4ae6-a70b-d15a8a09592e_image.jpeg",
+                        "started": "1",
+                        "start_time": "19:02"
                     }
                 }
             }

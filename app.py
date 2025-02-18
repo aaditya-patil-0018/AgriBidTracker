@@ -622,14 +622,74 @@ def merchant_listings_get_notify():
 
 @app.route("/merchant/dashboard")
 def merchant_dashboard():
-    try:
-        if session["registration"] == False and read_users()["merchant"][str(session["userid"])]["registration"] == "0":
-            return redirect(url_for("merchant_registration"))
-        session["registration"] = True
-        
-        return render_template('merchant_dashboard.html', approved=isApproved("merchant"))
-    except:
-        return redirect(url_for("index"))
+    # try:
+    if session["registration"] == False and read_users()["merchant"][str(session["userid"])]["registration"] == "0":
+        return redirect(url_for("merchant_registration"))
+    
+    session["registration"] = True
+    uid = session["userid"]
+    auction = Auction()
+    auct_data = auction.get_auction_data()
+    highest_bid = []
+    highest_bidder = []
+    newdata = {}
+    auction_data = {}
+
+    with open("users.json", "r") as f:
+        users = json.load(f)['farmer']
+    auction_data = {}
+    for user in users:
+        if "auction" in users[user]:
+            for aid in users[user]["auction"]:
+                auction_data[user] = users[user]["auction"]
+    
+                if aid in auct_data:
+                    auction_data[aid] = auct_data[aid]
+                    newdata[aid] = {}
+                    for i in auct_data[aid]["bidding_details"]:
+                        try:
+                            highest_bid.append(auct_data[aid]["bidding_details"][i]["bid"])
+                            highest_bidder.append(auct_data[aid]["bidding_details"][i]["merchant_id"].split("d")[-1])
+                            newdata[aid]["bid"] = auct_data[aid]["bidding_details"][i]["bid"]
+                            newdata[aid]["bidder"] = auct_data[aid]["bidding_details"][i]["merchant_id"].split("d")[-1]
+                            newdata[aid]["auction_data"] = users[user]["auction"][aid]
+                        except:
+                            highest_bid.append(i[0])
+                            highest_bidder.append(i)
+                            newdata[aid]["bid"] = i[0]
+                            newdata[aid]["bidder"] = i
+                            newdata[aid]["auction_data"] = users[user]["auction"][aid]
+    won = {}
+    for n in newdata:
+        # print(n["bidder"])
+        try:
+            if newdata[n]["bidder"] == str(uid):
+                won[n] = {}
+                won[n]["bid"] = newdata[n]["bid"]
+                won[n]["auction_data"] = newdata[n]["auction_data"]
+        except:
+            continue
+                # return auction_data
+                # try:
+                #     auction_table = auct_data[aid]["bidding_details"]
+                # except:
+                #     auction_table = ""
+                # with open("users.json", "r") as f:
+                #     users = json.load(f)
+                # try:
+                #     highest_bidder_id = highest_bidder
+                #     highest_bidder = users["merchant"][highest_bidder]["name"]
+                # except:
+                #     try:
+                #         highest_bidder_id = highest_bidder
+                #         highest_bidder = users["merchant"][highest_bidder]["registration_data"]["name"]
+                #     except:
+                #         highest_bidder_id = 0
+                #         highest_bidder = ""
+
+    return render_template('merchant_dashboard.html', approved=isApproved("merchant"), won=won)
+    # except:
+    #     return redirect(url_for("index"))
     
 @app.route('/merchant/profile')
 def merchant_profile():
@@ -903,6 +963,7 @@ def admin_auction():
         users = read_users()
         farmer = users["farmer"]
         current_date = datetime.now().strftime("%Y-%m-%d")
+        current_time = datetime.now().strftime("%H:%M")
         farmer_data = {}
         for i in farmer:
             if "auction" in farmer[i]:
@@ -913,7 +974,7 @@ def admin_auction():
                         except:
                             pass
             farmer_data[i] = farmer[i]
-        return render_template("admin_auction.html", farmer=farmer_data, current_date=current_date)
+        return render_template("admin_auction.html", farmer=farmer_data, current_date=current_date, current_time=current_time)
     else:
         return redirect(url_for("admin_login"))
 
