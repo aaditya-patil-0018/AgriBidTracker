@@ -165,5 +165,12 @@
         "highest_bid_id": "",
         "bidder_details": {},
         "bidding_details": {}
+    },
+    "14edfea5-f44f-45d0-9b0b-faff576a210f": {
+        "status": "opened",
+        "highest_bid": 0,
+        "highest_bid_id": "",
+        "bidder_details": {},
+        "bidding_details": {}
     }
 }

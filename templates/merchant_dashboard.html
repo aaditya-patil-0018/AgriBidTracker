@@ -63,7 +63,7 @@
                         <div>
                             <h3 class="text-lg font-semibold text-gray-800">{{ bid }}</h3>
                             <p class="text-gray-700 mt-1">Crop: {{ won[bid]["auction_data"]["crop"] }}</p>
-                            <p class="text-gray-700">Price: ₹{{ won[bid]["bid"] }}</p>
+                            <p class="text-gray-700">Price: ₹{{ won[bid]["bid"] | int * won[bid]["packets"] | int }}</p>
                             <p class="text-gray-700">Date: {{ won[bid]["auction_data"]["start_time"].split(" ")[0] }}</p>
                         </div>
                         <a href="/merchant/dashboard/listing/{{bid}}/result" class="mt-4">

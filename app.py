@@ -302,7 +302,7 @@ def farmer_profile():
         if session["registration"] == False and read_users()["farmer"][str(session["userid"])]["registration"] == "0":
             return redirect(url_for("farmer_registration"))
         session["registration"] = True
-        return render_template('farmer_profile.html', data=read_users()["farmer"][str(session["userid"])], approval=isApproved("farmer"))
+        return render_template('farmer_profile.html', userid=str(session["userid"]), data=read_users()["farmer"][str(session["userid"])], approval=isApproved("farmer"))
     except:
         return redirect(url_for("index"))
 
@@ -398,11 +398,13 @@ def farmer_dashboard_inventory(msg=""):
         data = {
             "crop": request.form.get("selected_crop"),
             "bid": request.form.get("bid"),
+            "packets": request.form.get("packets"),
             "info": request.form.get("info"),
             "start_time": str(datetime.now()),
             "stop_time": str(datetime.now() + timedelta(minutes=15)),
             "verification": "0"
         }
+        
         auction = Auction()
         auction_id = auction.create_auction()
 
@@ -651,12 +653,14 @@ def merchant_dashboard():
                             highest_bid.append(auct_data[aid]["bidding_details"][i]["bid"])
                             highest_bidder.append(auct_data[aid]["bidding_details"][i]["merchant_id"].split("d")[-1])
                             newdata[aid]["bid"] = auct_data[aid]["bidding_details"][i]["bid"]
+                            newdata[aid]["packets"] = users[user]["auction"][aid]["packets"]
                             newdata[aid]["bidder"] = auct_data[aid]["bidding_details"][i]["merchant_id"].split("d")[-1]
                             newdata[aid]["auction_data"] = users[user]["auction"][aid]
                         except:
                             highest_bid.append(i[0])
                             highest_bidder.append(i)
-                            newdata[aid]["bid"] = i[0]
+                            newdata[aid]["bid"] = int(i[0])
+                            newdata[aid]["packets"] = int(users[user]["auction"][aid]["packets"])
                             newdata[aid]["bidder"] = i
                             newdata[aid]["auction_data"] = users[user]["auction"][aid]
     won = {}
@@ -666,6 +670,7 @@ def merchant_dashboard():
             if newdata[n]["bidder"] == str(uid):
                 won[n] = {}
                 won[n]["bid"] = newdata[n]["bid"]
+                won[n]["packets"] = newdata[n]["packets"]
                 won[n]["auction_data"] = newdata[n]["auction_data"]
         except:
             continue
@@ -697,7 +702,7 @@ def merchant_profile():
     if session["registration"] == False and read_users()["merchant"][str(session["userid"])]["registration"] == "0":
         return redirect(url_for("merchant_registration"))
     session["registration"] = True
-    return render_template('merchant_profile.html', data=read_users()["merchant"][str(session["userid"])], approved=isApproved("merchant"))
+    return render_template('merchant_profile.html', userid=str(session["userid"]),  data=read_users()["merchant"][str(session["userid"])], approved=isApproved("merchant"))
 
 ###########
 ## AGENT ##

@@ -88,7 +88,7 @@
     contactNumber.addEventListener('input', () => {
         const maxLength = 10; // Maximum allowed digits
         if (contactNumber.value.length > maxLength) {
-            alert('Bid amount cannot exceed 10 digits.');
+            alert('Contact number cannot exceed 10 digits.');
             contactNumber.value = contactNumber.value.slice(0, maxLength);
         }
 

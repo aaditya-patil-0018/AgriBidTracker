@@ -58,7 +58,7 @@
                     <div class="flex items-center space-x-6">
                         <div>
                             <h2 class="text-3xl font-bold text-gray-800">{{ data["name"] }}</h2>
-                            <p class="text-lg text-gray-600">Farmer at {{ data["registration_data"]["address"] }}</p>
+                            <p class="text-lg text-gray-600">Merchant at {{ data["registration_data"]["address"] }}</p>
                             <p class="text-sm text-gray-500">Contact: <span class="font-medium">{{ data["registration_data"]["contact"] }}</span></p>
                         </div>
                     </div>
@@ -66,8 +66,9 @@
 
                 <!-- Farmer Details -->
                 <div class="bg-white shadow-lg rounded-lg p-6">
-                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Farmer Information</h3>
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-4">Merchant Information</h3>
                     <div class="grid grid-cols-2 gap-4">
+                        <p><span class="font-semibold text-gray-600">Userid:</span> {{ userid }}</p>
                         <p><span class="font-semibold text-gray-600">Email:</span> {{ data["email"] }}</p>
                         <p><span class="font-semibold text-gray-600">Contact:</span> {{ data["registration_data"]["contact"] }}</p>
                         <p><span class="font-semibold text-gray-600">Address:</span> {{ data["registration_data"]["address"] }}</p>
