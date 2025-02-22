@@ -54,7 +54,11 @@
         <main class="flex-1 p-8 space-y-8">
             {% if approved == True %}
                 <div class="bg-green-100 border border-green-400 text-green-800 p-6 rounded-lg shadow-lg">
-                    <h1 class="text-2xl font-bold text-green-900 mb-2">🏆 Winner of the Auction</h1>
+                    {% if userid == highest_bidder_id %}
+                        <h1 class="text-2xl font-bold text-green-900 mb-2">🏆 YOU are Winner of the Auction</h1>
+                    {% else %}
+                        <h1 class="text-2xl font-bold text-green-900 mb-2">🏆 Winner of the Auction</h1>
+                    {% endif %}
                     <p class="text-lg font-medium">Highest Bidder: <span class="font-semibold">{{ highest_bidder }}</span></p>
                     <p class="text-lg font-medium">Highest Bid: <span class="font-semibold">₹{{ highest_bid }}</span></p>
                     <p class="text-lg font-medium">Highest Bidder ID: <span class="font-semibold">{{ highest_bidder_id }}</span></p>

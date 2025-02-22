@@ -172,5 +172,25 @@
         "highest_bid_id": "",
         "bidder_details": {},
         "bidding_details": {}
+    },
+    "4d8b31d9-dcf6-42a3-9912-60e82a85e1df": {
+        "status": "opened",
+        "highest_bid": "300",
+        "highest_bid_id": "2",
+        "bidder_details": {
+            "2": [
+                "300"
+            ]
+        },
+        "bidding_details": {
+            "1": {
+                "merchant_id": "2",
+                "bid": "250"
+            },
+            "2": {
+                "merchant_id": "2",
+                "bid": "300"
+            }
+        }
     }
 }

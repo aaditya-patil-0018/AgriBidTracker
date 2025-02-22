@@ -135,7 +135,7 @@
             "email": "newfarmer@gmail.com",
             "password": "password",
             "registration": "1",
-            "approved": "0",
+            "approved": "1",
             "registration_data": {
                 "name": "newfarmer",
                 "email": "newfarmer@gmail.com",
@@ -144,6 +144,31 @@
                 "farm_address": "nashik",
                 "aadhar_card": "4_aadhar.pdf",
                 "seven_doc": "4_seven.pdf"
+            },
+            "auction": {
+                "4d8b31d9-dcf6-42a3-9912-60e82a85e1df": {
+                    "crop": "Potato",
+                    "bid": "200",
+                    "packets": "10",
+                    "info": "These are fresh potatoes",
+                    "start_time": "2025-02-22 17:13:00.840666",
+                    "stop_time": "2025-02-22 17:28:00.840687",
+                    "verification": "1",
+                    "verification_data": {
+                        "quality": "Excellent",
+                        "start": "17:15",
+                        "end": "18:15",
+                        "image": "4d8b31d9-dcf6-42a3-9912-60e82a85e1df_image.jpeg",
+                        "started": "1",
+                        "start_time": "17:15"
+                    }
+                }
+            },
+            "rating": {
+                "2": {
+                    "stars": "5",
+                    "feedback": "Great Farmer"
+                }
             }
         },
         "5": {

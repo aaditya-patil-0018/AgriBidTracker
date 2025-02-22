@@ -552,11 +552,11 @@ def merchant_listing_result(aid):
         except:
             highest_bidder_id = 0
             highest_bidder = ""
-    return render_template('merchant_results.html', aid=aid, auction_table=auction_table, highest_bidder=highest_bidder, highest_bid=highest_bid, highest_bidder_id=highest_bidder_id, approved=isApproved("merchant"))
+    return render_template('merchant_results.html', aid=aid, userid=str(session["userid"]), auction_table=auction_table, highest_bidder=highest_bidder, highest_bid=highest_bid, highest_bidder_id=highest_bidder_id, approved=isApproved("merchant"))
     
 
-@app.route("/rate_farmer/<fid>", methods=["POST"])
-def rate_farmer(fid):
+@app.route("/rate_farmer/<aid>/<fid>", methods=["POST"])
+def rate_farmer(aid, fid):
     if request.method == "POST":
         with open("users.json", "r") as f:
             users = json.load(f)
@@ -568,7 +568,7 @@ def rate_farmer(fid):
         }
         with open("users.json", "w") as f:
             json.dump(users, f, indent=4)
-        return "Thanks for rating the farmer"
+        return redirect(f"/merchant/dashboard/listing/apply/{aid}/Thanks for rating the farmer")
 
 @app.route("/merchant/dashboard/listing/apply/<aid>", methods=["GET", "POST"])
 @app.route("/merchant/dashboard/listing/apply/<aid>/<msg>", methods=["GET", "POST"])

@@ -113,7 +113,7 @@
                                 <h3 class="font-bold mt-2">Address: {{ farmers[farmer]["registration_data"]["address"] }}</h3>
                                 
                                 <!-- Rating Form -->
-                                <form action="/rate_farmer/{{farmer}}" method="POST" class="mt-4">
+                                <form action="/rate_farmer/{{aid}}/{{farmer}}" method="POST" class="mt-4">
                                     <input type="hidden" name="farmer_id" value="{{ farmer }}">
                                     
                                     <label class="font-medium">Rate this Farmer:</label>
