@@ -165,7 +165,7 @@
                 "342a1c5e-279a-421a-b3ce-40f452e1df75": {
                     "crop": "Potato",
                     "bid": "500",
-                    "packets": "10",
+                    "packets": "30",
                     "info": "new new potato",
                     "start_time": "2025-02-15 15:18:18.672166",
                     "stop_time": "2025-02-15 15:33:18.672180",
@@ -182,7 +182,7 @@
                 "e1545888-d89a-48ae-bbbb-0ba9ff407c8b": {
                     "crop": "Onion",
                     "bid": "100",
-                    "packets": "10",
+                    "packets": "20",
                     "info": "newnewnewnew",
                     "start_time": "2025-02-16 18:41:45.352140",
                     "stop_time": "2025-02-16 18:56:45.352159",

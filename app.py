@@ -310,7 +310,7 @@ def farmer_profile():
 def farmer_dashboard():
     try:
         if session["registration"] == False and read_users()["farmer"][str(session["userid"])]["registration"] == "0":
-            print("True")
+            # print("True")
             return redirect(url_for("farmer_registration"))
         session["registration"] = True
         data=read_users()["farmer"][str(session["userid"])]
@@ -326,7 +326,8 @@ def farmer_dashboard():
         try:
             for auction_id in data["auction"]:
                 ad = auction_data.get_auction_data(auction_id=auction_id)
-                tf += int(ad["highest_bid"])
+                print(auction_id, int(ad["highest_bid"]) , int(data["auction"][auction_id]["packets"]))
+                tf += int(ad["highest_bid"]) * int(data["auction"][auction_id]["packets"])
                 if data["auction"][auction_id]["verification"] == "0":
                     pr += 1
                 else:
