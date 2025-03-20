@@ -28,7 +28,7 @@ class Auction:
             json.dump(self.data, file, indent=4)
         self.get_auction_data()
 
-    def create_auction(self):
+    def create_auction(self, bidstart=0):
         all_auction_id = self.get_all_auction_id()
         uuid_assigned = False
         while uuid_assigned == False:
@@ -40,7 +40,7 @@ class Auction:
         self.highest_bid = 0
         self.data[self.auction_id] = {
             "status": self.auction_status,
-            "highest_bid": 0,
+            "highest_bid": bidstart,
             "highest_bid_id": "",
             "bidder_details": {},
             "bidding_details": {}

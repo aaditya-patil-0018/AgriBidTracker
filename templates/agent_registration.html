@@ -20,6 +20,13 @@
         <center><img src="/static/icons/logo.jpeg" width="64px" class="mb-4" alt=""></center>
         <h1 class="text-3xl font-bold text-center text-green-600 mb-6">Farmer Registration</h1>
         <form action="/agent/registration" method="post" enctype="multipart/form-data">
+            {% if message != "" %}
+                <div id="messageBox" class="bg-green-200 rounded-md p-2 m-2">
+                    <h1 class="text-xl text-red-600 text-center">
+                        {{message}}
+                    </h1>
+                </div>
+            {% endif %} 
             <!-- First and Last Name -->
             <div class="flex flex-wrap -mx-4">
                 <div class="w-full md:w-1/2 px-4 mb-4">
@@ -99,5 +106,13 @@
             alert("Passwords do not match. Please try again.");
         }
     });
+
+    setTimeout(function () {
+        let messageDiv = document.getElementById("messageBox");
+        if (messageDiv) {
+            messageDiv.style.display = "none";
+            location.href='/agent/registration';
+        }
+    }, 3000); // 3 seconds
 </script>
 </html>

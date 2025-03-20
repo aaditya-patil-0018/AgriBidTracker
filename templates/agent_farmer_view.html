@@ -34,6 +34,11 @@
         <main class="flex-1 p-8 space-y-8">
             {% if approved == True %}
                 <h1 class="text-3xl font-bold text-center mb-8">Farmer Auction Details</h1>
+                {% if message != "" %}
+                    <div id="messageBox" class="bg-green-200 p-4 rounded-md m-4">
+                        <h1 class="text-red-600 text-xl text-center">{{message}}</h1>
+                    </div>
+                {% endif %}
                 <div class="flex">
                     {% for auction_id, auction_details in farmer_data.auction.items() %}
                     {% if auction_id == aid %}
@@ -173,5 +178,11 @@
             frequencyMap[a] > frequencyMap[b] ? a : b
         );
     }
+    setTimeout(function () {
+        let messageDiv = document.getElementById("messageBox");
+        if (messageDiv) {
+            messageDiv.style.display = "none";
+        }
+    }, 3000); // 3 seconds
 </script>
 </html>

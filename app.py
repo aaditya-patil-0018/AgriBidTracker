@@ -179,6 +179,82 @@ def farmer_uploads(filename=""):
     if session["usertype"] == "merchant":
         upload_folder = "uploads/"
         return send_from_directory(upload_folder, filename, as_attachment=False)
+    
+
+@app.route("/uploads/images/<filename>")
+@app.route("/uploads/images")
+def farmer_uploads_images(filename=""):
+    if not filename:  # Properly check if filename is empty
+        return "File is not present in the system!", 404
+
+    if "usertype" not in session:
+        return "Unauthorized access!", 403
+
+    image_path = os.path.join(UPLOAD_FOLDER, filename)
+
+    if session["usertype"] == "farmer":
+        try:
+            user_id = str(session["userid"])
+            file_owner_id = str(filename.split("_")[0])
+
+            if file_owner_id == user_id:
+                if os.path.exists(image_path):
+                    return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=False)
+                
+                # Check if PNG version of the file exists
+                png_filename = f"{filename[2:].split('.')[0]}.png"
+                png_path = os.path.join(UPLOAD_FOLDER, png_filename)
+
+                if os.path.exists(png_path):
+                    return redirect(url_for("farmer_uploads_images", filename=png_filename))
+
+                # Check if PNG version of the file exists
+                jpg_filename = f"{filename[2:].split('.')[0]}.jpg"
+                jpg_path = os.path.join(UPLOAD_FOLDER, jpg_filename)
+
+                if os.path.exists(jpg_path):
+                    return redirect(url_for("farmer_uploads_images", filename=jpg_filename))
+
+                # Check if PNG version of the file exists
+                jpeg_filename = f"{filename[2:].split('.')[0]}.jpeg"
+                jpeg_path = os.path.join(UPLOAD_FOLDER, jpeg_filename)
+
+                if os.path.exists(jpeg_path):
+                    return redirect(url_for("farmer_uploads_images", filename=jpeg_filename))
+
+                return "File is not present in the system!", 404
+            return "You aren't allowed to access another user's file.", 403
+        except Exception as e:
+            return f"Error: {str(e)}", 500
+
+    elif session["usertype"] == "merchant":
+        if os.path.exists(image_path):
+            return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=False)
+
+        # Check if PNG version of the file exists
+        png_filename = f"{filename[2:].split('.')[0]}.png"
+        png_path = os.path.join(UPLOAD_FOLDER, png_filename)
+
+        if os.path.exists(png_path):
+            return redirect(url_for("farmer_uploads_images", filename=png_filename))
+
+        # Check if PNG version of the file exists
+        jpg_filename = f"{filename[2:].split('.')[0]}.jpg"
+        jpg_path = os.path.join(UPLOAD_FOLDER, jpg_filename)
+
+        if os.path.exists(jpg_path):
+            return redirect(url_for("farmer_uploads_images", filename=jpg_filename))
+
+        # Check if PNG version of the file exists
+        jpeg_filename = f"{filename[2:].split('.')[0]}.jpeg"
+        jpeg_path = os.path.join(UPLOAD_FOLDER, jpeg_filename)
+
+        if os.path.exists(jpeg_path):
+            return redirect(url_for("farmer_uploads_images", filename=jpeg_filename))
+
+        return "File is not present in the system!", 404
+
+    return "Invalid user type!", 403
 
 # Custom 404 Error Handler
 @app.errorhandler(404)
@@ -189,13 +265,14 @@ def page_not_found(e):
 ## FARMER ##
 ############
 
+@app.route("/farmer/registration/<message>", methods=["GET", "POST"])
 @app.route("/farmer/registration", methods=["GET", "POST"])
-def farmer_registration():
+def farmer_registration(message=""):
     if "user" in session:
         if session["user"] != False:
             if request.method == "GET":
                 if session["user"] == True and session["usertype"] == "farmer" and session["registration"] == False:
-                    return render_template("farmer_registration.html")
+                    return render_template("farmer_registration.html", message=message)
                 else:
                     return "this should return to dashboard/something"
             elif request.method == "POST":
@@ -218,13 +295,13 @@ def farmer_registration():
 
                     # Save Aadhar card with custom name
                     if aadhar_card and allowed_file(aadhar_card.filename):
-                        aadhar_filename = f"{user_id}_aadhar.{aadhar_card.filename.split(".")[-1]}"
+                        aadhar_filename = f"{user_id}_aadhar.{aadhar_card.filename.split('.')[-1]}"
                         aadhar_path = os.path.join(app.config['UPLOAD_FOLDER'], aadhar_filename)
                         aadhar_card.save(aadhar_path)
 
                     # Save 7/12 document with custom name
                     if seven_doc and allowed_file(seven_doc.filename):
-                        seven_filename = f"{user_id}_seven.{seven_doc.filename.split(".")[-1]}"
+                        seven_filename = f"{user_id}_seven.{seven_doc.filename.split('.')[-1]}"
                         seven_path = os.path.join(app.config['UPLOAD_FOLDER'], seven_filename)
                         seven_doc.save(seven_path)
                     
@@ -236,15 +313,18 @@ def farmer_registration():
                         
                         # Update farmer data
                         farmers = users["farmer"]
-                        farmers[str(user_id)]["registration_data"] = {
-                            "name": name,
-                            "email": email,
-                            "contact": contact,
-                            "address": address,
-                            "farm_address": farm_address,
-                            "aadhar_card": aadhar_filename,
-                            "seven_doc": seven_filename,
-                        }
+                        try:
+                            farmers[str(user_id)]["registration_data"] = {
+                                "name": name,
+                                "email": email,
+                                "contact": contact,
+                                "address": address,
+                                "farm_address": farm_address,
+                                "aadhar_card": aadhar_filename,
+                                "seven_doc": seven_filename,
+                            }
+                        except:
+                            return redirect("/farmer/registration/Please attach files properly")
 
                         with open("users.json", "w") as f:
                             json.dump(users, f, indent=4)
@@ -382,7 +462,7 @@ def farmer_dashboard_requests_view(aid):
     except:
         highest_bidder_id = highest_bidder
         highest_bidder = users["merchant"][highest_bidder]["registration_data"]["name"]
-    return render_template('farmer_dashboard_requests_view.html', aid=aid, auction_table=auction_table, approval=isApproved("farmer"), highest_bidder=highest_bidder, highest_bid=highest_bid, highest_bidder_id=highest_bidder_id)
+    return render_template('farmer_dashboard_requests_view.html', aid=aid, uid=str(session['userid']), auction_table=auction_table, approval=isApproved("farmer"), highest_bidder=highest_bidder, highest_bid=highest_bid, highest_bidder_id=highest_bidder_id)
     return farmer
     # return render_template('farmer_dashboard_requests.html', approval=isApproved("farmer"), farmer=farmer)
 
@@ -407,7 +487,7 @@ def farmer_dashboard_inventory(msg=""):
         }
         
         auction = Auction()
-        auction_id = auction.create_auction()
+        auction_id = auction.create_auction(bidstart=int(data["bid"]))
 
         with open("users.json", "r") as f:
             users = json.load(f)
@@ -430,14 +510,15 @@ def farmer_dashboard_inventory(msg=""):
 ## MERCHANT ##
 ##############
 
+@app.route("/merchant/registration/<message>")
 @app.route("/merchant/registration", methods=["GET", "POST"])
-def merchant_registration():
+def merchant_registration(message=""):
     if "user" in session:
         if session["user"] != False:
             if request.method == "GET":
                 user_id = session["userid"]
                 print(user_id)
-                return render_template("merchant_registration.html")
+                return render_template("merchant_registration.html", message=message)
             elif request.method == "POST":
                 aadhar_card = request.files.get('aadhar_card')
                 license = request.files.get('license')
@@ -456,15 +537,18 @@ def merchant_registration():
                     license_path = os.path.join(app.config['UPLOAD_FOLDER'], license_filename)
                     license.save(license_path)
 
-                data = {
-                    "name": f"{request.form.get('fname')} {request.form.get('lname')}",
-                    "email": request.form.get("email"),
-                    "contact": request.form.get("contact"),
-                    "address": request.form.get("address"),
-                    "aadhar": aadhar_filename,
-                    "license": license_filename
-                }
-
+                try:
+                    data = {
+                        "name": f"{request.form.get('fname')} {request.form.get('lname')}",
+                        "email": request.form.get("email"),
+                        "contact": request.form.get("contact"),
+                        "address": request.form.get("address"),
+                        "aadhar": aadhar_filename,
+                        "license": license_filename
+                    }
+                except UnboundLocalError:
+                    return redirect("/merchant/registration/Please attach files properly.")
+                
                 with open("users.json", "r") as f:
                     users = json.load(f)
                 
@@ -709,13 +793,14 @@ def merchant_profile():
 ## AGENT ##
 ###########
 
+@app.route("/agent/registration/<message>", methods=["GET", "POST"])
 @app.route("/agent/registration", methods=["GET", "POST"])
-def agent_registration():
+def agent_registration(message=""):
     if "user" in session:
         if session["user"] != False:
             if request.method == "GET":
                 if session["user"] == True and session["usertype"] == "agent" and session["registration"] == False:
-                    return render_template("agent_registration.html")
+                    return render_template("agent_registration.html", message=message)
                 else:
                     return redirect(url_for("agent_dashboard"))
             elif request.method == "POST":
@@ -746,17 +831,19 @@ def agent_registration():
                     try:
                         with open("users.json", "r") as f:
                             users = json.load(f)
-                        
-                        # Update farmer data
-                        agent = users["agent"]
-                        agent[str(user_id)]["registration"] = "1"
-                        agent[str(user_id)]["registration_data"] = {
-                            "name": name,
-                            "email": email,
-                            "contact": contact,
-                            "address": address,
-                            "aadhar_card": aadhar_filename,
-                        }
+                        try:
+                            # Update farmer data
+                            agent = users["agent"]
+                            agent[str(user_id)]["registration"] = "1"
+                            agent[str(user_id)]["registration_data"] = {
+                                "name": name,
+                                "email": email,
+                                "contact": contact,
+                                "address": address,
+                                "aadhar_card": aadhar_filename,
+                            }
+                        except:
+                            return redirect("/agent/registration/Please attach files properly")
 
                         with open("users.json", "w") as f:
                             json.dump(users, f, indent=4)
@@ -809,15 +896,16 @@ def agent_dashboard_farmer():
     # except:
     #     return redirect(url_for("index"))
 
+@app.route("/agent/farmers/verify/<fid>/<aid>/<message>", methods=["GET", "POST"])
 @app.route("/agent/farmers/verify/<fid>/<aid>", methods=["GET", "POST"])
-def agent_dashboard_farmer_view(fid, aid):
+def agent_dashboard_farmer_view(fid, aid, message=""):
     # try:
     if request.method == "GET":
         if session["registration"] == False and read_users()["agent"][str(session["userid"])]["registration"] == "0":
             return redirect(url_for("agent_registration"))
         users=read_users()
         # return users['farmer'][fid]
-        return render_template("agent_farmer_view.html", farmer_data=users["farmer"][fid], fid=fid, aid=aid, approved=isApproved("agent"))
+        return render_template("agent_farmer_view.html", farmer_data=users["farmer"][fid], fid=fid, aid=aid, approved=isApproved("agent"), message=message)
     elif request.method == "POST":
         product_image = request.files.get('product_image')
 
@@ -826,15 +914,18 @@ def agent_dashboard_farmer_view(fid, aid):
             product_filename = f"{aid}_image.{product_image.filename.split(".")[-1]}"
             product_path = os.path.join(app.config['UPLOAD_FOLDER'], product_filename)
             product_image.save(product_path)
-
-        data = {
-            "quality": request.form.get("quality"),
-            "start": request.form.get("starttime"),
-            "end": request.form.get("endtime"),
-            "image": product_filename,
-            "started": "0",
-            "start_time": "0"
-        }
+        
+        try:
+            data = {
+                "quality": request.form.get("quality"),
+                "start": request.form.get("starttime"),
+                "end": request.form.get("endtime"),
+                "image": product_filename,
+                "started": "0",
+                "start_time": "0"
+            }
+        except:
+            return redirect(f"/agent/farmers/verify/{fid}/{aid}/Please attach the image file properly")
 
         users = read_users()
         users["farmer"][fid]["auction"][aid]["verification"] = "1"

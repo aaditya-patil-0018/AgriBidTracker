@@ -254,6 +254,40 @@
                         "started": "1",
                         "start_time": "18:40"
                     }
+                },
+                "555b2f37-0dac-469d-875c-8038322dd1e0": {
+                    "crop": "Onion",
+                    "bid": "200",
+                    "packets": "10",
+                    "info": "Good Onions",
+                    "start_time": "2025-03-20 18:16:43.415247",
+                    "stop_time": "2025-03-20 18:31:43.415276",
+                    "verification": "1",
+                    "verification_data": {
+                        "quality": "Excellent",
+                        "start": "18:45",
+                        "end": "19:45",
+                        "image": "555b2f37-0dac-469d-875c-8038322dd1e0_image.jpeg",
+                        "started": "1",
+                        "start_time": "18:46"
+                    }
+                },
+                "042d2c32-4915-48ce-9f4c-24298fb4fcc2": {
+                    "crop": "Potato",
+                    "bid": "500",
+                    "packets": "50",
+                    "info": "Naye Naye Aalu",
+                    "start_time": "2025-03-20 18:53:54.058254",
+                    "stop_time": "2025-03-20 19:08:54.058268",
+                    "verification": "1",
+                    "verification_data": {
+                        "quality": "Excellent",
+                        "start": "18:58",
+                        "end": "19:54",
+                        "image": "042d2c32-4915-48ce-9f4c-24298fb4fcc2_image.jpeg",
+                        "started": "1",
+                        "start_time": "18:58"
+                    }
                 }
             }
         },
@@ -272,6 +306,13 @@
                 "aadhar_card": "6_aadhar.pdf",
                 "seven_doc": "6_seven.pdf"
             }
+        },
+        "7": {
+            "name": "Very new Farmer",
+            "email": "verynewfarmer@gmail.com",
+            "password": "password",
+            "registration": "1",
+            "approved": "0"
         }
     },
     "merchant": {
@@ -331,6 +372,12 @@
                 "aadhar": "merchant_5_aadhar.pdf",
                 "license": "merchant_5_license.pdf"
             }
+        },
+        "6": {
+            "email": "verynewmerchant@gmail.com",
+            "password": "password",
+            "registration": "0",
+            "approved": "0"
         }
     },
     "agent": {
@@ -366,6 +413,13 @@
                 "address": "nashik",
                 "aadhar_card": "agent_3_aadhar.pdf"
             }
+        },
+        "4": {
+            "name": "Very new Agent",
+            "email": "verynewagent@gmail.com",
+            "password": "password",
+            "registration": "1",
+            "approved": "0"
         }
     }
 }
