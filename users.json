@@ -311,8 +311,24 @@
             "name": "Very new Farmer",
             "email": "verynewfarmer@gmail.com",
             "password": "password",
-            "registration": "1",
+            "registration": "0",
             "approved": "0"
+        },
+        "8": {
+            "name": "Testing Farmer",
+            "email": "testing@gmail.com",
+            "password": "password",
+            "registration": "1",
+            "approved": "0",
+            "registration_data": {
+                "name": "Testing Farmer",
+                "email": "testing@gmail.com",
+                "contact": "7689504231",
+                "address": "Nashik",
+                "farm_address": "Nashik",
+                "aadhar_card": "8_aadhar.pdf",
+                "seven_doc": "8_seven.pdf"
+            }
         }
     },
     "merchant": {
@@ -418,7 +434,7 @@
             "name": "Very new Agent",
             "email": "verynewagent@gmail.com",
             "password": "password",
-            "registration": "1",
+            "registration": "0",
             "approved": "0"
         }
     }

@@ -986,6 +986,7 @@ def admin_users():
 def admin_users_farmers():
     if session["admin"] == True:
         users = read_users()["farmer"]
+        
         return render_template("admin_users_farmers.html", users=users)
     else:
         return redirect(url_for("admin_login"))
