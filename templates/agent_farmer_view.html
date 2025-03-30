@@ -6,9 +6,7 @@
     <title>Agent Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        body {
-            background: #F9FAFB;
-        }
+        body { background: #F9FAFB; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -20,9 +18,9 @@
         </a>
     </header>
 
-    <div class="flex flex-1">
+    <div class="flex flex-1 flex-col md:flex-row">
         <!-- Sidebar Navigation -->
-        <aside class="w-1/4 bg-white p-6 shadow-md">
+        <aside class="w-full md:w-1/4 bg-white p-6 shadow-md md:block">
             <nav class="space-y-4">
                 <a href="/agent/dashboard" class="block px-4 py-2 rounded-md bg-green-200 hover:bg-green-600 hover:text-white text-lg font-medium">Dashboard Home</a>
                 <a href="/agent/farmers/verify" class="block px-4 py-2 rounded-md bg-green-600 text-white text-lg font-medium">Farmer Verification</a>
@@ -31,25 +29,24 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-8 space-y-8">
+        <main class="flex-1 p-4 md:p-8 space-y-8">
             {% if approved == True %}
                 <h1 class="text-3xl font-bold text-center mb-8">Farmer Auction Details</h1>
                 {% if message != "" %}
-                    <div id="messageBox" class="bg-green-200 p-4 rounded-md m-4">
-                        <h1 class="text-red-600 text-xl text-center">{{message}}</h1>
+                    <div id="messageBox" class="bg-green-200 p-4 rounded-md text-center">
+                        <h1 class="text-red-600 text-xl">{{message}}</h1>
                     </div>
                 {% endif %}
-                <div class="flex">
+                <div class="flex flex-col md:flex-row gap-8">
                     {% for auction_id, auction_details in farmer_data.auction.items() %}
                     {% if auction_id == aid %}
-                        <div class="flex-1 bg-white shadow-md rounded-xl overflow-hidden p-4 mr-8 hover:shadow-lg transition duration-300">
+                        <div class="bg-white shadow-md rounded-xl p-4 md:w-1/2 hover:shadow-lg transition duration-300">
                             <h2 class="text-2xl font-semibold mb-4">Farmer: {{ farmer_data.registration_data.name }}</h2>
-                            <p class="text-gray-700 mb-3"><strong>Location:</strong> {{ farmer_data.registration_data.farm_address }}</p>
-                            <p class="text-gray-700 mb-3"><strong>Crop:</strong> {{ auction_details.crop }}</p>
-                            <p class="text-gray-700 mb-3"><strong>Bid:</strong> ₹{{ auction_details.bid }}</p>
-                            <p class="text-gray-700 mb-3"><strong>Info:</strong> {{ auction_details.info }}</p>
-                            <p class="text-gray-700 mb-3"><strong>Auction Start:</strong> {{ auction_details.start_time }}</p>
-                            <!-- <p class="text-gray-700 mb-2"><strong>Auction End:</strong> {{ auction_details.stop_time }}</p> -->
+                            <p class="text-gray-700 mb-2"><strong>Location:</strong> {{ farmer_data.registration_data.farm_address }}</p>
+                            <p class="text-gray-700 mb-2"><strong>Crop:</strong> {{ auction_details.crop }}</p>
+                            <p class="text-gray-700 mb-2"><strong>Bid:</strong> ₹{{ auction_details.bid }}</p>
+                            <p class="text-gray-700 mb-2"><strong>Info:</strong> {{ auction_details.info }}</p>
+                            <p class="text-gray-700 mb-2"><strong>Auction Start:</strong> {{ auction_details.start_time }}</p>
                             <p class="text-gray-700 mt-2"><strong>Verification Status:</strong> 
                                 {% if auction_details.verification == "1" %}
                                 <span class="text-green-500">Verified</span>
@@ -60,17 +57,13 @@
                         </div>
                     {% endif %}
                     {% endfor %}
-                    <div class="flex-1">
-                        <!-- <div>Teachable Machine Image Model</div> -->
-                        <div class="flex">
-                            <div id="webcam-container"></div>
-                            <div id="label-container" class="ml-8"></div>
-                        </div>
-                        <button type="button" onclick="init()" class="bg-green-600 text-white p-2 pl-8 pr-8 rounded-md">Start Quality Check</button>
+                    <div class="flex flex-col items-center md:w-1/2">
+                        <div id="webcam-container" class="mb-4"></div>
+                        <div id="label-container"></div>
+                        <button type="button" onclick="init()" class="bg-green-600 text-white p-2 px-8 rounded-md mt-4">Start Quality Check</button>
                     </div>
                 </div>
                 {% if farmer_data["auction"][aid]["verification"] == "0" %}
-                    <!-- Verification Form -->
                     <div class="bg-white p-6 shadow-md rounded-xl">
                         <h2 class="text-2xl font-semibold mb-4">Verify Auction Details</h2>
                         <form action="/agent/farmers/verify/{{fid}}/{{aid}}" method="post" class="space-y-4" enctype="multipart/form-data">
@@ -88,18 +81,15 @@
                                     <label for="starttime" class="block text-gray-700 mb-2">Start Time:</label>
                                     <input type="time" id="starttime" name="starttime" class="w-full p-2 border border-gray-300 rounded-md">
                                 </div>
-
                                 <div>
                                     <label for="endtime" class="block text-gray-700 mb-2">End Time:</label>
                                     <input type="time" id="endtime" name="endtime" class="w-full p-2 border border-gray-300 rounded-md">
                                 </div>
                             </div>
 
-                            <!-- Image Upload Field -->
                             <div>
                                 <label for="product_image" class="block text-gray-700 font-medium">Upload Product Image</label>
-                                <input type="file" id="product_image" name="product_image" accept="image/*" 
-                                    class="mt-1 block w-full p-2 border rounded-md">
+                                <input type="file" id="product_image" name="product_image" accept="image/*" class="mt-1 block w-full p-2 border rounded-md">
                             </div>
 
                             <input type="submit" value="Verify" class="bg-green-600 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-green-700">
@@ -107,7 +97,7 @@
                     </div>
                 {% endif %}
             {% else %}
-                <h1>Waiting for Approval</h1>
+                <h1 class="text-center text-xl font-semibold">Waiting for Approval</h1>
             {% endif %}
         </main>
     </div>

@@ -7,9 +7,7 @@
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        body {
-            background: #F3F4F6;
-        }
+        body { background: #F3F4F6; }
     </style>
 </head>
 
@@ -17,77 +15,82 @@
     <!-- Header -->
     <header class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold">Admin Dashboard</h1>
-        <a href="/admin/logout">
+        <button id="menu-toggle" class="md:hidden bg-blue-500 px-3 py-1 rounded">☰</button>
+        <a href="/admin/logout" class="hidden md:block">
             <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600">Logout</button>
         </a>
     </header>
 
     <div class="flex flex-1">
         <!-- Sidebar -->
-        <aside class="w-1/5 bg-white shadow-lg p-6 space-y-4">
+        <aside id="sidebar" class="w-64 bg-white shadow-lg p-6 space-y-4 absolute md:relative md:w-1/5 hidden md:block">
             <nav class="space-y-4">
                 <a href="/admin" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Overview</a>
                 <a href="/admin/users" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Manage Users</a>
                 <a href="/admin/auctions" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Manage Auctions</a>
-                <!-- <a href="/admin/reports" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Reports</a>
-                <a href="/admin/settings" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Settings</a> -->
             </nav>
         </aside>
 
-        <main class="flex-1 p-8 space-y-8">
-            <h1 class="text-3xl font-bold text-center mb-8">Manage Auction</h1>
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="bg-gray-200 text-gray-800">
-                        <th class="py-2 px-4">Auction id</th>
-                        <th class="py-2 px-4">Crop</th>
-                        <th class="py-2 px-4">Quality</th>
-                        <th class="py-2 px-4">start</th>
-                        <th class="py-2 px-4">end</th>
-                        <th class="py-2 px-4">Start Time</th>
-                        <th class="py-2 px-4">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for userid in farmer %}
-                        {% if "auction" in farmer[userid] %}
-                            {% for auction_id in farmer[userid]["auction"] %}
-                                {% if "verification_data" in farmer[userid]["auction"][auction_id] %}
-                                    <tr class="bg-white border-b">
-                                        <td class="py-2 px-4">{{auction_id}}</td>
-                                        <td class="py-2 px-4">{{farmer[userid]["auction"][auction_id]["crop"]}}</td>
-                                        <td class="py-2 px-4">{{farmer[userid]["auction"][auction_id]["verification_data"]["quality"]}}</td>
-                                        <td class="py-2 px-4">{{farmer[userid]["auction"][auction_id]["verification_data"]["start"]}}</td>
-                                        <td class="py-2 px-4">{{farmer[userid]["auction"][auction_id]["verification_data"]["end"]}}</td>
-                                        <form action="/admin/auctions/{{auction_id}}/start" method="post">
-                                            {% if "stop_time" in farmer[userid]["auction"][auction_id]["verification_data"] %}
-                                                <!-- <p>{{farmer[userid]["auction"][auction_id]["verification_data"]["start_time"]}} | {{farmer[userid]["auction"][auction_id]["verification_data"]["stop_time"]}} | {{ farmer[userid]["auction"][auction_id]["verification_data"]["stop_time"] < current_time }} | {{current_date}} : {{farmer[userid]["auction"][auction_id]["start_time"].split(" ")[0]}}</p> -->
-                                                {% if farmer[userid]["auction"][auction_id]["start_time"].split(" ")[0] == current_date and current_time <= farmer[userid]["auction"][auction_id]["verification_data"]["stop_time"]%}
-                                                    {% if farmer[userid]["auction"][auction_id]["verification_data"]["started"] == "0" %}
-                                                        <td class="py-2 px-4"><input type="time" name="time"></td>
-                                                        <td class="py-2 px-4"><input type="submit" class="bg-green-600 text-white p-2" value="Start"></td>
+        <main class="flex-1 p-4 md:p-8 space-y-8">
+            <h1 class="text-3xl font-bold text-center mb-4">Manage Auction</h1>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-800">
+                            <th class="py-2 px-4">Auction ID</th>
+                            <th class="py-2 px-4">Crop</th>
+                            <th class="py-2 px-4">Quality</th>
+                            <th class="py-2 px-4">Start</th>
+                            <th class="py-2 px-4">End</th>
+                            <th class="py-2 px-4">Start Time</th>
+                            <th class="py-2 px-4">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for userid in farmer %}
+                            {% if "auction" in farmer[userid] %}
+                                {% for auction_id in farmer[userid]["auction"] %}
+                                    {% if "verification_data" in farmer[userid]["auction"][auction_id] %}
+                                        <tr class="bg-white border-b">
+                                            <td class="py-2 px-4">{{ auction_id }}</td>
+                                            <td class="py-2 px-4">{{ farmer[userid]["auction"][auction_id]["crop"] }}</td>
+                                            <td class="py-2 px-4">{{ farmer[userid]["auction"][auction_id]["verification_data"]["quality"] }}</td>
+                                            <td class="py-2 px-4">{{ farmer[userid]["auction"][auction_id]["verification_data"]["start"] }}</td>
+                                            <td class="py-2 px-4">{{ farmer[userid]["auction"][auction_id]["verification_data"]["end"] }}</td>
+                                            <form action="/admin/auctions/{{ auction_id }}/start" method="post">
+                                                {% if "stop_time" in farmer[userid]["auction"][auction_id]["verification_data"] %}
+                                                    {% if farmer[userid]["auction"][auction_id]["start_time"].split(" ")[0] == current_date and current_time <= farmer[userid]["auction"][auction_id]["verification_data"]["stop_time"] %}
+                                                        {% if farmer[userid]["auction"][auction_id]["verification_data"]["started"] == "0" %}
+                                                            <td class="py-2 px-4"><input type="time" name="time" class="border p-1"></td>
+                                                            <td class="py-2 px-4"><input type="submit" class="bg-green-600 text-white p-2 rounded" value="Start"></td>
+                                                        {% else %}
+                                                            <td class="py-2 px-4">{{ farmer[userid]["auction"][auction_id]["verification_data"]["start_time"] }}</td>
+                                                            <td class="py-2 px-4"><input type="submit" class="bg-red-600 text-white p-2 rounded" value="Stop"></td>
+                                                        {% endif %}
                                                     {% else %}
-                                                        <td class="py-2 px-4">{{farmer[userid]["auction"][auction_id]["verification_data"]["start_time"]}}</td>
-                                                        <td class="py-2 px-4"><input type="submit" class="bg-red-600 text-white p-2" value="Stop"></td>
+                                                        <td class="py-2 px-4">{{ farmer[userid]["auction"][auction_id]["verification_data"]["start_time"] }}</td>
+                                                        <td class="py-2 px-4 text-gray-500">Expired</td>
                                                     {% endif %}
                                                 {% else %}
-                                                    <td class="py-2 px-4">{{farmer[userid]["auction"][auction_id]["verification_data"]["start_time"]}}</td>
-                                                    <td class="py-2 px-4"><span class="italic text-gray-600">Expired</span></td>
+                                                    <td class="py-2 px-4"><input type="time" name="time" class="border p-1"></td>
+                                                    <td class="py-2 px-4"><input type="submit" class="bg-green-600 text-white p-2 rounded" value="Start"></td>
                                                 {% endif %}
-                                            {% else %}
-                                                <td class="py-2 px-4"><input type="time" name="time"></td>
-                                                <td class="py-2 px-4"><input type="submit" class="bg-green-600 text-white p-2" value="Start"></td>
-                                            {% endif %}
-                                        </form>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                   {% endfor %}
-                </tbody>
-            </table>
+                                            </form>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </main>
     </div>
-</body>
 
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            document.getElementById('sidebar').classList.toggle('hidden');
+        });
+    </script>
+</body>
 </html>

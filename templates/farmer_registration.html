@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Farmer | Registration</title>
     <link rel="icon" type="image/x-icon" href="/static/icons/leaf-logo.png">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             background: #D1E8CF;
@@ -14,111 +14,87 @@
     </style>
 </head>
 
-<body class="flex items-center justify-center min-h-screen">
-
-    <div class="bg-white bg-opacity-50 shadow-lg rounded-lg w-full max-w-4xl p-8">
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white bg-opacity-50 shadow-lg rounded-lg w-full max-w-2xl p-6 sm:p-8">
         <center><img src="/static/icons/logo.jpeg" width="64px" class="mb-4" alt=""></center>
-        <h1 class="text-3xl font-bold text-center text-green-600 mb-6">Farmer Registration</h1>
+        <h1 class="text-2xl sm:text-3xl font-bold text-center text-green-600 mb-6">Farmer Registration</h1>
         <form action="/farmer/registration" method="post" enctype="multipart/form-data">
             {% if message != "" %}
-                <div id="messageBox" class="bg-green-200 rounded-md p-2 m-2">
-                    <h1 class="text-xl text-red-600 text-center">
-                        {{message}}
-                    </h1>
+            <div id="messageBox" class="bg-green-200 rounded-md p-2 m-2">
+                <h1 class="text-lg text-red-600 text-center">{{message}}</h1>
+            </div>
+            {% endif %}
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-700 font-medium">Full Name</label>
+                    <input type="text" name="name" class="w-full rounded-lg border p-3 focus:ring-2 focus:ring-green-400">
                 </div>
-            {% endif %} 
-            <!-- First and Last Name -->
-            <div class="flex flex-wrap -mx-4">
-                <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="name" class="block text-gray-700 font-medium mb-2">Full Name</label>
-                    <input type="text" name="name" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+                <div>
+                    <label class="block text-gray-700 font-medium">Password</label>
+                    <input type="password" id="p1" name="password" class="w-full rounded-lg border p-3 focus:ring-2 focus:ring-green-400">
                 </div>
-                <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="password" class="block text-gray-700 font-medium mb-2">Password</label>
-                    <input type="password" id="p1" name="password" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+                <div>
+                    <label class="block text-gray-700 font-medium">Confirm Password</label>
+                    <input type="password" id="p2" name="cpassword" class="w-full rounded-lg border p-3 focus:ring-2 focus:ring-green-400">
                 </div>
-                <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="cpassword" class="block text-gray-700 font-medium mb-2">Confirm Password</label>
-                    <input type="password" id="p2" name="cpassword" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+                <div>
+                    <label class="block text-gray-700 font-medium">Email</label>
+                    <input type="email" name="email" class="w-full rounded-lg border p-3 focus:ring-2 focus:ring-green-400">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium">Contact Number</label>
+                    <input id="contact-number" type="text" name="contact" class="w-full rounded-lg border p-3 focus:ring-2 focus:ring-green-400">
                 </div>
             </div>
             
-            <!-- Email and Contact -->
-            <div class="flex flex-wrap -mx-4">
-                <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
-                    <input type="email" name="email" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
-                </div>
-                <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="contact" class="block text-gray-700 font-medium mb-2">Contact Number</label>
-                    <input id="contact-number" type="text" name="contact" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
-                </div>
+            <div class="mt-4">
+                <label class="block text-gray-700 font-medium">Address of Residence</label>
+                <input type="text" name="address" class="w-full rounded-lg border p-3 focus:ring-2 focus:ring-green-400">
             </div>
-
-            <!-- Address -->
-            <div class="mb-4">
-                <label for="address" class="block text-gray-700 font-medium mb-2">Address of Residence</label>
-                <input type="text" name="address" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
+            <div class="mt-4">
+                <label class="block text-gray-700 font-medium">Address of Farm</label>
+                <input type="text" name="farm_address" class="w-full rounded-lg border p-3 focus:ring-2 focus:ring-green-400">
             </div>
-            <div class="mb-4">
-                <label for="farm_address" class="block text-gray-700 font-medium mb-2">Address of Farm</label>
-                <input type="text" name="farm_address" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
-            </div>
-
-            <!-- File Upload -->
-            <div class="flex flex-wrap -mx-4">
-                <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="aadhar_card" class="block text-gray-700 font-medium mb-2">Aadhar Card</label>
-                    <input type="file" name="aadhar_card" class="w-full border border-gray-300 p-2 rounded-lg">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                <div>
+                    <label class="block text-gray-700 font-medium">Aadhar Card</label>
+                    <input type="file" name="aadhar_card" class="w-full border p-2 rounded-lg">
                 </div>
-                <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="seven" class="block text-gray-700 font-medium mb-2">7/12 Document</label>
-                    <input type="file" name="seven" class="w-full border border-gray-300 p-2 rounded-lg">
+                <div>
+                    <label class="block text-gray-700 font-medium">7/12 Document</label>
+                    <input type="file" name="seven" class="w-full border p-2 rounded-lg">
                 </div>
             </div>
-
-            <!-- Submit Button -->
+            
             <div class="text-center mt-6">
-                <button type="submit" class="bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition duration-200">
-                    Submit
-                </button>
+                <button type="submit" class="bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition">Submit</button>
             </div>
         </form>
     </div>
 
+    <script>
+        document.getElementById('contact-number').addEventListener('input', function () {
+            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
+        });
+
+        document.querySelector('form').addEventListener('submit', function (event) {
+            const password1 = document.getElementById('p1').value;
+            const password2 = document.getElementById('p2').value;
+            if (password1 !== password2) {
+                event.preventDefault();
+                alert("Passwords do not match. Please try again.");
+            }
+        });
+
+        setTimeout(function () {
+            let messageDiv = document.getElementById("messageBox");
+            if (messageDiv) {
+                messageDiv.style.display = "none";
+                location.href='/farmer/registration';
+            }
+        }, 3000);
+    </script>
 </body>
-<script>
-    // Get the input field by its ID
-    const contactNumber = document.getElementById('contact-number');
-   
-    // Add an event listener to restrict input to 10 digits
-    contactNumber.addEventListener('input', () => {
-        const maxLength = 10; // Maximum allowed digits
-        if (contactNumber.value.length > maxLength) {
-            alert('Contact number cannot exceed 10 digits.');
-            contactNumber.value = contactNumber.value.slice(0, maxLength);
-        }
-
-        // Ensure only numbers are entered
-        contactNumber.value = contactNumber.value.replace(/[^0-9]/g, '');
-    });
-
-    document.querySelector('form').addEventListener('submit', function (event) {
-        const password1 = document.getElementById('p1').value;
-        const password2 = document.getElementById('p2').value;
-
-        if (password1 !== password2) {
-            event.preventDefault(); // Prevent form submission
-            alert("Passwords do not match. Please try again.");
-        }
-    });
-
-    setTimeout(function () {
-        let messageDiv = document.getElementById("messageBox");
-        if (messageDiv) {
-            messageDiv.style.display = "none";
-            location.href='/farmer/registration';
-        }
-    }, 3000); // 3 seconds
-</script>
 </html>

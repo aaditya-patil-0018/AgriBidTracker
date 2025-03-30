@@ -340,6 +340,7 @@ def farmer_registration(message=""):
                         return redirect(url_for("merchant_dashboard"))
         else:
             return redirect(url_for("login"))
+            # return render_template("farmer_registration.html", message=message)
     else:
         return redirect(url_for('login'))
 

@@ -32,29 +32,49 @@
             width: 100px;
             margin: 0 auto 20px;
         }
+
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .text-5xl {
+                font-size: 2rem;
+            }
+            .text-4xl {
+                font-size: 1.75rem;
+            }
+        }
+
+        #nav-menu {
+            transition: transform 0.3s ease-in-out;
+        }
     </style>
 </head>
 
 <body class="bg-gray-50">
 
     <header class="bg-green-700 text-white sticky top-0 z-50 shadow-md">
-        <div class="container mx-auto flex justify-between items-center p-6">
+        <div class="container mx-auto flex justify-between items-center p-6 flex-wrap">
             <div class="flex items-center">
                 <img src="/static/icons/logo.jpeg" width="64px" class="mr-4" alt="">
                 <h1 class="text-3xl font-bold">Agribid Tracker</h1>
             </div>
-            <nav>
-                <ul class="flex items-center space-x-6">
-                    <li><a href="#" class="hover:underline">Home</a></li>
-                    <li><a href="#goods" class="hover:underline">Goods</a></li>
-                    <li><a href="#bids" class="hover:underline">Bids</a></li>
-                    <li><a href="#testimonials" class="hover:underline">Testimonials</a></li>
-                    <li><a href="#contact" class="hover:underline">Contact</a></li>
+            <button id="mobile-menu-button" class="md:hidden">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="nav-menu" class="hidden md:block md:flex">
+                <ul class="flex flex-col md:flex-row md:items-center md:space-x-6 absolute md:relative bg-green-700 md:bg-transparent top-16 right-0 w-64 md:w-auto shadow-lg md:shadow-none transition-transform transform translate-x-full md:translate-x-0">
+                    <li><a href="#" class="hover:underline block px-4 py-2">Home</a></li>
+                    <li><a href="#goods" class="hover:underline block px-4 py-2">Goods</a></li>
+                    <li><a href="#bids" class="hover:underline block px-4 py-2">Bids</a></li>
+                    <li><a href="#testimonials" class="hover:underline block px-4 py-2">Testimonials</a></li>
+                    <li><a href="#contact" class="hover:underline block px-4 py-2">Contact</a></li>
                     {% if userpresent == False %}
-                        <a href="/login"><button class="border border-white bg-black text-white" style="padding-right: 8px; padding-left: 8px; padding-top: 4px; padding-bottom: 4px;">Login</button></a>
-                        <a href="/signup"><button class="border border-white bg-black text-white" style="padding-right: 8px; padding-left: 8px; padding-top: 4px; padding-bottom: 4px;">Register</button></a>
+                        <li><a href="/login" class="border border-white bg-black text-white block px-4 py-2 text-center">Login</a></li>
+                        <li><a href="/signup" class="border border-white bg-black text-white block px-4 py-2 text-center">Register</a></li>
                     {% else %}
-                        <a href="/logout"><button class="border border-white bg-black text-white" style="padding-right: 8px; padding-left: 8px; padding-top: 4px; padding-bottom: 4px;">Logout</button></a>
+                        <li><a href="/logout" class="border border-white bg-black text-white block px-4 py-2 text-center">Logout</a></li>
                     {% endif %}
                 </ul>
             </nav>
@@ -62,39 +82,36 @@
     </header>
 
     <main>
-        <section class="py-40 text-center bg-green-50">
+        <section class="py-20 sm:py-40 text-center bg-green-50">
             <h2 class="text-5xl font-extrabold leading-tight">Connecting Farmers and Merchants</h2>
             <p class="mt-4 text-lg">Join our community to trade fresh goods and grow your business.</p>
             <a href="/login" class="mt-6 inline-block bg-green-500 text-white px-8 py-4 rounded-lg shadow-lg hover:bg-green-400 transition duration-300">Get Started</a>
         </section>
 
-        <section id="goods" class="py-40 ">
+        <section id="goods" class="py-20 sm:py-40">
             <div class="container mx-auto text-center">
                 <h2 class="text-4xl font-bold mb-8">Available Goods</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                     <article class="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 fade-in">
                         <img src="/static/images/onion.png" alt="Fresh Vegetables" class="graphic">
                         <h3 class="text-xl font-semibold mt-4">Onion</h3>
-                        <!-- <p class="mt-2">Organic and locally sourced vegetables.</p> -->
-                        <a href="/login" class="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400 transition duration-300">Bid Now</a>
+                        <a href="/login" class="mt-4 inline-block bg-green-500 text-white w-full px-4 py-2 rounded hover:bg-green-400 transition duration-300">Bid Now</a>
                     </article>
                     <article class="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 fade-in ">
                         <img src="/static/images/potato.png" alt="Juicy Fruits" class="graphic">
                         <h3 class="text-xl font-semibold mt-4">Potato</h3>
-                        <!-- <p class="mt-2">Seasonal fruits picked at the peak of freshness.</p> -->
-                        <a href="/login" class="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400 transition duration-300">Bid Now</a>
+                        <a href="/login" class="mt-4 inline-block bg-green-500 text-white w-full px-4 py-2 rounded hover:bg-green-400 transition duration-300">Bid Now</a>
                     </article>
                     <article class="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 fade-in">
                         <img src="/static/images/garlic.png" alt="Quality Grains" class="graphic">
                         <h3 class="text-xl font-semibold mt-4">Garlic</h3>
-                        <!-- <p class="mt-2">High-quality grains for all your baking needs.</p> -->
-                        <a href="/login" class="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-400 transition duration-300">Bid Now</a>
+                        <a href="/login" class="mt-4 inline-block bg-green-500 text-white w-full px-4 py-2 rounded hover:bg-green-400 transition duration-300">Bid Now</a>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section id="bids" class="bg-green-50 py-40">
+        <section id="bids" class="bg-green-50 py-20 sm:py-40">
             <div class="container mx-auto text-center">
                 <h2 class="text-4xl font-bold mb-8">Merchants Can Bid</h2>
                 <p class="mt-4">Enter your bid amount and contact information to participate in the bidding process.</p>
@@ -113,15 +130,15 @@
                             <input id="contact-number" class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="contact-info" type="text" placeholder="Enter contact information">
                         </div>
                     </div>
-                    <button class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded transition duration-300" type="submit">Submit Bid</button>
+                    <button class="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 w-full rounded transition duration-300" type="submit">Submit Bid</button>
                 </form>
             </div>
         </section>
 
-        <section id="testimonials" class="bg-gray-100 py-40">
+        <section id="testimonials" class="bg-gray-100 py-20 sm:py-40">
             <div class="container mx-auto text-center">
                 <h2 class="text-4xl font-bold mb-14">What Our Users Say</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                     <article class="bg-white p-6 rounded-lg shadow-lg fade-in">
                         <p class="text-lg">"Farmers Marketplace has been a game-changer for my business. I've been able to connect with reliable suppliers and grow my customer base."</p>
                         <p class="text-sm text-gray-600">- John Doe, Happy Farmer</p>
@@ -183,6 +200,12 @@
 
             // Ensure only numbers are entered
             contactNumber.value = contactNumber.value.replace(/[^0-9]/g, '');
+        });
+
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            let navMenu = document.getElementById('nav-menu');
+            navMenu.classList.toggle('hidden');
+            navMenu.classList.toggle('translate-x-0');
         });
     </script>
 

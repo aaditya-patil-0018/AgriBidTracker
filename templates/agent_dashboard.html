@@ -15,30 +15,32 @@
     <!-- Header -->
     <header class="bg-green-600 text-white px-6 py-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold">Agent Dashboard</h1>
-        <a href="/logout">
+        <button id="menu-btn" class="md:hidden bg-green-700 px-4 py-2 rounded-md">Menu</button>
+        <a href="/logout" class="hidden md:block">
             <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600">Logout</button>
         </a>
     </header>
 
-    <div class="flex flex-1">
+    <div class="flex flex-1 flex-col md:flex-row">
         <!-- Sidebar Navigation -->
-        <aside class="w-1/4 bg-white p-6 shadow-md">
+        <aside id="sidebar" class="w-full md:w-1/4 bg-white p-6 shadow-md hidden md:block">
             <nav class="space-y-6">
-                <a href="/agent/dashboard" class="block px-4 py-2 rounded-md bg-green-600 hover:bg-green-600 text-white text-lg font-medium">Dashboard Home</a>
+                <a href="/agent/dashboard" class="block px-4 py-2 rounded-md bg-green-600 text-white text-lg font-medium">Dashboard Home</a>
                 <a href="/agent/farmers/verify" class="block px-4 py-2 rounded-md bg-green-200 hover:bg-green-600 hover:text-white text-lg font-medium">Farmer Verification</a>
                 <a href="/agent/produce/verify" class="block px-4 py-2 rounded-md bg-green-200 hover:bg-green-600 hover:text-white text-lg font-medium">Produce Quality Check</a>
+                <a href="/logout" class="md:hidden block text-center bg-red-500 text-white px-4 py-2 rounded-md">Logout</a>
             </nav>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-8 space-y-8">
+        <main class="flex-1 p-4 md:p-8 space-y-8">
             {% if approved == True %}
                 <div class="bg-white shadow-md rounded-lg p-6">
                     <h2 class="text-xl font-semibold text-gray-800 mb-4">Welcome, Agent!</h2>
                     <p class="text-gray-700">Please select one of the sections from the navigation menu to get started with verifying farmers or assessing produce quality.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     <!-- Cards -->
                     <div class="bg-white shadow-md rounded-lg p-6">
                         <h2 class="text-xl font-medium text-gray-800">Total Farmers</h2>
@@ -49,14 +51,20 @@
                         <p class="text-4xl font-bold text-green-600 mt-2">{{ta}}</p>
                     </div>
                     <div class="bg-white shadow-md rounded-lg p-6">
-                        <h2 class="text-xl font-medium text-gray-800">Pending Verfication</h2>
+                        <h2 class="text-xl font-medium text-gray-800">Pending Verification</h2>
                         <p class="text-4xl font-bold text-red-600 mt-2">{{tv}}</p>
                     </div>
                 </div>
             {% else %}
-                <h1>Waiting for Approval</h1>
+                <h1 class="text-center text-xl font-semibold text-gray-800">Waiting for Approval</h1>
             {% endif %}
         </main>
     </div>
+
+    <script>
+        document.getElementById('menu-btn').addEventListener('click', function () {
+            document.getElementById('sidebar').classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>

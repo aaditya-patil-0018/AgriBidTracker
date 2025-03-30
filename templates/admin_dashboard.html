@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             background: #F3F4F6;
@@ -17,78 +17,66 @@
     <!-- Header -->
     <header class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold">Admin Dashboard</h1>
-        <a href="/admin/logout">
+        <button id="menu-toggle" class="md:hidden bg-blue-500 px-3 py-1 rounded">☰</button>
+        <a href="/admin/logout" class="hidden md:block">
             <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600">Logout</button>
         </a>
     </header>
 
     <div class="flex flex-1">
         <!-- Sidebar -->
-        <aside class="w-1/5 bg-white shadow-lg p-6 space-y-4">
+        <aside id="sidebar" class="w-64 md:w-1/5 bg-white shadow-lg p-6 space-y-4 fixed md:relative inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50">
             <nav class="space-y-4">
                 <a href="/admin" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Overview</a>
                 <a href="/admin/users" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Manage Users</a>
                 <a href="/admin/auctions" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Manage Auctions</a>
-                <!-- <a href="/admin/reports" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Reports</a>
-                <a href="/admin/settings" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Settings</a> -->
             </nav>
+
+            <!-- Logout button (Visible only on Mobile inside Sidebar) -->
+            <a href="/admin/logout" class="block md:hidden mt-6">
+                <button class="bg-red-500 px-4 py-2 rounded-md text-white w-full text-center font-medium hover:bg-red-600 transition">
+                    Logout
+                </button>
+            </a>
+
+            <button id="close-menu" class="md:hidden bg-gray-300 px-4 py-2 mt-4 rounded-md text-black w-full">Close</button>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-8 space-y-8">
-            <h1 class="text-4xl font-bold">Welcome Admin</h1>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Cards -->
-                <div class="bg-white shadow-md rounded-lg p-6" onclick="window.location.href='/admin/users/farmers';">
-                    <h2 class="text-xl font-medium text-gray-800">Total Farmers</h2>
-                    <p class="text-4xl font-bold text-blue-600 mt-2">{{tf}}</p>
-                </div>
-                <div class="bg-white shadow-md rounded-lg p-6" onclick="window.location.href='/admin/users/merchants';">
-                    <h2 class="text-xl font-medium text-gray-800">Total Merchants</h2>
-                    <p class="text-4xl font-bold text-green-600 mt-2">{{tm}}</p>
-                </div>
-                <div class="bg-white shadow-md rounded-lg p-6" onclick="window.location.href='/admin/users/agents';">
-                    <h2 class="text-xl font-medium text-gray-800">Total Agents</h2>
-                    <p class="text-4xl font-bold text-red-600 mt-2">{{ta}}</p>
-                </div>
-            </div>
+        <main class="flex-1 ml-0 p-6 md:p-4 md:ml-10 transition-all duration-300 ease-in-out">
+            <h1 class="text-3xl md:text-4xl font-bold">Welcome Admin</h1>
 
-            <!-- Table Section -->
-            <!-- <div class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-lg font-medium text-gray-800 mb-4">Recent Activities</h2>
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-gray-200 text-gray-800">
-                            <th class="py-2 px-4">Date</th>
-                            <th class="py-2 px-4">User</th>
-                            <th class="py-2 px-4">Action</th>
-                            <th class="py-2 px-4">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="bg-white border-b">
-                            <td class="py-2 px-4">2025-02-04</td>
-                            <td class="py-2 px-4">John Doe</td>
-                            <td class="py-2 px-4">Submitted Auction Bid</td>
-                            <td class="py-2 px-4 text-green-600">Success</td>
-                        </tr>
-                        <tr class="bg-white border-b">
-                            <td class="py-2 px-4">2025-02-03</td>
-                            <td class="py-2 px-4">Jane Smith</td>
-                            <td class="py-2 px-4">Registered New Account</td>
-                            <td class="py-2 px-4 text-green-600">Success</td>
-                        </tr>
-                        <tr class="bg-white border-b">
-                            <td class="py-2 px-4">2025-02-02</td>
-                            <td class="py-2 px-4">Tom Brown</td>
-                            <td class="py-2 px-4">Report Submitted</td>
-                            <td class="py-2 px-4 text-yellow-600">Pending</td>
-                        </tr>
-                    </tbody>
-                </table> -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
+                <!-- Cards -->
+                <div class="bg-white shadow-md rounded-lg p-6 cursor-pointer transform hover:scale-105 transition duration-300 border border-gray-200" onclick="window.location.href='/admin/users/farmers';">
+                    <h2 class="text-lg font-medium text-gray-800">Total Farmers</h2>
+                    <p class="text-3xl md:text-4xl font-bold text-blue-600 mt-2">{{tf}}</p>
+                </div>
+                <div class="bg-white shadow-md rounded-lg p-6 cursor-pointer transform hover:scale-105 transition duration-300 border border-gray-200" onclick="window.location.href='/admin/users/merchants';">
+                    <h2 class="text-lg font-medium text-gray-800">Total Merchants</h2>
+                    <p class="text-3xl md:text-4xl font-bold text-green-600 mt-2">{{tm}}</p>
+                </div>
+                <div class="bg-white shadow-md rounded-lg p-6 cursor-pointer transform hover:scale-105 transition duration-300 border border-gray-200" onclick="window.location.href='/admin/users/agents';">
+                    <h2 class="text-lg font-medium text-gray-800">Total Agents</h2>
+                    <p class="text-3xl md:text-4xl font-bold text-red-600 mt-2">{{ta}}</p>
+                </div>
             </div>
         </main>
     </div>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const closeMenu = document.getElementById('close-menu');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+        });
+    </script>
 </body>
 
 </html>

@@ -16,82 +16,66 @@
 <body class="min-h-screen flex flex-col">
 
     <!-- Header -->
-    <header class="bg-green-700 text-white px-6 py-4 flex justify-between items-center">
+    <header class="bg-green-700 text-white px-6 py-4 flex justify-between items-center shadow-md">
         <h1 class="text-2xl font-bold">Farmer Dashboard</h1>
-        <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600" onclick="window.location.href='/logout';">Logout</button>
+        <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600 transition" onclick="window.location.href='/logout';">Logout</button>
     </header>
 
-    <div class="flex flex-1">
+    <div class="flex flex-1 flex-col md:flex-row">
         <!-- Sidebar -->
-        <aside class="w-1/4 bg-white bg-opacity-80 p-6 flex flex-col space-y-6">
+        <aside class="md:w-1/4 w-full bg-white bg-opacity-80 p-6 flex flex-col space-y-6 shadow-md">
             <nav class="space-y-4">
-                <a href="/farmer/profile"
-                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
-                    Profile
-                </a>
-                <a href="/farmer/dashboard"
-                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
-                    Home
-                </a>
-                <a href="/farmer/dashboard/requests"
-                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
-                    View Requests
-                </a>
-                <a href="/farmer/dashboard/auction"
-                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
-                    Auction
-                </a>
-                <!-- <a href="/farmer/analytics"
-                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
-                    Analytics
-                </a> -->
+                <a href="/farmer/profile" class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium transition">Profile</a>
+                <a href="/farmer/dashboard" class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium transition">Home</a>
+                <a href="/farmer/dashboard/requests" class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium transition">View Requests</a>
+                <a href="/farmer/dashboard/auction" class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium transition">Auction</a>
             </nav>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-8 space-y-8">
+        <main class="flex-1 p-6 space-y-8">
             {% if approval == True %}
-                <div class="bg-white shadow-md rounded-lg p-6">
-                    <table class="w-full mt-4 text-left border-collapse">
+                <div class="bg-white shadow-lg rounded-lg p-6 overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-gray-200 text-gray-800">
-                                <th class="py-2 px-4">Auction id</th>
-                                <th class="py-2 px-4">Crop</th>
-                                <th class="py-2 px-4">Info</th>
-                                <th class="py-2 px-4">Verification</th>
-                                <th class="py-2 px-4">Quality</th>
-                                <th class="py-2 px-4">Start Time</th>
-                                <th class="py-2 px-4">Started</th>
-                                <th class="py-2 px-4">View</th>
+                                <th class="py-3 px-4">Auction ID</th>
+                                <th class="py-3 px-4">Crop</th>
+                                <th class="py-3 px-4">Info</th>
+                                <th class="py-3 px-4">Verification</th>
+                                <th class="py-3 px-4">Quality</th>
+                                <th class="py-3 px-4">Start Time</th>
+                                <th class="py-3 px-4">Started</th>
+                                <th class="py-3 px-4">View</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="divide-y">
                             {% for auction in farmer["auction"] %}
-                                <tr class="bg-white border-b">
-                                    <td class="py-2 px-4">{{auction}}</td>
-                                    <td class="py-2 px-4">{{farmer["auction"][auction]["crop"]}}</td>
-                                    <td class="py-2 px-4">{{farmer["auction"][auction]["info"]}}</td>
+                                <tr class="bg-white hover:bg-gray-100 transition">
+                                    <td class="py-3 px-4">{{ auction }}</td>
+                                    <td class="py-3 px-4">{{ farmer["auction"][auction]["crop"] }}</td>
+                                    <td class="py-3 px-4">{{ farmer["auction"][auction]["info"] }}</td>
                                     {% if farmer["auction"][auction]["verification"] == "0" %}
-                                        <td class="py-2 px-4 text-red-600">Not Verified</td>
-                                        <td class="py-2 px-4">-</td>
-                                        <td class="py-2 px-4">-</td>
-                                        <td class="py-2 px-4">-</td>
-                                        <td class="py-2 px-4">-</td>
+                                        <td class="py-3 px-4 text-red-600">Not Verified</td>
+                                        <td class="py-3 px-4">-</td>
+                                        <td class="py-3 px-4">-</td>
+                                        <td class="py-3 px-4">-</td>
+                                        <td class="py-3 px-4">-</td>
                                     {% else %}
-                                        <td class="py-2 px-4 text-green-600">Verified</td>
-                                        <td class="py-2 px-4">{{farmer["auction"][auction]["verification_data"]["quality"]}}</td>
-                                        <td class="py-2 px-4">{{farmer["auction"][auction]["verification_data"]["start_time"]}}</td>
+                                        <td class="py-3 px-4 text-green-600">Verified</td>
+                                        <td class="py-3 px-4">{{ farmer["auction"][auction]["verification_data"]["quality"] }}</td>
+                                        <td class="py-3 px-4">{{ farmer["auction"][auction]["verification_data"]["start_time"] }}</td>
                                         {% if farmer["auction"][auction]["verification_data"]["started"] == "0" %}
-                                            <td class="py-2 px-4 text-red-600">No</td>
-                                            <td class="py-2 px-4">Not started</td>
+                                            <td class="py-3 px-4 text-red-600">No</td>
+                                            <td class="py-3 px-4">Not started</td>
                                         {% else %}
-                                            <td class="py-2 px-4 text-green-600">Yes</td>
-                                            <td class="py-2 px-4"><a href="/farmer/dashboard/requests/{{auction}}" class="text-blue-600 underline">view</a></td>
+                                            <td class="py-3 px-4 text-green-600">Yes</td>
+                                            <td class="py-3 px-4"><a href="/farmer/dashboard/requests/{{ auction }}" class="text-blue-600 hover:underline">View</a></td>
                                         {% endif %}
                                     {% endif %}
                                 </tr>
                             {% endfor %}
-                         </tbody>
+                        </tbody>
                     </table>
                 </div>
             {% endif %}

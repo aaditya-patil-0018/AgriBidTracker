@@ -14,71 +14,63 @@
     </style>
 </head>
 
-<body class="flex items-center justify-center min-h-screen">
+<body class="flex items-center justify-center min-h-screen px-4">
 
-    <div class="bg-white bg-opacity-50 shadow-lg rounded-lg w-full max-w-4xl p-8">
+    <div class="bg-white bg-opacity-50 shadow-lg rounded-lg w-full max-w-4xl p-6 md:p-8">
         <center><img src="/static/icons/logo.jpeg" width="64px" class="mb-4" alt=""></center>
-        <h1 class="text-3xl font-bold text-center text-green-600 mb-6">Merchant Registration</h1>
+        <h1 class="text-2xl md:text-3xl font-bold text-center text-green-600 mb-6">Merchant Registration</h1>
+        
         <form action="/merchant/registration" method="post" enctype="multipart/form-data">
-            {% if message != "" %}
-                <div id="messageBox" class="bg-green-200 rounded-md p-2 m-2">
-                    <h1 class="text-xl text-red-600 text-center">
-                        {{message}}
-                    </h1>
-                </div>
-            {% endif %}
+
             <!-- First and Last Name -->
-            <div class="flex flex-wrap -mx-4">
-                <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="fname" class="block text-gray-700 font-medium mb-2">First Name</label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="fname" class="block text-gray-700 font-medium mb-1">First Name</label>
                     <input type="text" name="fname" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
                 </div>
-                <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="lname" class="block text-gray-700 font-medium mb-2">Last Name</label>
+                <div>
+                    <label for="lname" class="block text-gray-700 font-medium mb-1">Last Name</label>
                     <input type="text" name="lname" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
                 </div>
             </div>
             
             <!-- Email and Contact -->
-            <div class="flex flex-wrap -mx-4">
-                <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div>
+                    <label for="email" class="block text-gray-700 font-medium mb-1">Email</label>
                     <input type="email" name="email" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
                 </div>
-                <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="contact" class="block text-gray-700 font-medium mb-2">Contact Number</label>
+                <div>
+                    <label for="contact" class="block text-gray-700 font-medium mb-1">Contact Number</label>
                     <input id="contact-number" type="text" name="contact" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
                 </div>
             </div>
 
             <!-- Address -->
-            <div class="mb-4">
-                <label for="address" class="block text-gray-700 font-medium mb-2">Address of Residence</label>
+            <div class="mt-4">
+                <label for="address" class="block text-gray-700 font-medium mb-1">Address of Residence</label>
                 <input type="text" name="address" class="w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-400 focus:outline-none p-3">
             </div>
             
-
-            <!-- File Upload -->
-            <div class="flex flex-wrap -mx-4">
-                <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="aadhar_card" class="block text-gray-700 font-medium mb-2">Aadhar Card</label>
+            <!-- File Uploads -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div>
+                    <label for="aadhar_card" class="block text-gray-700 font-medium mb-1">Aadhar Card</label>
                     <input type="file" name="aadhar_card" class="w-full border border-gray-300 p-2 rounded-lg">
                 </div>
-            </div>
-
-            <div class="flex flex-wrap -mx-4">
-                <div class="w-full md:w-1/2 px-4 mb-4">
-                    <label for="license" class="block text-gray-700 font-medium mb-2">License</label>
+                <div>
+                    <label for="license" class="block text-gray-700 font-medium mb-1">License</label>
                     <input type="file" name="license" class="w-full border border-gray-300 p-2 rounded-lg">
                 </div>
             </div>
 
             <!-- Submit Button -->
             <div class="text-center mt-6">
-                <button type="submit" class="bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition duration-200">
+                <button type="submit" class="bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition duration-200 w-full md:w-auto">
                     Submit
                 </button>
             </div>
+
         </form>
     </div>
 
@@ -91,20 +83,12 @@
     contactNumber.addEventListener('input', () => {
         const maxLength = 10; // Maximum allowed digits
         if (contactNumber.value.length > maxLength) {
-            alert('Bid amount cannot exceed 10 digits.');
+            alert('Contact number cannot exceed 10 digits.');
             contactNumber.value = contactNumber.value.slice(0, maxLength);
         }
 
         // Ensure only numbers are entered
         contactNumber.value = contactNumber.value.replace(/[^0-9]/g, '');
     });
-
-    setTimeout(function () {
-        let messageDiv = document.getElementById("messageBox");
-        if (messageDiv) {
-            messageDiv.style.display = "none";
-            location.href='/merchant/registration';
-        }
-    }, 3000); // 3 seconds
 </script>
 </html>

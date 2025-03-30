@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Farmer Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             background: linear-gradient(to bottom right, #f1f8e9, #c5e1a5);
@@ -18,85 +18,65 @@
     <!-- Header -->
     <header class="bg-green-700 text-white px-6 py-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold">Farmer Dashboard</h1>
-        <a href="/logout">
-            <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600" onclick="window.location.href='/logout';">Logout</button>
-        </a>
+        <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600" onclick="window.location.href='/logout';">Logout</button>
     </header>
 
-    <div class="flex flex-1">
+    <div class="flex flex-1 flex-col md:flex-row">
         <!-- Sidebar -->
-        <aside class="w-1/4 bg-white bg-opacity-80 p-6 flex flex-col space-y-6">
+        <aside class="md:w-1/4 bg-white bg-opacity-80 p-6 flex flex-col space-y-6 hidden md:block">
             <nav class="space-y-4">
-                <a href="/farmer/profile"
-                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
-                    Profile
-                </a>
-                <a href="/farmer/dashboard"
-                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
-                    Home
-                </a>
-                <a href="/farmer/dashboard/requests"
-                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
-                    View Requests
-                </a>
-                <a href="/farmer/dashboard/auction"
-                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
-                    Auction
-                </a>
-                <!-- <a href="/farmer/analytics"
-                    class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">
-                    Analytics
-                </a> -->
+                <a href="/farmer/profile" class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">Profile</a>
+                <a href="/farmer/dashboard" class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">Home</a>
+                <a href="/farmer/dashboard/requests" class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">View Requests</a>
+                <a href="/farmer/dashboard/auction" class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">Auction</a>
             </nav>
         </aside>
 
+        <!-- Mobile Sidebar Button -->
+        <button class="md:hidden p-4 bg-green-700 text-white" onclick="toggleMenu()">☰ Menu</button>
+        <nav id="mobileMenu" class="hidden md:hidden bg-white p-4 flex flex-col space-y-4">
+            <a href="/farmer/profile" class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">Profile</a>
+            <a href="/farmer/dashboard" class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">Home</a>
+            <a href="/farmer/dashboard/requests" class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">View Requests</a>
+            <a href="/farmer/dashboard/auction" class="block px-4 py-2 rounded-md bg-green-200 hover:text-white hover:bg-green-600 text-lg font-medium">Auction</a>
+        </nav>
+
         <!-- Main Content -->
-        <main class="flex-1 p-8 space-y-8">
+        <main class="flex-1 p-4 md:p-8 space-y-8">
             {% if approval == True %}
-                <!-- Welcome Message -->
                 <div class="bg-white shadow-md rounded-lg p-6">
                     <h2 class="text-xl font-semibold text-gray-700 mb-2">Welcome Back, Farmer!</h2>
                     <p class="text-gray-600">Keep track of your crops, monitor requests, and explore insights to grow your business.</p>
                 </div>
-
-                <!-- Quick Stats -->
-                <div class="grid grid-cols-5 gap-6">
-                    <div class="bg-green-100 p-6 rounded-lg shadow">
+                
+                <!-- Responsive Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                    <div class="bg-green-100 p-4 rounded-lg shadow text-center">
                         <h3 class="text-lg font-medium text-gray-800">Total Auction</h3>
                         <p class="text-2xl font-bold text-green-600 mt-2">{{ta}}</p>
                     </div>
-                    <div class="bg-green-100 p-6 rounded-lg shadow">
+                    <div class="bg-green-100 p-4 rounded-lg shadow text-center">
                         <h3 class="text-lg font-medium text-gray-800">Pending Requests</h3>
                         <p class="text-2xl font-bold text-green-600 mt-2">{{pr}}</p>
                     </div>
-                    <div class="bg-green-100 p-6 rounded-lg shadow">
+                    <div class="bg-green-100 p-4 rounded-lg shadow text-center">
                         <h3 class="text-lg font-medium text-gray-800">Started</h3>
                         <p class="text-2xl font-bold text-green-600 mt-2">{{st}}</p>
                     </div>
-                    <div class="bg-green-100 p-6 rounded-lg shadow">
-                        <h3 class="text-lg font-medium text-gray-800">Yet to start</h3>
+                    <div class="bg-green-100 p-4 rounded-lg shadow text-center">
+                        <h3 class="text-lg font-medium text-gray-800">Yet to Start</h3>
                         <p class="text-2xl font-bold text-green-600 mt-2">{{ys}}</p>
                     </div>
-                    <div class="bg-green-100 p-6 rounded-lg shadow">
+                    <div class="bg-green-100 p-4 rounded-lg shadow text-center">
                         <h3 class="text-lg font-medium text-gray-800">Total Finance</h3>
                         <p class="text-2xl font-bold text-green-600 mt-2">{{tf}}</p>
                     </div>
                 </div>
 
-                <!-- Notification Section -->
-                <!-- <div class="bg-white shadow-md rounded-lg p-6">
-                    <h2 class="text-lg font-medium text-gray-800">Notifications</h2>
-                    <ul class="space-y-2 mt-4">
-                        <li class="text-gray-700">✅ You have 5 new requests from merchants.</li>
-                        <li class="text-gray-700">⚠️ Low inventory for Onions and Potatoes.</li>
-                        <li class="text-gray-700">🌦️ Weather Alert: Rain expected tomorrow in your region.</li>
-                    </ul>
-                </div> -->
-
-                <!-- Requests Section -->
-                <div class="bg-white shadow-md rounded-lg p-6">
+                <!-- Responsive Table -->
+                <div class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
                     <h2 class="text-lg font-medium text-gray-800">Recent Auction</h2>
-                    <table class="w-full mt-4 text-left border-collapse">
+                    <table class="w-full mt-4 text-left border-collapse min-w-[600px]">
                         <thead>
                             <tr class="bg-green-200 text-gray-800">
                                 <th class="py-2 px-4">Time</th>
@@ -111,49 +91,27 @@
                                     <td class="py-2 px-4">{{ data['auction'][auction]['start_time'].split(" ")[1].split(".")[0] }}</td>
                                     <td class="py-2 px-4">
                                         {% if data['auction'][auction]['crop'] == "Onion" %}
-                                            <img src="/static/images/onion.png" class="w-10" alt="">
-                                        {% endif %}
-                                        {% if data['auction'][auction]['crop'] == "Potato" %}
-                                            <img src="/static/images/potato.png" class="w-10" alt="">
-                                        {% endif %}
-                                        {% if data['auction'][auction]['crop'] == "Garlic" %}
-                                            <img src="/static/images/garlic.png" class="w-10" alt="">
+                                            <img src="/static/images/onion.png" class="w-10 mx-auto" alt="">
                                         {% endif %}
                                     </td>
                                     <td class="py-2 px-4">{{ data['auction'][auction]['bid'] }}</td>
-                                    {% if data['auction'][auction]['verification'] == "0" %}
-                                        <td class="py-2 px-4">Pending</td>
-                                    {% endif %}
-                                    {% if data['auction'][auction]['verification'] == "1" %}
-                                        <td class="py-2 px-4 text-green-600">Verfied</td>
-                                    {% endif %}
+                                    <td class="py-2 px-4 {% if data['auction'][auction]['verification'] == "1" %}text-green-600{% else %}text-red-600{% endif %}">
+                                        {% if data['auction'][auction]['verification'] == "0" %} Pending {% else %} Verified {% endif %}
+                                    </td>
                                 </tr>
                             {% endfor %}
-                            <!-- <tr class="bg-white border-b">
-                                <td class="py-2 px-4">FreshMart Inc.</td>
-                                <td class="py-2 px-4">
-                                    <img src="/static/images/potato.png" class="w-10" alt="">
-                                </td>
-                                <td class="py-2 px-4">50 kg</td>
-                                <td class="py-2 px-4 text-red-600">Rejected</td>
-                            </tr>
-                            <tr class="bg-white">
-                                <td class="py-2 px-4">GreenGrocers</td>
-                                <td class="py-2 px-4">
-                                    <img src="/static/images/garlic.png" class="w-10" alt="">
-                                </td>
-                                <td class="py-2 px-4">75 kg</td>
-                                <td class="py-2 px-4 text-green-600">Accepted</td>
-                            </tr> -->
                         </tbody>
                     </table>
                 </div>
             {% endif %}
-            {% if approval == False %}
-                <h1>Waiting for Approval!</h1>
-            {% endif %}
         </main>
     </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("mobileMenu").classList.toggle("hidden");
+        }
+    </script>
 </body>
 
 </html>

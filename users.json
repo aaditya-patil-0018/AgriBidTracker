@@ -107,6 +107,23 @@
                         "started": "1",
                         "start_time": "19:31"
                     }
+                },
+                "e2e97800-49d3-4be7-a753-853017242af8": {
+                    "crop": "Onion",
+                    "bid": "100",
+                    "packets": "10",
+                    "info": "dry onion",
+                    "start_time": "2025-03-31 04:08:01.433368",
+                    "stop_time": "2025-03-31 04:23:01.433389",
+                    "verification": "1",
+                    "verification_data": {
+                        "quality": "Excellent",
+                        "start": "04:15",
+                        "end": "05:30",
+                        "image": "e2e97800-49d3-4be7-a753-853017242af8_image.jpeg",
+                        "started": "1",
+                        "start_time": "04:15"
+                    }
                 }
             },
             "rating": {

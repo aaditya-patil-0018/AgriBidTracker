@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             background: #F3F4F6;
@@ -17,28 +17,32 @@
     <!-- Header -->
     <header class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold">Admin Dashboard</h1>
-        <a href="/admin/logout">
+        <button id="menu-toggle" class="md:hidden bg-blue-700 p-2 rounded-md text-white">☰</button>
+        <a href="/admin/logout" class="hidden md:block">
             <button class="bg-red-500 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-600">Logout</button>
         </a>
     </header>
 
     <div class="flex flex-1">
         <!-- Sidebar -->
-        <aside class="w-1/5 bg-white shadow-lg p-6 space-y-4">
+        <aside id="sidebar" class="w-64 md:w-1/5 bg-white shadow-lg p-6 space-y-4 fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50">
             <nav class="space-y-4">
                 <a href="/admin" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Overview</a>
                 <a href="/admin/users" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Manage Users</a>
                 <a href="/admin/auctions" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Manage Auctions</a>
-                <!-- <a href="/admin/reports" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Reports</a>
-                <a href="/admin/settings" class="block px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-600 hover:text-white text-lg font-medium">Settings</a> -->
             </nav>
+            <a href="/admin/logout" class="block md:hidden mt-6">
+                <button class="bg-red-500 px-4 py-2 rounded-md text-white w-full text-center font-medium hover:bg-red-600">
+                    Logout
+                </button>
+            </a>
+            <button id="close-menu" class="md:hidden bg-gray-300 px-4 py-2 mt-4 rounded-md text-black w-full">Close</button>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-8 space-y-8">
-            <!-- Table Section -->
-            <div class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-4xl font-bold font-medium text-gray-800 mb-4">Merchants</h2>
+        <main class="flex-1 p-6 md:p-8 md:ml-64 transition-all duration-300 ease-in-out">
+            <h2 class="text-2xl md:text-4xl font-bold text-gray-800 mb-4">Merchants</h2>
+            <div class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="bg-gray-200 text-gray-800">
@@ -52,34 +56,36 @@
                     </thead>
                     <tbody>
                         {% for userid in users %}
-                            <tr class="bg-white border-b">
-                                {% if users[userid]["registration"] == "0" %}
-                                <td class="py-2 px-4">{{users[userid]["name"]}}</td>
-                                <td class="py-2 px-4">{{users[userid]["email"]}}</td>
-                                <td class="py-2 px-4"><a href="" class="underline text-blue-600">view</a></td>
-                                <td class="py-2 px-4"><a href="" class="underline text-blue-600">view</a></td>
-                                    <td class="py-2 px-4 text-red-600">No</td>
-                                {% endif %}
-                                {% if users[userid]["registration"] == "1" %}
-                                    <td class="py-2 px-4">{{users[userid]["registration_data"]["name"]}}</td>
-                                    <td class="py-2 px-4">{{users[userid]["email"]}}</td>
-                                    <td class="py-2 px-4"><a href="/admin/uploads/{{users[userid]['registration_data']['aadhar']}}" class="underline text-blue-600">view</a></td>
-                                    <td class="py-2 px-4"><a href="/admin/uploads/{{users[userid]['registration_data']['license']}}" class="underline text-blue-600">view</a></td>
-                                    <td class="py-2 px-4 text-green-600">Yes</td>
-                                {% endif %}
-                                {% if users[userid]["approved"] == "0" %}
-                                    <td class="py-2 px-4"><button class="bg-green-600 text-white p-2" onclick="window.location.href='/admin/users/merchant/{{userid}}';">Approve</button></td>
-                                {% endif %}
-                                {% if users[userid]["approved"] == "1" %}
-                                    <td class="py-2 px-4"><button class="bg-red-600 text-white p-2" onclick="window.location.href='/admin/users/merchant/{{userid}}';">Disapprove</button></td>
-                                {% endif %}
-                            </tr>
-                       {% endfor %}
+                        <tr class="bg-white border-b">
+                            <td class="py-2 px-4">{{users[userid]["name"]}}</td>
+                            <td class="py-2 px-4">{{users[userid]["email"]}}</td>
+                            <td class="py-2 px-4"><a href="" class="underline text-blue-600">view</a></td>
+                            <td class="py-2 px-4"><a href="" class="underline text-blue-600">view</a></td>
+                            <td class="py-2 px-4 text-red-600">No</td>
+                            <td class="py-2 px-4">
+                                <button class="bg-green-600 text-white p-2" onclick="window.location.href='/admin/users/merchant/{{userid}}';">Approve</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
         </main>
     </div>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const closeMenu = document.getElementById('close-menu');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+        });
+    </script>
 </body>
 
 </html>
