@@ -305,6 +305,40 @@
                         "started": "1",
                         "start_time": "18:58"
                     }
+                },
+                "676d4b4f-c8b6-44da-b2a1-1c58d346e0e9": {
+                    "crop": "Onion",
+                    "bid": "1000",
+                    "packets": "10",
+                    "info": "something about new onion",
+                    "start_time": "2025-04-09 01:15:24.299724",
+                    "stop_time": "2025-04-09 01:30:24.299736",
+                    "verification": "1",
+                    "verification_data": {
+                        "quality": "Excellent",
+                        "start": "01:15",
+                        "end": "02:15",
+                        "image": "676d4b4f-c8b6-44da-b2a1-1c58d346e0e9_image.jpg",
+                        "started": "1",
+                        "start_time": "01:20"
+                    }
+                },
+                "92361433-7497-4b96-81fc-78a8969cf004": {
+                    "crop": "Potato",
+                    "bid": "500",
+                    "packets": "50",
+                    "info": "Naye Taaze Aalu",
+                    "start_time": "2025-04-09 01:26:30.130449",
+                    "stop_time": "2025-04-09 01:41:30.130461",
+                    "verification": "1",
+                    "verification_data": {
+                        "quality": "Excellent",
+                        "start": "01:28",
+                        "end": "02:28",
+                        "image": "92361433-7497-4b96-81fc-78a8969cf004_image.jpg",
+                        "started": "1",
+                        "start_time": "01:30"
+                    }
                 }
             }
         },
@@ -382,7 +416,7 @@
             "email": "newmerch@gmail.com",
             "password": "password",
             "registration": "1",
-            "approved": "0",
+            "approved": "1",
             "registration_data": {
                 "name": "NewMerch chant",
                 "email": "newmerch@gmail.com",

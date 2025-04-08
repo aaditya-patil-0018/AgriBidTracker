@@ -108,11 +108,49 @@
         try{
             document.getElementById("notify-bar").style.display = "none";
             window.location.href = "/merchant/dashboard/listing";
-        } catch(err){}
+        } catch(err){
+
+        }
     }, 3000);
     window.setTimeout( function() {
         window.location.reload();
     }, 60000);
+
+    const new_data = {{ data | tojson }};
+    let auction_data = Object.values(new_data)[0];
+
+    function getCurrentTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0'); // Ensures two digits
+        const minutes = now.getMinutes().toString().padStart(2, '0'); // Ensures two digits
+        return `${hours}:${minutes}`;
+    }
+
+    fetch('/merchant/dashboard/listings/getnotify')
+    .then(response => response.json())
+    .then(data => {
+        let time = getCurrentTime();
+        
+        for (let key in data.userid){
+            for (let n in new_data){
+                for(let aid in Object.keys(new_data[n])){
+                    if (data.userid[key] == Object.keys(new_data[n])[aid]){
+                        if (time == new_data[n][data.userid[key]]["verification_data"]["start_time"]){
+                            alert("Your starred bid: "+data.userid[key]+" just started! Start bidding now.");
+                        }
+                    }
+                }
+                // console.log(data.userid[key] == new_data[aid]);
+                // if(data.userid[key] == aid){
+                //     for(let n in new_data){
+
+                //     }
+                // }
+                    // alert("Your starred bid: $data.userid[key] just started! Start bidding now.")
+            }
+        }
+    })
+    .catch(error => console.error("Error fetching session data:", error));
 </script>
 
 </html>
