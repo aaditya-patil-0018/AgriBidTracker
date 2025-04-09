@@ -57,16 +57,28 @@
                     <tbody>
                         {% for userid in users %}
                         <tr class="bg-white border-b">
+                            {% if users[userid]["registration"] == "0" %}
                             <td class="py-2 px-4">{{users[userid]["name"]}}</td>
                             <td class="py-2 px-4">{{users[userid]["email"]}}</td>
                             <td class="py-2 px-4"><a href="" class="underline text-blue-600">view</a></td>
                             <td class="py-2 px-4"><a href="" class="underline text-blue-600">view</a></td>
-                            <td class="py-2 px-4 text-red-600">No</td>
-                            <td class="py-2 px-4">
-                                <button class="bg-green-600 text-white p-2" onclick="window.location.href='/admin/users/merchant/{{userid}}';">Approve</button>
-                            </td>
+                                <td class="py-2 px-4 text-red-600">No</td>
+                            {% endif %}
+                            {% if users[userid]["registration"] == "1" %}
+                                <td class="py-2 px-4">{{users[userid]["registration_data"]["name"]}}</td>
+                                <td class="py-2 px-4">{{users[userid]["email"]}}</td>
+                                <td class="py-2 px-4"><a href="/admin/uploads/{{users[userid]['registration_data']['aadhar']}}" class="underline text-blue-600">view</a></td>
+                                <td class="py-2 px-4"><a href="/admin/uploads/{{users[userid]['registration_data']['license']}}" class="underline text-blue-600">view</a></td>
+                                <td class="py-2 px-4 text-green-600">Yes</td>
+                            {% endif %}
+                            {% if users[userid]["approved"] == "0" %}
+                                <td class="py-2 px-4"><button class="bg-green-600 text-white p-2" onclick="window.location.href='/admin/users/merchant/{{userid}}';">Approve</button></td>
+                            {% endif %}
+                            {% if users[userid]["approved"] == "1" %}
+                                <td class="py-2 px-4"><button class="bg-red-600 text-white p-2" onclick="window.location.href='/admin/users/merchant/{{userid}}';">Disapprove</button></td>
+                            {% endif %}
                         </tr>
-                        {% endfor %}
+                   {% endfor %}
                     </tbody>
                 </table>
             </div>
