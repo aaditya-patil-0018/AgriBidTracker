@@ -163,6 +163,10 @@ def logout():
     session["userid"] = ""
     return redirect(url_for("index"))
 
+@app.route("/payment")
+def payment():
+    return render_template("payment.html")
+
 @app.route("/uploads/<filename>")
 @app.route("/uploads/")
 def farmer_uploads(filename=""):

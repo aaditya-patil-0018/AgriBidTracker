@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway - AgriBidTracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #f1f8e9, #c5e1a5);
+        }
+        .payment-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-green-800">Payment Gateway</h1>
+            <p class="text-gray-600">Secure and Convenient Payment Options</p>
+        </header>
+
+        <div class="max-w-4xl mx-auto">
+            <!-- Payment Summary -->
+            <!-- <div class="payment-card rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-xl font-semibold mb-4">Payment Summary</h2>
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Product ID:</span>
+                        <span class="font-medium">{{ aid }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Amount:</span>
+                        <span class="font-bold text-green-700">₹{{ highest_bid }}</span>
+                    </div>
+                </div>
+            </div> -->
+
+             <!-- QR Code Section -->
+             <div class="payment-card rounded-lg shadow-lg p-6 mt-8 mb-8 text-center">
+                <h2 class="text-xl font-semibold mb-4">Scan QR Code to Pay</h2>
+                <div class="flex justify-center">
+                    <div class="qr-code">
+                        <!-- Replace with your actual QR code image -->
+                        <!-- <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ payment_url }}" alt="Payment QR Code"> -->
+                        <img src="/static/icons/qr.png" alt="Payment QR Code">
+                    </div>
+                </div>
+                <p class="mt-4 text-gray-600">Scan this QR code with your mobile payment app</p>
+                <a href="/" class="mt-4 inline-block text-green-600 hover:text-green-700">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Home
+                </a>
+            </div>
+
+            <!-- Payment Methods -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Traditional Payment Methods -->
+                <div class="payment-card rounded-lg shadow-lg p-6">
+                    <h2 class="text-xl font-semibold mb-4">Traditional Payment Methods</h2>
+                    <div class="space-y-4">
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-university mr-2"></i> Bank Transfer
+                        </button>
+                        <button class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-money-bill-wave mr-2"></i> Cash on Delivery
+                        </button>
+                        <button class="w-full bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-credit-card mr-2"></i> Cheque Payment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Digital Payment Methods -->
+                <div class="payment-card rounded-lg shadow-lg p-6">
+                    <h2 class="text-xl font-semibold mb-4">Digital Payment Methods</h2>
+                    <div class="space-y-4">
+                        <button class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center">
+                            <i class="fab fa-google-pay mr-2"></i> Google Pay
+                        </button>
+                        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center">
+                            <i class="fab fa-paypal mr-2"></i> PayPal
+                        </button>
+                        <button class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-qrcode mr-2"></i> Scan QR Code
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add any necessary JavaScript here
+        document.addEventListener('DOMContentLoaded', function() {
+            // You can add payment processing logic here
+        });
+    </script>
+</body>
+
+</html> 
