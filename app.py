@@ -603,6 +603,7 @@ def merchant_listings(msg=""):
 
 @app.route("/merchant/dashboard/listing/<aid>/result")
 def merchant_listing_result(aid):
+    print(aid)
     users = read_users()
     
     auction = Auction()
@@ -641,7 +642,52 @@ def merchant_listing_result(aid):
         except:
             highest_bidder_id = 0
             highest_bidder = ""
-    return render_template('merchant_results.html', aid=aid, userid=str(session["userid"]), auction_table=auction_table, highest_bidder=highest_bidder, highest_bid=highest_bid, highest_bidder_id=highest_bidder_id, approved=isApproved("merchant"))
+
+    hb = []
+    hbb = []
+    newdata = {}
+    auction_data = {}
+    uid = session["userid"]
+
+    with open("users.json", "r") as f:
+        users = json.load(f)['farmer']
+    auction_data = {}
+    for user in users:
+        if "auction" in users[user]:
+            for _aid in users[user]["auction"]:
+                auction_data[user] = users[user]["auction"]
+    
+                if _aid in auct_data:
+                    auction_data[_aid] = auct_data[_aid]
+                    newdata[_aid] = {}
+                    for i in auct_data[_aid]["bidding_details"]:
+                        try:
+                            hb.append(auct_data[_aid]["bidding_details"][i]["bid"])
+                            hbb.append(auct_data[_aid]["bidding_details"][i]["merchant_id"].split("d")[-1])
+                            newdata[_aid]["bid"] = auct_data[_aid]["bidding_details"][i]["bid"]
+                            newdata[_aid]["packets"] = users[user]["auction"][_aid]["packets"]
+                            newdata[_aid]["bidder"] = auct_data[_aid]["bidding_details"][i]["merchant_id"].split("d")[-1]
+                            newdata[_aid]["auction_data"] = users[user]["auction"][_aid]
+                        except:
+                            hb.append(i[0])
+                            hbb.append(i)
+                            newdata[_aid]["bid"] = int(i[0])
+                            newdata[_aid]["packets"] = int(users[user]["auction"][_aid]["packets"])
+                            newdata[_aid]["bidder"] = i
+                            newdata[_aid]["auction_data"] = users[user]["auction"][_aid]
+    won = {}
+    for n in newdata:
+        # print(n["bidder"])
+        try:
+            if newdata[n]["bidder"] == str(uid):
+                won[n] = {}
+                won[n]["bid"] = newdata[n]["bid"]
+                won[n]["packets"] = newdata[n]["packets"]
+                won[n]["auction_data"] = newdata[n]["auction_data"]
+        except:
+            continue
+    print(aid)
+    return render_template('merchant_results.html', aid=aid, userid=str(session["userid"]), auction_table=auction_table, highest_bidder=highest_bidder, highest_bid=highest_bid, highest_bidder_id=highest_bidder_id, packets=won[f"{aid}"]["packets"], approved=isApproved("merchant"))
     
 
 @app.route("/rate_farmer/<aid>/<fid>", methods=["POST"])

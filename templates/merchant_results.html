@@ -69,10 +69,14 @@
                             <span class="text-gray-600">Winning Bid Amount:</span>
                             <span class="font-mono">₹{{ highest_bid }}</span>
                         </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Total Packets:</span>
+                            <span class="font-mono">x{{ packets }}</span>
+                        </div>
                         <div class="border-t border-dashed border-gray-300 my-2"></div>
                         <div class="flex justify-between text-lg">
                             <span class="font-bold">Total Amount:</span>
-                            <span class="font-bold font-mono">₹{{ highest_bid }}</span>
+                            <span class="font-bold font-mono">₹{{ highest_bid | int * packets | int }}</span>
                         </div>
                     </div>
                     
